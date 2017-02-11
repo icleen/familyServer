@@ -1,6 +1,7 @@
 package model;
 
 import database.DataManager;
+import database.DataPush;
 
 public class User extends Person {
 	
@@ -11,10 +12,10 @@ public class User extends Person {
 	private String email;
 
 	public User(String userName, String password, String email, String firstName, String lastName, String gender) {
-		super(null, firstName, lastName, gender);
+		super(null, firstName, lastName, gender); 
 		
-		this.setUserName(userName);
-		this.setEmail(email);
+		this.userName = userName;
+		this.email = email;
 		this.password = password;
 		
 		Generate gen = new Generate();
@@ -23,8 +24,10 @@ public class User extends Person {
 		this.father.setSpouse(this.mother);
 		this.mother.setSpouse(this.father);
 		
-		DataManager.push(this);
+		DataPush.pushUser(this);
 		DataManager.printTable("Users");
+		DataManager.printTable("People");
+		DataManager.printTable("Events");
 	}
 	
 	public boolean isCorrectPassword(String password) {

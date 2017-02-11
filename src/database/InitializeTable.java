@@ -5,9 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class RunOnceOnly {
+public class InitializeTable {
 	
 	public static void main(String args[]) {
+		init();
+	}
+	
+	public static void init() {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			Connection connect = DriverManager.getConnection("jdbc:sqlite:database.db");
@@ -23,7 +27,6 @@ public class RunOnceOnly {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	private static void initUsers(Connection connection) {

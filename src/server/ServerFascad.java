@@ -34,12 +34,6 @@ public class ServerFascad implements IServer {
 	}
 
 	@Override
-	public void load() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Person[] getPeople() {
 		// TODO Auto-generated method stub
 		return null;
@@ -61,6 +55,12 @@ public class ServerFascad implements IServer {
 	public Event getEvent(String id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void load(User[] users, Person[] people, Event[] events) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
