@@ -1,55 +1,47 @@
-package server;
+package client;
 
 import model.Event;
 import model.Person;
 import model.User;
 
-public class ServerProxy implements IServer {
+public class ServerProxy {
 
+	private static ServerCommunicator communicator = new ServerCommunicator();
+	
 	/**
 	 * creates a new user and generates 4 generations of ancestors for the user
-	 * @param userName
-	 * @param password
-	 * @param email
-	 * @param firstName
-	 * @param lastName
-	 * @param gender
+	 * @param user an object of User
 	 */
-	@Override
-	public void registerUser(String userName, String password, String email, String firstName, String lastName, String gender) {
+	public void registerUser(User user) {
 		// TODO Auto-generated method stub
-		
+		communicator.registerUser(user.getUserName(), user.getPassword(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getGender());
 	}
 
 	/**
 	 * logs a user in and makes the server's user object equal to the user specified
-	 * @param userName
-	 * @param password
+	 * @param user an object of User
 	 */
-	@Override
-	public void userLogin(String userName, String password) {
+	public void userLogin(User user) {
 		// TODO Auto-generated method stub
-		
+		communicator.userLogin(user.getUserName(), user.getPassword());
 	}
 
 	/**
 	 * deletes all data from the database
 	 */
-	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
-		
+		communicator.clear();
 	}
 
 	/**
 	 * generates the number of generations specified in the database
-	 * @param userName the name of the user to whom you want to add generations to
+	 * @param user an object of User
 	 * @param generations the number of generations you want to add to this user
 	 */
-	@Override
-	public void fill(String userName, int generations) {
+	public void fill(User user, int generations) {
 		// TODO Auto-generated method stub
-		
+		communicator.fill(user.getUserName(), generations);
 	}
 
 	/**
@@ -58,52 +50,47 @@ public class ServerProxy implements IServer {
 	 * @param people an array of Person objects
 	 * @param events an array of Event objects
 	 */
-	@Override
 	public void load(User[] users, Person[] people, Event[] events) {
 		// TODO Auto-generated method stub
-		
+		communicator.load(users, people, events);
 	}
 
 	/**
 	 * get all of the people related to the user
 	 * @return an array of Person objects, for each of the Persons connected to the user
 	 */
-	@Override
 	public Person[] getPeople() {
 		// TODO Auto-generated method stub
-		return null;
+		return communicator.getPeople();
 	}
 
 	/**
 	 * get the person a specific person based on the id
-	 * @param id the id of the person you want access to
-	 * @return the person object with the id specified
+	 * @param id a String; the id of the person you want access to
+	 * @return a person object 
 	 */
-	@Override
 	public Person getPerson(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return communicator.getPerson(id);
 	}
 
 	/**
-	 * 
-	 * @return the all the events for all the family members of the current user
+	 * gives you all of the events for all the family members of the current user 
+	 * @return an array of Event objects
 	 */
-	@Override
 	public Event[] getEvents() {
 		// TODO Auto-generated method stub
-		return null;
+		return communicator.getEvents();
 	}
 
 	/**
-	 * get the event with the id
-	 * @param id a specific event id
-	 * @return the event object of the specified id
+	 * get an event specified by the id
+	 * @param id a String for a specific event
+	 * @return an event object
 	 */
-	@Override
 	public Event getEvent(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return communicator.getEvent(id);
 	}
 
 }

@@ -1,6 +1,6 @@
-package model;
+package generate;
 
-import generate.Names;
+import model.Person;
 
 public class Generate {
 	
