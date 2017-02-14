@@ -21,7 +21,7 @@ public class DataManager {
 
 	/**
 	 * creates the user in the database and generates information for that user's past 4 generations
-	 * @param input
+	 * @param user an object of type User
 	 * @return an object of loginOutput
 	 */
 	public LoginOutput register(User user) {
@@ -113,6 +113,9 @@ public class DataManager {
 	
 	/**
 	 * loads the user's information into the database and returns a message of success or failure with the number of people and events loaded
+	 * @param users an array of User objects
+	 * @param people an array of Person objects
+	 * @param events an array of Event objects
 	 * @return a message
 	 */
 	public String load(User[] users, Person[] people, Event[] events) {
@@ -169,6 +172,10 @@ public class DataManager {
 		return null;
 	}
 	
+	/**
+	 * puts all of the information for a certain table on the command line for testing purposes
+	 * @param tableName a String with the name of the table wanted
+	 */
 	public void printTable(String tableName) {
 		Connection connection = initialize();
 		PrintTable.print(connection, tableName);
