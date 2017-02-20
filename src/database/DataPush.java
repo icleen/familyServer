@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import model.Event;
-import model.LoginOutput;
+import model.LoginResponse;
 import model.Person;
 import model.RegisterInput;
 import model.User;
@@ -19,7 +19,7 @@ public class DataPush {
 	 * @param user User object
 	 * @throws SQLException 
 	 */
-	public static LoginOutput pushUser(User user, Connection connection) throws SQLException {
+	public static LoginResponse pushUser(User user, Connection connection) throws SQLException {
 		PreparedStatement prep = connection.prepareStatement("insert into Users values(?, ?, ?, ?, ?, ?, ?, ?);");
 //		userId INTEGER PRIMARY KEY, firstName TEXT, lastName TEXT, gender TEXT, spouse INTEGER, email TEXT, userName TEXT, password TEXT
 //		prep.setInt(1, (Integer) null);
@@ -137,7 +137,7 @@ public class DataPush {
         connection.setAutoCommit(true);
 	}
 	
-	public static LoginOutput pushAuthCode(User user, Connection connection) throws SQLException {
+	public static LoginResponse pushAuthCode(User user, Connection connection) throws SQLException {
 		PreparedStatement prep = connection.prepareStatement("insert into AuthCodes values(?, ?, ?);");
 //		userId INTEGER PRIMARY KEY, userName TEXT, authCode TEXT
 		StringBuilder authCode = new StringBuilder(user.getId() + user.getUserName() + user.getId());
@@ -156,7 +156,7 @@ public class DataPush {
         
         Statement statem = connection.createStatement();
         ResultSet rs = statem.executeQuery("select * from AuthCodes where userName=\""+ user.getUserName() + "\";");
-        LoginOutput output = new LoginOutput();
+        LoginResponse output = new LoginResponse();
         output.setAuthToken(authCode.toString());
         output.setPersonId(rs.getString(1));
         output.setUserName(user.getUserName());

@@ -7,6 +7,7 @@ import model.User;
 public class ServerProxy {
 
 	private static ServerCommunicator communicator = new ServerCommunicator();
+	private String authCode;
 	
 	/**
 	 * creates a new user and generates 4 generations of ancestors for the user

@@ -10,7 +10,7 @@ import model.Event;
 import model.Person;
 import model.RegisterInput;
 import model.User;
-import model.LoginOutput;
+import model.LoginResponse;
 
 public class DataManager {
 	
@@ -24,28 +24,22 @@ public class DataManager {
 	 * @param user an object of type User
 	 * @return an object of loginOutput
 	 */
-	public LoginOutput register(User user) {
+	public LoginResponse register(User user) {
 		Connection connection = initialize();
-		LoginOutput output = new LoginOutput();
+		LoginResponse output = new LoginResponse();
 		try {
 			output = DataPush.pushUser(user, connection);
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return output;
 		} catch (SQLException e) {
 			output.setErrorMessage("Register of user failed!");
-			try {
-				connection.close();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return output;
 		}
+//		try to close the connection
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
+		return output;
 	}
 	
 	/**
@@ -54,11 +48,11 @@ public class DataManager {
 	 * @param password
 	 * @return and object of LoginOutput
 	 */
-	public LoginOutput userLogin(String userName, String password) {
+	public LoginResponse userLogin(String userName, String password) {
 		Connection connection = initialize();
 		Statement statem;
         ResultSet rs;
-        LoginOutput output = new LoginOutput();
+        LoginResponse output = new LoginResponse();
 		try {
 			statem = connection.createStatement();
 			rs = statem.executeQuery("select * from AuthCodes where userName=\""+ userName + "\";");
@@ -78,7 +72,7 @@ public class DataManager {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Couldn't close the connection!");
 			e.printStackTrace();
 		}
         return output;
@@ -105,14 +99,41 @@ public class DataManager {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Couldn't close the connection!");
 			e.printStackTrace();
 		}
 		return CLEAR_SUCCESS;
 	}
 	
 	/**
-	 * loads the user's information into the database and returns a message of success or failure with the number of people and events loaded
+	 * clears any data associated with the specified user and adds the number of generations specified 
+	 * to the user's data (the default is 4 generations if nothing is specified)
+	 * @param userName a String containing the userName of the user whose info you want
+	 * @param generations an int representing how many generations you want to generate
+	 * @return a String describing if the operation succeeded or how it failed
+	 */
+	public String fill(String userName, int generations) {
+		Connection connection = initialize();
+		
+		try {
+			FillData.fill(userName, generations, connection);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * loads the specified arrays into the database deleting everything that existed previously
+	 *  and returns a message of success or failure with the number of people and events loaded
 	 * @param users an array of User objects
 	 * @param people an array of Person objects
 	 * @param events an array of Event objects
@@ -128,7 +149,7 @@ public class DataManager {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Couldn't close the connection!");
 			e.printStackTrace();
 		}
 		return val;
@@ -182,42 +203,37 @@ public class DataManager {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Couldn't close the connection!");
 			e.printStackTrace();
 		}
 	}
 	
-	private Connection initialize() {
+	Connection initialize() {
+		Connection connect = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			Connection connect = DriverManager.getConnection("jdbc:sqlite:database.db");
-			
-			return connect;
+			connect = DriverManager.getConnection("jdbc:sqlite:database.db");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return null;
+		return connect;
+	}
+	
+	static Connection staticInitialize() {
+		Connection connect = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			connect = DriverManager.getConnection("jdbc:sqlite:database.db");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return connect;
 	}
 
-	static Connection staticInitialize() {
-		try {
-			Class.forName("org.sqlite.JDBC");
-			Connection connect = DriverManager.getConnection("jdbc:sqlite:database.db");
-			
-			return connect;
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
 }

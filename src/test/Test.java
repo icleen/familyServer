@@ -2,7 +2,7 @@ package test;
 
 import database.DataManager;
 import model.Event;
-import model.LoginOutput;
+import model.LoginResponse;
 import model.Person;
 import model.User;
 
@@ -14,7 +14,7 @@ public class Test {
 		
 		User user = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male");
 		String result = manager.clear();
-		LoginOutput output;
+		LoginResponse output;
 		
 		output = manager.register(user);
 		if(output == null) {

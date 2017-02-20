@@ -53,7 +53,7 @@ public class InitializeTable {
 		Statement statem = connection.createStatement();
 		statem.executeUpdate("drop table if exists People"); 
 		statem.executeUpdate("create table People (personId INTEGER PRIMARY KEY, firstName TEXT, lastName TEXT, gender TEXT, "
-				+ "descendant INTEGER, father INTEGER, mother INTEGER, spouse INTEGER);");
+				+ "userId INTEGER, father INTEGER, mother INTEGER, spouse INTEGER);");
 	}
 	
 	private static void initEvents(Connection connection) throws SQLException {
