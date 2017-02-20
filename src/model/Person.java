@@ -9,14 +9,14 @@ public class Person {
 	protected String lastName;
 	protected String gender;
 	
-	protected final Person descendant;
+	protected final int descendant;
 	protected Person father;
 	protected Person mother;
 	protected Person spouse;
 	protected Event[] events;
 	
 	
-	public Person(Person descendant, String fName, String lName, String gender) {
+	public Person(int descendant, String fName, String lName, String gender) {
 		id = currentId++;
 		this.descendant = descendant;
 		this.firstName = fName;
@@ -24,7 +24,7 @@ public class Person {
 		this.gender = gender;
 	}
 	
-	public Person(Person descendant, String fName, String lName, String gender, 
+	public Person(int descendant, String fName, String lName, String gender, 
 			Person father, Person mother, Person spouse) {
 		id = currentId++;
 		this.descendant = descendant;
@@ -36,7 +36,7 @@ public class Person {
 		this.spouse = spouse;
 	}
 	
-	public Person(Person descendant, String fName, String lName, String gender, 
+	public Person(int descendant, String fName, String lName, String gender, 
 			Person father, Person mother, Person spouse, Event[] events) {
 		id = currentId++;
 		this.descendant = descendant;
@@ -53,7 +53,7 @@ public class Person {
 		return id;
 	}
 
-	public Person getDescendant() {
+	public int getDescendant() {
 		return descendant;
 	}
 

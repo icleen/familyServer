@@ -4,32 +4,41 @@ import database.DataManager;
 import database.DataPush;
 import generate.Generate;
 
-public class User extends Person {
+public class User {
 	
 	private final int DefaultGenDistance = 4;
+	private static int currentId = 0;
+	private final int id;
+	private final int personId;
 	
 	private String userName;
 	private String password;
 	private String email;
-	
-//	private DataManager manager;
+	private String firstName;
+	private String lastName;
+	private String gender;
 
 	public User(String userName, String password, String email, String firstName, String lastName, String gender) {
-		super(null, firstName, lastName, gender); 
-		
-//		manager = new DataManager();
-		
+		this.id = currentId++;
 		this.userName = userName;
 		this.email = email;
 		this.password = password;
-		
-		Generate gen = new Generate();
-		this.father = gen.father(this, DefaultGenDistance);
-		this.mother = gen.mother(this, DefaultGenDistance);
-		this.father.setSpouse(this.mother);
-		this.mother.setSpouse(this.father);
-		
-//		manager.pushUser(this);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+		Person p = new Person(this.id, this.firstName, this.lastName, this.gender);
+		this.personId = p.getId();
+	}
+	
+	public User(String userName, String password, String email, String firstName, String lastName, String gender, int id, int personId) {
+		this.id = id;
+		this.userName = userName;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+		this.personId = personId;
 	}
 	
 	public boolean isCorrectPassword(String password) {
