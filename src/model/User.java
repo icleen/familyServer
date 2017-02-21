@@ -41,6 +41,42 @@ public class User {
 		this.personId = personId;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public int getPersonId() {
+		return personId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public boolean isCorrectPassword(String password) {
 		if(this.password.equals(password)) {
 			return true;

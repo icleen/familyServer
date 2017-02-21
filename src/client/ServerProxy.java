@@ -6,7 +6,7 @@ import model.User;
 
 public class ServerProxy {
 
-	private static ServerCommunicator communicator = new ServerCommunicator();
+	private static ClientCommunicator communicator = new ClientCommunicator();
 	private String authCode;
 	
 	/**
