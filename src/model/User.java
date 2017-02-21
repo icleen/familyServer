@@ -1,9 +1,5 @@
 package model;
 
-import database.DataManager;
-import database.DataPush;
-import generate.Generate;
-
 public class User {
 	
 	private final int DefaultGenDistance = 4;

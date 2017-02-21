@@ -9,17 +9,20 @@ import com.sun.net.httpserver.HttpServer;
 import handlers.HelloWorldHandler;
 import handlers.PrimitiveHandler;
 
-public class Server {
+public class ServerCommunicator {
 	
 	private static final int SERVER_PORT_NUMBER = 3722;
 	private static final int MAX_WAITING_CONNECTIONS = 10;
 	
 	private HttpServer server;
 	
-	private HttpHandler myHandler = new HelloWorldHandler();
+	private HttpHandler helloHandler = new HelloWorldHandler();
 	private HttpHandler primitiveHandler = new PrimitiveHandler();
 	
-	private Server() {
+	public static final String HELLO_DESIGNATOR = "/hello";
+	public static final String PRIMITIVE_DESIGNATOR = "/primitive";
+	
+	private ServerCommunicator() {
 	}
 	
 	private void run() {
@@ -33,13 +36,13 @@ public class Server {
 			return;
 		}
 		server.setExecutor(null); // use the default executor
-		server.createContext("/", myHandler);
-		server.createContext("/", primitiveHandler);
+		server.createContext(HELLO_DESIGNATOR, helloHandler);
+		server.createContext(PRIMITIVE_DESIGNATOR, primitiveHandler);
 		server.start();
 	}
 	
 	public static void main(String args[]) {
-		new Server().run();
+		new ServerCommunicator().run();
 	}
 	
 	public static int getServerPortNumber() {
