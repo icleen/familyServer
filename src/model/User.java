@@ -100,6 +100,15 @@ public class User {
 		this.userName = userName;
 	}
 	
-	
+	public String toString() {
+		StringBuilder output = new StringBuilder();
+		output.append(userName + ", ");
+		output.append(password + ", ");
+		output.append(email + ", ");
+		output.append(firstName + ", ");
+		output.append(lastName + ", ");
+		output.append(gender);
+		return output.toString();
+	}
 
 }

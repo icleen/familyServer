@@ -48,5 +48,15 @@ public class LoginResponse {
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
+	
+	public String toString() {
+		StringBuilder output = new StringBuilder();
+		if(this.errorMessage != null) {
+			output.append(errorMessage);
+		}else {
+			output.append(authToken + ", " + userName + ", " + personId);
+		}
+		return output.toString();
+	}
 
 }

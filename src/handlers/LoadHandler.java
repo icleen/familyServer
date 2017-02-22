@@ -1,5 +1,16 @@
 package handlers;
 
-public class LoadHandler {
+import java.io.IOException;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+public class LoadHandler implements HttpHandler {
+
+	@Override
+	public void handle(HttpExchange arg0) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
