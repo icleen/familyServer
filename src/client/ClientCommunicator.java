@@ -2,6 +2,7 @@ package client;
 
 import java.net.HttpURLConnection;
 
+import model.LoginResponse;
 import model.User;
 import server.ServerCommunicator;
 
@@ -33,12 +34,12 @@ public class ClientCommunicator extends BaseClientCommunicator {
 	
 	public Object register(User toBeSent) {
 		Object response = null;
-		HttpURLConnection connection = openConnection(ServerCommunicator.HELLO_DESIGNATOR, HTTP_POST, authCode, true);
+		HttpURLConnection connection = openConnection(ServerCommunicator.REGISTER_DESIGNATOR, HTTP_POST, authCode, true);
 		if(connection == null) {
 			return null;
 		}
 		sendToServer(connection, toBeSent);
-		response = getResponse(connection, toBeSent.getClass());
+		response = getResponse(connection, LoginResponse.class);
 		return response;
 	}
 	

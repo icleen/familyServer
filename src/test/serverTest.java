@@ -17,7 +17,7 @@ public class serverTest {
 		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male");
 		Object result = ClientCommunicator.SINGLETON.register(me);
 		if(result.getClass() != LoginResponse.class) {
-			System.out.println("It isn't the right class?");
+			System.out.println("It isn't the right class?" + result.getClass());
 		}
 		System.out.println("result: " + result.toString());
 		

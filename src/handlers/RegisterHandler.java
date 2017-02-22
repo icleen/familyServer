@@ -19,6 +19,8 @@ public class RegisterHandler implements HttpHandler {
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		
+		System.out.println("Starting handler");
+		
 		InputStreamReader inputStreamReader = new InputStreamReader(exchange.getRequestBody());
 		User object = (User) gson.fromJson(inputStreamReader, User.class);
 		inputStreamReader.close();

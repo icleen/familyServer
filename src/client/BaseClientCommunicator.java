@@ -1,6 +1,7 @@
 package client;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -54,9 +55,9 @@ public class BaseClientCommunicator {
 				}else if( length == -1) { 
 //					-1 indicates unknown amount of info
 					System.out.println("There was something there");
-					Scanner scanner = new Scanner(connection.getInputStream());
-					result = scanner.nextLine();
-					scanner.close();
+					InputStreamReader reader = new InputStreamReader(connection.getInputStream());
+					result = gson.fromJson(reader, klass);
+					reader.close();
 				}
 			}
 		} catch (IOException e) {

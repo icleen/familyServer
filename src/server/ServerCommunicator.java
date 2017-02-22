@@ -62,7 +62,7 @@ public class ServerCommunicator {
 		
 		server.createContext(HELLO_DESIGNATOR, helloHandler);
 		server.createContext(PRIMITIVE_DESIGNATOR, primitiveHandler);
-		server.createContext(REGISTER_DESIGNATOR, this.registerHandler);
+		server.createContext(REGISTER_DESIGNATOR, registerHandler);
 		server.createContext(LOGIN_DESIGNATOR, this.loginHandler);
 		server.createContext(CLEAR_DESIGNATOR, this.clearHandler);
 		server.createContext(FILL_DESIGNATOR, this.fillHandler);
