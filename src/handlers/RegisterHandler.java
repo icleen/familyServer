@@ -11,6 +11,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import model.LoginResponse;
 import model.User;
+import services.RegisterService;
 
 public class RegisterHandler implements HttpHandler {
 
@@ -18,23 +19,21 @@ public class RegisterHandler implements HttpHandler {
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		
 		System.out.println("Starting handler");
 		
 		InputStreamReader inputStreamReader = new InputStreamReader(exchange.getRequestBody());
-		User object = (User) gson.fromJson(inputStreamReader, User.class);
+		User user = (User) gson.fromJson(inputStreamReader, User.class);
 		inputStreamReader.close();
-		System.out.println("The object  = '" + object.toString() + "'");
+		System.out.println("The user  = '" + user.toString() + "'");
+		
+		LoginResponse response = RegisterService.register(user);
 		
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 		// 0 means the response body has an unknown amount of stuff in it
-		
 		OutputStreamWriter outputStreamWriter = new OutputStreamWriter(exchange.getResponseBody());
-		LoginResponse response = new LoginResponse("bobobob", object.getUserName(), "1");
 		gson.toJson(response, outputStreamWriter);
 
 		outputStreamWriter.close();
-		
 	}
 
 }
