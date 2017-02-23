@@ -1,9 +1,5 @@
 package client;
 
-import model.Event;
-import model.Person;
-import model.User;
-
 public class ServerProxy {
 
 	private static ClientCommunicator communicator = new ClientCommunicator();

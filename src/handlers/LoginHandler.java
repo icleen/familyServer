@@ -19,7 +19,8 @@ public class LoginHandler implements HttpHandler {
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		System.out.println("Starting handler");
+		System.out.println();
+		System.out.println("Starting login handler");
 		
 		InputStreamReader inputStreamReader = new InputStreamReader(exchange.getRequestBody());
 		User user = (User) gson.fromJson(inputStreamReader, User.class);

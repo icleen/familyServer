@@ -3,7 +3,7 @@ package services;
 public class ClearService {
 	
 	public static String serve() {
-		return null;
+		return "You cleared the database!";
 	}
 
 }

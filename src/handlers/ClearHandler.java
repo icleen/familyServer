@@ -8,16 +8,15 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import model.LoginResponse;
 import services.ClearService;
 
 public class ClearHandler implements HttpHandler {
 
-private static Gson gson = new Gson();
+	private static Gson gson = new Gson();
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		System.out.println("Starting handler");
+		System.out.println("Starting clear handler");
 		
 		String response = ClearService.serve();
 		

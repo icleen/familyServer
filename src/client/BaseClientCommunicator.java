@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Scanner;
 
 import com.google.gson.Gson;
 
@@ -20,7 +19,7 @@ public class BaseClientCommunicator {
 	protected static final String HTTP_POST = "POST";
 	protected static final String HTTP_GET = "GET";
 	
-	public static String AUTHORIZATION_KEY = "myAuth";
+	public static final String AUTHORIZATION_KEY = "myAuth";
 	protected static String authCode;
 	
 	protected static Gson gson = new Gson();
@@ -28,6 +27,11 @@ public class BaseClientCommunicator {
 	BaseClientCommunicator() {
 	}
 	
+	/**
+	 * sends an object to the server
+	 * @param connection
+	 * @param toBeSent
+	 */
 	protected void sendToServer(HttpURLConnection connection, Object toBeSent) {
 		PrintWriter writer = null;
 		try {
@@ -43,6 +47,12 @@ public class BaseClientCommunicator {
 		return;
 	}	
 	
+	/** 
+	 * returns an object given by the server
+	 * @param connection
+	 * @param klass
+	 * @return
+	 */
 	protected Object getResponse(HttpURLConnection connection, Class<?> klass) {
 		Object result = null;
 		
@@ -54,7 +64,7 @@ public class BaseClientCommunicator {
 					System.out.println("There was nothing in the response body");
 				}else if( length == -1) { 
 //					-1 indicates unknown amount of info
-					System.out.println("There was something there");
+//					System.out.println("There was something there");
 					InputStreamReader reader = new InputStreamReader(connection.getInputStream());
 					result = gson.fromJson(reader, klass);
 					reader.close();
@@ -73,6 +83,14 @@ public class BaseClientCommunicator {
 		return result;
 	}
 	
+	/**
+	 * gives you a connection to the server
+	 * @param context 
+	 * @param action what you want to do
+	 * @param authCode the authCode given when you logged in
+	 * @param sendingToServer a bool asking if you are sending something
+	 * @return a HttpURLConnection
+	 */
 	protected HttpURLConnection openConnection(String context,
 											String action,
 											String authCode,
