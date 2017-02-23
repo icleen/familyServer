@@ -16,6 +16,7 @@ public class ClearHandler implements HttpHandler {
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
+		System.out.println();
 		System.out.println("Starting clear handler");
 		
 		String response = ClearService.serve();

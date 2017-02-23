@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import model.Event;
+import model.LoginRequest;
 import model.LoginResponse;
 import model.Person;
 import model.User;
@@ -53,7 +54,7 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		return response;
 	}
 	
-	public Object login(User toBeSent) {
+	public Object login(LoginRequest toBeSent) {
 		Object response = null;
 		HttpURLConnection connection = openConnection(ServerCommunicator.LOGIN_DESIGNATOR, HTTP_POST, authCode, true);
 		if(connection == null) {
@@ -122,6 +123,8 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		response = getResponse(connection, Person.class);
 		return response;
 	}
+	
+	
 	
 	protected HttpURLConnection openConnection(String context,
 												String action,

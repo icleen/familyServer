@@ -6,12 +6,15 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
 import com.google.gson.Gson;
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import model.LoginResponse;
+import client.ClientCommunicator;
+import model.Person;
 import model.User;
 import services.LoginService;
+import services.PersonService;
 
 public class PersonHandler implements HttpHandler {
 	
@@ -19,14 +22,15 @@ public class PersonHandler implements HttpHandler {
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
+		System.out.println();
 		System.out.println("Starting person handler");
 		
-		InputStreamReader inputStreamReader = new InputStreamReader(exchange.getRequestBody());
-		User user = (User) gson.fromJson(inputStreamReader, User.class);
-		inputStreamReader.close();
-		System.out.println("The user  = '" + user.toString() + "'");
+		Headers headers = exchange.getRequestHeaders();
+		String personId = headers.getFirst(ClientCommunicator.PERSONS_KEY);
+		System.out.println("the authCode is: " + headers.getFirst(ClientCommunicator.AUTHORIZATION_KEY));
+		System.out.println("the person id is: " + personId);
 		
-		LoginResponse response = LoginService.serve(user);
+		Person response = PersonService.serve(personId);
 		
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 		// 0 means the response body has an unknown amount of stuff in it

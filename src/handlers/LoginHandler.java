@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import model.LoginRequest;
 import model.LoginResponse;
 import model.User;
 import services.LoginService;
@@ -23,11 +24,11 @@ public class LoginHandler implements HttpHandler {
 		System.out.println("Starting login handler");
 		
 		InputStreamReader inputStreamReader = new InputStreamReader(exchange.getRequestBody());
-		User user = (User) gson.fromJson(inputStreamReader, User.class);
+		LoginRequest request = (LoginRequest) gson.fromJson(inputStreamReader, LoginRequest.class);
 		inputStreamReader.close();
-		System.out.println("The user  = '" + user.toString() + "'");
+		System.out.println("The request  = '" + request.toString() + "'");
 		
-		LoginResponse response = LoginService.serve(user);
+		LoginResponse response = LoginService.serve(request);
 		
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 		// 0 means the response body has an unknown amount of stuff in it

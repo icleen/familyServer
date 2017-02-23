@@ -113,6 +113,14 @@ public class Person {
 		this.events = events;
 	}
 	
-	
+	public String toString() {
+		StringBuilder output = new StringBuilder();
+		
+		output.append("descendant: " + this.descendant);
+		output.append("Name: " + this.firstName + " " + this.lastName);
+		output.append("Gender: " + this.gender);
+		
+		return output.toString();
+	}
 
 }
