@@ -5,14 +5,16 @@ public class AuthToken {
 	private String userName;
 	private String password;
 	private String authCode;
+	private String userId;
 	
 	public AuthToken() {
 	}
 	
-	public AuthToken(String userName, String password, String authCode) {
+	public AuthToken(String userName, String password, String authCode, String userId) {
 		this.userName = userName;
 		this.password = password;
 		this.authCode = authCode;
+		this.userId = userId;
 	}
 	
 	/**
@@ -56,6 +58,14 @@ public class AuthToken {
 	 */
 	public void setAuthCode(String authCode) {
 		this.authCode = authCode;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 }

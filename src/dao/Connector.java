@@ -64,7 +64,7 @@ public class Connector {
 //		add table AuthCodes
 		try {
 			statem.executeUpdate("drop table if exists AuthCodes"); 
-			statem.executeUpdate("create table AuthCodes (userName TEXT, password TEXT, authCode TEXT);");
+			statem.executeUpdate("create table AuthCodes (userName TEXT, password TEXT, authCode TEXT, personId INTEGER);");
 		} catch (SQLException e) {
 			System.out.println("Could not create table AuthCodes: " + e.getMessage());
 			return;

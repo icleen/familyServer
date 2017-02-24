@@ -2,7 +2,9 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import model.AuthToken;
 
@@ -12,9 +14,39 @@ public class AuthDao {
 	 * takes in a userName and gives back the authorization token with all of it's information
 	 * @param userName a String containing the userName of the person you want
 	 * @return an object of AuthToken
+	 * @throws SQLException throws when the entry matching the given userName is not found
 	 */
-	public AuthToken getAuth(String userName) {
-		return null;
+	public AuthToken getAuth(String userName) throws SQLException {
+		Connection connection = Connector.getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		Statement statement;
+        ResultSet rs = null;
+        AuthToken token = null;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from AuthCodes where userName=\""+ userName + "\";");
+			
+		} catch (SQLException e) {
+			System.err.println("The attempt to get the user info failed!");
+			e.printStackTrace();
+		}
+		
+		token = new AuthToken();
+		token.setUserName(rs.getString(1));
+		token.setPassword(rs.getString(2));
+		token.setAuthCode(rs.getString(3));
+		token.setUserId(rs.getString(4));
+		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
+		
+		return token;
 	}
 	
 	/**
@@ -29,12 +61,13 @@ public class AuthDao {
 			throw new NullPointerException();
 		}
 		
-		PreparedStatement prep = connection.prepareStatement("insert into AuthCodes values(?, ?, ?);");
+		PreparedStatement prep = connection.prepareStatement("insert into AuthCodes values(?, ?, ?, ?);");
 //		userName TEXT, password TEXT, authCode TEXT
 		
 		prep.setString(1, token.getUserName());
 		prep.setString(2, token.getPassword());
 		prep.setString(3, token.getAuthCode());
+		prep.setInt( 4, Integer.parseInt(token.getUserId()) );
 		prep.addBatch();
 		
         connection.setAutoCommit(false);

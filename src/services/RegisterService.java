@@ -49,7 +49,7 @@ public class RegisterService {
 		AuthDao aDao = new AuthDao();
 		String authCode = "newAuthCode";
 		try {
-			aDao.addAuth(new AuthToken(temp.getUserName(), temp.getPassword(), authCode));
+			aDao.addAuth(new AuthToken(temp.getUserName(), temp.getPassword(), authCode, temp.getId()));
 		} catch (SQLException e) {
 			System.err.println("Could not add the authToken: " + e.getMessage());
 			response.setErrorMessage("Could not add the authToken");

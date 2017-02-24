@@ -10,39 +10,8 @@ import model.User;
 public class serverTest {
 	
 	public static void main(String args[]) {
+		registerLoginTest();
 		
-//		String result = (String) ClientCommunicator.SINGLETON.hello("Hello");
-//		System.out.println("result: " + result);
-//		
-//		result = (String) ClientCommunicator.SINGLETON.primitive(13);
-//		System.out.println("result: " + result);
-		
-		Object result = ClientCommunicator.SINGLETON.clear();
-		if(result.getClass() != String.class) {
-			System.out.println("It isn't the right class?" + result.getClass());
-		}
-		System.out.println("result of clear: " + result.toString());
-		
-		System.out.println();
-		
-		User me = new User(null, null, "iclee141", "bob", "icleen@my.com", "iain", "lee", "male");
-		User parker = new User(null, null, "parky", "hello", "parkman@my.com", "parker", "robin", "male");
-		
-		result = ClientCommunicator.SINGLETON.register(parker);
-		if(result.getClass() != LoginResponse.class) {
-			System.out.println("It isn't the right class?" + result.getClass());
-		}
-		System.out.println("result of register: " + result.toString());
-		
-		System.out.println();
-//		
-//		result = ClientCommunicator.SINGLETON.login(new LoginRequest(me.getUserName(), me.getPassword()));
-//		if(result.getClass() != LoginResponse.class) {
-//			System.out.println("It isn't the right class?" + result.getClass());
-//		}
-//		System.out.println("result of login: " + result.toString());
-//		
-//		System.out.println();
 //		
 //		result = ClientCommunicator.SINGLETON.login(new LoginRequest(me.getUserName(), me.getPassword()));
 //		if(result.getClass() != LoginResponse.class) {
@@ -85,4 +54,49 @@ public class serverTest {
 		return;
 	}
 
+	public static void registerLoginTest() {
+		Object result = ClientCommunicator.SINGLETON.clear();
+		if(result.getClass() != String.class) {
+			System.out.println("It isn't the right class?" + result.getClass());
+		}
+		System.out.println("result of clear: " + result.toString());
+		
+		System.out.println();
+		
+		User me = new User(null, null, "iclee141", "bob", "icleen@my.com", "iain", "lee", "male");
+		User parker = new User(null, null, "parky", "hello", "parkman@my.com", "parker", "robin", "male");
+		
+		result = ClientCommunicator.SINGLETON.register(parker);
+		if(result.getClass() != LoginResponse.class) {
+			System.out.println("It isn't the right class?" + result.getClass());
+		}
+		System.out.println("result of register parker: " + result.toString());
+		
+		System.out.println();
+		
+		result = ClientCommunicator.SINGLETON.register(me);
+		if(result.getClass() != LoginResponse.class) {
+			System.out.println("It isn't the right class?" + result.getClass());
+		}
+		System.out.println("result of register me: " + result.toString());
+		
+		System.out.println();
+		
+		result = ClientCommunicator.SINGLETON.login(new LoginRequest(parker.getUserName(), parker.getPassword()));
+		if(result.getClass() != LoginResponse.class) {
+			System.out.println("It isn't the right class?" + result.getClass());
+		}
+		System.out.println("result of login: " + result.toString());
+		
+		System.out.println();
+		
+		result = ClientCommunicator.SINGLETON.login(new LoginRequest(me.getUserName(), me.getPassword()));
+		if(result.getClass() != LoginResponse.class) {
+			System.out.println("It isn't the right class?" + result.getClass());
+		}
+		System.out.println("result of login: " + result.toString());
+		
+		System.out.println();
+	}
+	
 }
