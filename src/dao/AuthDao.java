@@ -81,7 +81,7 @@ public class AuthDao {
 			e.printStackTrace();
 		}
         
-        return null;
+        return "The authorization code was added to the table";
 	}
 	
 	/**

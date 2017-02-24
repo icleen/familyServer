@@ -102,20 +102,20 @@ public class DaoTest {
 			e.printStackTrace();
 		}
 		try {
-			pDao.addPerson(person);
+			pDao.addPerson(person2);
 		} catch (SQLException e) {
-			System.err.println("couldn't add the person; the person already existed?");
+			System.err.println("couldn't add the person2; the person2 already existed?");
 			e.printStackTrace();
 		}
 		
 		try {
-			pDao.getPerson(null);
+			pDao.getPerson("1");
 		} catch (SQLException e) {
 			System.err.println("couldn't find the person; the person didn't exist");
 			e.printStackTrace();
 		}
 		try {
-			pDao.getPerson(null);
+			pDao.getPerson("2");
 		} catch (SQLException e) {
 			System.err.println("couldn't find the person; the person didn't exist");
 			e.printStackTrace();

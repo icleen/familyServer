@@ -12,7 +12,8 @@ public class Test {
 //		serverTest.registerLoginTest();
 		
 		DaoTest dTest = new DaoTest();
-		dTest.combinedTest();
+		dTest.userTest();
+		dTest.authTest();
 		
 		return;
 	}
