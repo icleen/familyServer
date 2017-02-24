@@ -9,22 +9,21 @@ public class EventDao {
 	
 	/**
 	 * gives back the event specified by the id
-	 * @param authToken the code allowing access to the database
 	 * @param eventId a String containing the event's id
 	 * @return an Event object
 	 * @throws SQLException
 	 */
-	public static Event getEvent(String authToken, String eventId) throws SQLException {
+	public Event getEvent(String eventId) throws SQLException {
 		return null;
 	}
 	
 	/**
 	 * returns an array version of the events in the database that are connected to the current user (given by his/her authToken
-	 * @param authToken the code allowing access to the database
+	 * @param userId the id of the user you want the events for
 	 * @return an array of Event objects
 	 * @throws SQLException
 	 */
-	public static Event[] getEvents(String authToken) throws SQLException {
+	public Event[] getEvents(String userId) throws SQLException {
 		return null;
 	}
 	
@@ -33,7 +32,7 @@ public class EventDao {
 	 * @param event an object of Event
 	 * @return a String informing of the operation result
 	 */
-	public static String addEvent(Event event) {
+	public String addEvent(Event event) throws SQLException {
 		return null;
 	}
 	
@@ -42,7 +41,7 @@ public class EventDao {
 	 * @param events an array of Event objects
 	 * @return a String informing of the operation result
 	 */
-	public static String addEvents(Event[] events) {
+	public String addEvents(Event[] events) throws SQLException {
 		return null;
 	}
 	
@@ -53,7 +52,7 @@ public class EventDao {
 	 * @param what a String specifying what you are inserting
 	 * @return a String informing the user of how the operation went
 	 */
-	public static String insert(String who, String where, String what) {
+	public String insert(String who, String where, String what) throws SQLException {
 		return null;
 	}
 

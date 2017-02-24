@@ -9,22 +9,21 @@ public class PersonDao {
 	
 	/**
 	 * gives back the person specified by the id
-	 * @param authToken a String containing an authorization token
 	 * @param personId a String containing the person's id
 	 * @return an object of Person
 	 * @throws SQLException
 	 */
-	public static Person getPerson(String authToken, String personId) throws SQLException {
+	public Person getPerson(String personId) throws SQLException {
 		return null;
 	}
 	
 	/**
 	 * returns an array version of the people in the database connected to the current user
-	 * @param authToken a String containing an authorization token
+	 * @param userId the id of the user you want the people connected to
 	 * @return an array of Person objects
 	 * @throws SQLException
 	 */
-	public static Person[] getPeople(String authToken) throws SQLException {
+	public Person[] getPeople(String userId) throws SQLException {
 		return null;
 	}
 	
@@ -33,7 +32,7 @@ public class PersonDao {
 	 * @param person an object of type Person
 	 * @return a String object describing the result of the operation
 	 */
-	public static String addPerson(Person person) {
+	public String addPerson(Person person) throws SQLException {
 		return null;
 	}
 	
@@ -42,7 +41,7 @@ public class PersonDao {
 	 * @param people an array of Person objects
 	 * @return a String object describing the result of the operation
 	 */
-	public static String addPeople(Person[] people) {
+	public String addPeople(Person[] people) throws SQLException {
 		return null;
 	}
 	
@@ -53,7 +52,7 @@ public class PersonDao {
 	 * @param what a String specifying what you are inserting
 	 * @return a String informing the user of how the operation went
 	 */
-	public static String insert(String who, String where, String what) {
+	public String insert(String who, String where, String what) throws SQLException {
 		return null;
 	}
 
