@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import model.Person;
 import model.User;
 
 public class UserDao extends Dao {
@@ -58,8 +60,50 @@ public class UserDao extends Dao {
 	 * @return an array of User objects
 	 * @throws SQLException 
 	 */
-	public User[] getUsers() throws SQLException {
-		return null;
+	public ArrayList<User> getUsers() throws SQLException {
+		Connection connection = getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		Statement statement;
+        ResultSet rs = null;
+        ArrayList<User> users = null;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from Users;");
+			
+		} catch (SQLException e) {
+			System.err.println("The attempt to get the user info failed!");
+			e.printStackTrace();
+		}
+//		userId INTEGER PRIMARY KEY, personId INTEGER, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
+		User response = null;
+		String userId = null;
+		String personId = null;
+		users = new ArrayList<>();
+		while(rs.next()) {
+			userId = rs.getString(1);
+			personId = rs.getString(2);
+			response = new User(personId, userId);
+			response.setUserName(rs.getString(3));
+			response.setPassword(rs.getString(4));
+			response.setEmail(rs.getString(5));
+			response.setFirstName(rs.getString(6));
+			response.setLastName(rs.getString(7));
+			response.setGender(rs.getString(8));
+			users.add(response);
+		}
+		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
+		if(users.size() == 0) {
+			return null;
+		}
+		return users;
 	}
 	
 	/**
@@ -76,7 +120,8 @@ public class UserDao extends Dao {
 		
 		PreparedStatement prep = connection.prepareStatement("insert into Users values(?, ?, ?, ?, ?, ?, ?, ?);");
 //		userId INTEGER PRIMARY KEY, personId INTEGER, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
-		
+		prep.setString(1, user.getId());
+		prep.setString(2, user.getPersonId());
 		prep.setString(3, user.getUserName());
 		prep.setString(4, user.getPassword());
 		prep.setString(5, user.getEmail());
@@ -96,7 +141,7 @@ public class UserDao extends Dao {
 			e.printStackTrace();
 		}
         
-        return null;
+        return "The user was added to the table";
 	}
 	
 	/**

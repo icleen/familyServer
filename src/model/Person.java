@@ -11,7 +11,6 @@ public class Person {
 	protected String father;
 	protected String mother;
 	protected String spouse;
-	protected String[] events;
 	
 	public Person(String id, String userId) {
 		this.id = id;
@@ -26,7 +25,7 @@ public class Person {
 		this.gender = gender;
 	}
 	
-	public Person(String id, String userId, String fName, String lName, String gender, String father, String mother, String spouse, String[] events) {
+	public Person(String id, String userId, String fName, String lName, String gender, String father, String mother, String spouse) {
 		this.id = id;
 		this.userId = userId;
 		this.firstName = fName;
@@ -35,7 +34,6 @@ public class Person {
 		this.father = father;
 		this.mother = mother;
 		this.spouse = spouse;
-		this.events = events;
 	}
 	
 	public String getFirstName() {
@@ -84,14 +82,6 @@ public class Person {
 
 	public void setSpouse(String spouse) {
 		this.spouse = spouse;
-	}
-
-	public String[] getEvents() {
-		return events;
-	}
-
-	public void setEvents(String[] events) {
-		this.events = events;
 	}
 
 	public String getId() {

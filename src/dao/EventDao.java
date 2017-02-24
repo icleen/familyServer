@@ -1,7 +1,11 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import model.Event;
 
@@ -14,7 +18,40 @@ public class EventDao extends Dao {
 	 * @throws SQLException
 	 */
 	public Event getEvent(String eventId) throws SQLException {
-		return null;
+		Connection connection = getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		Statement statement;
+        ResultSet rs = null;
+        Event response = null;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from Events where eventId=\""+ eventId + "\";");
+			
+		} catch (SQLException e) {
+			System.err.println("The attempt to get the user info failed!");
+			e.printStackTrace();
+		}
+//		eventId INTEGER PRIMARY KEY, userId INTEGER, personId INTEGER, type TEXT, country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
+		String userId = rs.getString(2);
+		String personId = rs.getString(3);
+		response = new Event(eventId, userId, personId);
+		response.setType(rs.getString(4));
+		response.setCountry(rs.getString(5));
+		response.setCity(rs.getString(6));
+		response.setYear(rs.getString(7));
+		response.setLatitude(rs.getString(8));
+		response.setLongitude(rs.getString(9));
+		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
+		
+		return response;
 	}
 	
 	/**
@@ -23,8 +60,50 @@ public class EventDao extends Dao {
 	 * @return an array of Event objects
 	 * @throws SQLException
 	 */
-	public Event[] getEvents(String userId) throws SQLException {
-		return null;
+	public ArrayList<Event> getEvents(String userId) throws SQLException {
+		Connection connection = getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		Statement statement;
+        ResultSet rs = null;
+        ArrayList<Event> events = null;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from Events where userId=\""+ userId + "\";");
+			
+		} catch (SQLException e) {
+			System.err.println("The attempt to get the user info failed!");
+			e.printStackTrace();
+		}
+//		eventId INTEGER PRIMARY KEY, userId INTEGER, personId INTEGER, type TEXT, country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
+		String eventId = null;
+		String personId = null;
+		Event response = null;
+		events = new ArrayList<>();
+		while(rs.next()) {
+			eventId = rs.getString(1);
+			personId = rs.getString(3);
+			response = new Event(eventId, userId, personId);
+			response.setType(rs.getString(4));
+			response.setCountry(rs.getString(5));
+			response.setCity(rs.getString(6));
+			response.setYear(rs.getString(7));
+			response.setLatitude(rs.getString(8));
+			response.setLongitude(rs.getString(9));
+			events.add(response);
+		}
+		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
+		if(events.size() == 0) {
+			return null;
+		}
+		return events;
 	}
 	
 	/**
@@ -33,7 +112,36 @@ public class EventDao extends Dao {
 	 * @return a String informing of the operation result
 	 */
 	public String addEvent(Event event) throws SQLException {
-		return null;
+		Connection connection = Dao.getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		
+		PreparedStatement prep = connection.prepareStatement("insert into Events values(?, ?, ?, ?, ?, ?, ?, ?, ?);");
+//		eventId INTEGER PRIMARY KEY, userId INTEGER, personId INTEGER, type TEXT, country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
+		prep.setString(1, event.getEventId());
+		prep.setString(2, event.getUserId());
+		prep.setString(3, event.getPersonId());
+		prep.setString(4, event.getType());
+		prep.setString(5, event.getCountry());
+		prep.setString(6, event.getCity());
+		prep.setString(7, event.getYear());
+		prep.setString(8, event.getLatitude());
+		prep.setString(9, event.getLongitude());
+		prep.addBatch();
+		
+        connection.setAutoCommit(false);
+        prep.executeBatch();
+        connection.setAutoCommit(true);
+        
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
+        
+        return "The person was added to the table";
 	}
 	
 	/**
@@ -42,17 +150,6 @@ public class EventDao extends Dao {
 	 * @return a String informing of the operation result
 	 */
 	public String addEvents(Event[] events) throws SQLException {
-		return null;
-	}
-	
-	/**
-	 * inserts a certain 'what' object (TEXT) into the event table at 'where' column for 'who' event
-	 * @param who a String specifying what event you are inserting into
-	 * @param where a String specifying the column
-	 * @param what a String specifying what you are inserting
-	 * @return a String informing the user of how the operation went
-	 */
-	public String insert(String who, String where, String what) throws SQLException {
 		return null;
 	}
 

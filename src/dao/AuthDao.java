@@ -62,12 +62,12 @@ public class AuthDao extends Dao {
 		}
 		
 		PreparedStatement prep = connection.prepareStatement("insert into AuthCodes values(?, ?, ?, ?);");
-//		userName TEXT, password TEXT, authCode TEXT
+//		userName TEXT, password TEXT, authCode TEXT, userId INTEGER
 		
 		prep.setString(1, token.getUserName());
 		prep.setString(2, token.getPassword());
 		prep.setString(3, token.getAuthCode());
-//		prep.setInt( 4, Integer.parseInt(token.getUserId()) );
+		prep.setString(4, token.getUserId());
 		prep.addBatch();
 		
         connection.setAutoCommit(false);

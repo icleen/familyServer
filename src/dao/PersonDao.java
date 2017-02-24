@@ -1,7 +1,11 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import model.Person;
 
@@ -14,7 +18,39 @@ public class PersonDao extends Dao {
 	 * @throws SQLException
 	 */
 	public Person getPerson(String personId) throws SQLException {
-		return null;
+		Connection connection = getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		Statement statement;
+        ResultSet rs = null;
+        Person response = null;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from People where personId=\""+ personId + "\";");
+			
+		} catch (SQLException e) {
+			System.err.println("The attempt to get the person info failed!");
+			e.printStackTrace();
+		}
+//		personId INTEGER PRIMARY KEY, userId INTEGER, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
+		String userId = rs.getString(2);
+		response = new Person(personId, userId);
+		response.setFirstName(rs.getString(3));
+		response.setLastName(rs.getString(4));
+		response.setGender(rs.getString(5));
+		response.setFather(rs.getString(6));
+		response.setMother(rs.getString(7));
+		response.setSpouse(rs.getString(8));
+		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
+		
+		return response;
 	}
 	
 	/**
@@ -23,8 +59,48 @@ public class PersonDao extends Dao {
 	 * @return an array of Person objects
 	 * @throws SQLException
 	 */
-	public Person[] getPeople(String userId) throws SQLException {
-		return null;
+	public ArrayList<Person> getPeople(String userId) throws SQLException {
+		Connection connection = getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		Statement statement;
+        ResultSet rs = null;
+        ArrayList<Person> people = null;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from People where userId=\""+ userId + "\";");
+			
+		} catch (SQLException e) {
+			System.err.println("The attempt to get the person info failed!");
+			e.printStackTrace();
+		}
+//		personId INTEGER PRIMARY KEY, userId INTEGER, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
+		Person response = null;
+		String personId = null;
+		people = new ArrayList<>();
+		while(rs.next()) {
+			personId = rs.getString(1);
+			response = new Person(personId, userId);
+			response.setFirstName(rs.getString(3));
+			response.setLastName(rs.getString(4));
+			response.setGender(rs.getString(5));
+			response.setFather(rs.getString(6));
+			response.setMother(rs.getString(7));
+			response.setSpouse(rs.getString(8));
+			people.add(response);
+		}
+		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
+		if(people.size() == 0) {
+			return null;
+		}
+		return people;
 	}
 	
 	/**
@@ -33,7 +109,35 @@ public class PersonDao extends Dao {
 	 * @return a String object describing the result of the operation
 	 */
 	public String addPerson(Person person) throws SQLException {
-		return null;
+		Connection connection = Dao.getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		
+		PreparedStatement prep = connection.prepareStatement("insert into People values(?, ?, ?, ?, ?, ?, ?, ?);");
+//		personId INTEGER PRIMARY KEY, userId INTEGER, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
+		prep.setString(1, person.getId());
+		prep.setString(2, person.getUserId());
+		prep.setString(3, person.getFirstName());
+		prep.setString(4, person.getLastName());
+		prep.setString(5, person.getGender());
+		prep.setString(6, person.getFather());
+		prep.setString(7, person.getMother());
+		prep.setString(8, person.getSpouse());
+		prep.addBatch();
+		
+        connection.setAutoCommit(false);
+        prep.executeBatch();
+        connection.setAutoCommit(true);
+        
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
+        
+        return "The person was added to the table";
 	}
 	
 	/**
@@ -42,17 +146,6 @@ public class PersonDao extends Dao {
 	 * @return a String object describing the result of the operation
 	 */
 	public String addPeople(Person[] people) throws SQLException {
-		return null;
-	}
-	
-	/**
-	 * inserts a certain 'what' object (TEXT) into the Person table at 'where' column for 'who' event
-	 * @param who a String specifying what Person you are inserting into
-	 * @param where a String specifying the column
-	 * @param what a String specifying what you are inserting
-	 * @return a String informing the user of how the operation went
-	 */
-	public String insert(String who, String where, String what) throws SQLException {
 		return null;
 	}
 

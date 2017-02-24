@@ -107,7 +107,7 @@ public class Dao {
 	 * @return a a message about the outcome: "authorization deleted" if it worked, an error message otherwise
 	 * @throws SQLException if unable to execute the deletion operation throws this error
 	 */
-	public String delete(String userId, String table) throws SQLException {
+	public void delete(String userId, String table) throws SQLException {
 		Connection connection = Dao.getConnection();
 		if(connection == null) {
 			throw new NullPointerException();
@@ -123,7 +123,6 @@ public class Dao {
 			e.printStackTrace();
 		}
         
-        return "The object was deleted from the table";
 	}
 
 }
