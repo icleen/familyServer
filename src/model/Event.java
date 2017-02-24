@@ -2,10 +2,8 @@ package model;
 
 public class Event {
 	
-	private final int id;
-	private final String descendant;
-	private final String descendantId;
-	private final String person;
+	private final String eventId;
+	private final String userId;
 	private final String personId;
 	
 	private String latitude;
@@ -15,21 +13,18 @@ public class Event {
 	private String type;
 	private String year;
 	
-	public Event(int id, String descendant, String descendantId, String person, String personId) {
-		this.id = id;
-		this.descendant = descendant;
-		this.descendantId = descendantId;
-		this.person = person;
+	public Event(String eventId, String userId, String personId) {
+		this.eventId = eventId;
+		this.userId = userId;
 		this.personId = personId;
 	}
 	
-	public Event(int id, String descendant, String descendantId, String person, String personId, String latitude, String longitude, 
+	public Event(String eventId, String userId, String personId, String latitude, String longitude, 
 			String country, String city, String type, String year) {
-		this.id = id;
-		this.descendant = descendant;
-		this.descendantId = descendantId;
-		this.person = person;
+		this.eventId = eventId;
+		this.userId = userId;
 		this.personId = personId;
+		
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.country = country;
@@ -74,30 +69,24 @@ public class Event {
 	public void setYear(String year) {
 		this.year = year;
 	}
-	public int getId() {
-		return id;
-	}
-	public String getDescendant() {
-		return descendant;
-	}
-	public String getPerson() {
-		return person;
-	}
-
-	public String getDescendantId() {
-		return descendantId;
-	}
-
 	public String getPersonId() {
 		return personId;
+	}
+	public String getEventId() {
+		return eventId;
+	}
+
+	public String getUserId() {
+		return userId;
 	}
 	
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		
-		output.append("Id = " + this.id + "\n");
-		output.append("Descendant = " + this.descendant + "\n");
-		output.append("Person = " + this.person + "\n");
+		output.append("Id: " + this.eventId);
+		output.append(" Descendant: " + this.userId);
+		output.append(" Person: " + this.personId);
+		output.append(" Type: " + this.type);
 		
 		return output.toString();
 	}

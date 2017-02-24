@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import model.AuthToken;
 
-public class AuthDao {
+public class AuthDao extends Dao {
 	
 	/**
 	 * takes in a userName and gives back the authorization token with all of it's information
@@ -17,7 +17,7 @@ public class AuthDao {
 	 * @throws SQLException throws when the entry matching the given userName is not found
 	 */
 	public AuthToken getAuth(String userName) throws SQLException {
-		Connection connection = Connector.getConnection();
+		Connection connection = getConnection();
 		if(connection == null) {
 			throw new NullPointerException();
 		}
@@ -56,7 +56,7 @@ public class AuthDao {
 	 * @throws SQLException throws when the token could not be added
 	 */
 	public String addAuth(AuthToken token) throws SQLException {
-		Connection connection = Connector.getConnection();
+		Connection connection = Dao.getConnection();
 		if(connection == null) {
 			throw new NullPointerException();
 		}
@@ -67,7 +67,7 @@ public class AuthDao {
 		prep.setString(1, token.getUserName());
 		prep.setString(2, token.getPassword());
 		prep.setString(3, token.getAuthCode());
-		prep.setInt( 4, Integer.parseInt(token.getUserId()) );
+//		prep.setInt( 4, Integer.parseInt(token.getUserId()) );
 		prep.addBatch();
 		
         connection.setAutoCommit(false);
@@ -82,17 +82,6 @@ public class AuthDao {
 		}
         
         return "The authorization code was added to the table";
-	}
-	
-	/**
-	 * inserts a certain 'what' object (TEXT) into the AuthToken table at 'where' column for 'who' event
-	 * @param who a String specifying what authToken you are inserting into
-	 * @param where a String specifying the column
-	 * @param what a String specifying what you are inserting
-	 * @return a String informing the user of how the operation went
-	 */
-	public String insert(String who, String where, String what) {
-		return null;
 	}
 
 }

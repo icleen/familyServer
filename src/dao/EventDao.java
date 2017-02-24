@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import model.Event;
 
-public class EventDao {
+public class EventDao extends Dao {
 	
 	/**
 	 * gives back the event specified by the id

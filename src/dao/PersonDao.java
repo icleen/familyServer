@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import model.Person;
 
-public class PersonDao {
+public class PersonDao extends Dao {
 	
 	/**
 	 * gives back the person specified by the id

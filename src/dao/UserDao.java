@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import model.User;
 
-public class UserDao {
+public class UserDao extends Dao {
 	
 	/**
 	 * gives back the user specified by the id
@@ -17,7 +17,7 @@ public class UserDao {
 	 * @throws SQLException when the user does not exist
 	 */
 	public User getUser(String userName) throws SQLException {
-		Connection connection = Connector.getConnection();
+		Connection connection = getConnection();
 		if(connection == null) {
 			throw new NullPointerException();
 		}
@@ -69,7 +69,7 @@ public class UserDao {
 	 * @throws SQLException
 	 */
 	public String addUser(User user)  throws SQLException {
-		Connection connection = Connector.getConnection();
+		Connection connection = Dao.getConnection();
 		if(connection == null) {
 			throw new NullPointerException();
 		}
@@ -106,21 +106,6 @@ public class UserDao {
 	 * @throws SQLException
 	 */
 	public String addUsers(User[] users) throws SQLException {
-		return null;
-	}
-	
-	/**
-	 * inserts a certain 'what' object (TEXT) into the User table at 'where' column for 'who' event
-	 * @param who a String specifying what User you are inserting into
-	 * @param where a String specifying the column
-	 * @param what a String specifying what you are inserting
-	 * @return a String informing the user of how the operation went
-	 */
-	public String insert(String who, String where, String what) {
-		return null;
-	}
-	
-	public String delete(String who) {
 		return null;
 	}
 	

@@ -1,11 +1,11 @@
 package services;
 
-import dao.Connector;
+import dao.Dao;
 
 public class ClearService {
 	
 	public static String serve() {
-		Connector.initializeTable();
+		Dao.initializeTable();
 		return "You cleared the database!";
 	}
 

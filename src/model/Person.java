@@ -1,45 +1,34 @@
 package model;
 
 public class Person {
-	
-	protected static int currentId = 0;
-	protected final int id;
 
+	protected final String id;
+	protected final String userId;
 	protected String firstName;
 	protected String lastName;
 	protected String gender;
 	
-	protected final int descendant;
-	protected Person father;
-	protected Person mother;
-	protected Person spouse;
-	protected Event[] events;
+	protected String father;
+	protected String mother;
+	protected String spouse;
+	protected String[] events;
 	
+	public Person(String id, String userId) {
+		this.id = id;
+		this.userId = userId;
+	}
 	
-	public Person(int descendant, String fName, String lName, String gender) {
-		id = currentId++;
-		this.descendant = descendant;
+	public Person(String id, String userId, String fName, String lName, String gender) {
+		this.id = id;
+		this.userId = userId;
 		this.firstName = fName;
 		this.lastName = lName;
 		this.gender = gender;
 	}
 	
-	public Person(int descendant, String fName, String lName, String gender, 
-			Person father, Person mother, Person spouse) {
-		id = currentId++;
-		this.descendant = descendant;
-		this.firstName = fName;
-		this.lastName = lName;
-		this.gender = gender;
-		this.father = father;
-		this.mother = mother;
-		this.spouse = spouse;
-	}
-	
-	public Person(int descendant, String fName, String lName, String gender, 
-			Person father, Person mother, Person spouse, Event[] events) {
-		id = currentId++;
-		this.descendant = descendant;
+	public Person(String id, String userId, String fName, String lName, String gender, String father, String mother, String spouse, String[] events) {
+		this.id = id;
+		this.userId = userId;
 		this.firstName = fName;
 		this.lastName = lName;
 		this.gender = gender;
@@ -49,22 +38,6 @@ public class Person {
 		this.events = events;
 	}
 	
-	public int getId() {
-		return id;
-	}
-
-	public int getDescendant() {
-		return descendant;
-	}
-
-	public Person getSpouse() {
-		return spouse;
-	}
-
-	public void setSpouse(Person spouse) {
-		this.spouse = spouse;
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}
@@ -89,36 +62,52 @@ public class Person {
 		this.gender = gender;
 	}
 
-	public Person getFather() {
+	public String getFather() {
 		return father;
 	}
 
-	public void setFather(Person father) {
+	public void setFather(String father) {
 		this.father = father;
 	}
 
-	public Person getMother() {
+	public String getMother() {
 		return mother;
 	}
 
-	public void setMother(Person mother) {
+	public void setMother(String mother) {
 		this.mother = mother;
 	}
 
-	public Event[] getEvents() {
+	public String getSpouse() {
+		return spouse;
+	}
+
+	public void setSpouse(String spouse) {
+		this.spouse = spouse;
+	}
+
+	public String[] getEvents() {
 		return events;
 	}
 
-	public void setEvents(Event[] events) {
+	public void setEvents(String[] events) {
 		this.events = events;
 	}
-	
+
+	public String getId() {
+		return id;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		
-		output.append("descendant: " + this.descendant);
-		output.append("Name: " + this.firstName + " " + this.lastName);
-		output.append("Gender: " + this.gender);
+		output.append("Descendant: " + this.userId);
+		output.append(" Name: " + this.firstName + " " + this.lastName);
+		output.append(" Gender: " + this.gender);
 		
 		return output.toString();
 	}
