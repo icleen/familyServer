@@ -6,6 +6,14 @@ public class AuthToken {
 	private String password;
 	private String authCode;
 	
+	public AuthToken() {
+	}
+	
+	public AuthToken(String userName, String password, String authCode) {
+		this.userName = userName;
+		this.password = password;
+		this.authCode = authCode;
+	}
 	
 	/**
 	 * @return a String with the userName

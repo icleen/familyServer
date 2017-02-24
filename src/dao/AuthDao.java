@@ -1,5 +1,9 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import model.AuthToken;
 
 public class AuthDao {
@@ -9,7 +13,7 @@ public class AuthDao {
 	 * @param userName a String containing the userName of the person you want
 	 * @return an object of AuthToken
 	 */
-	public static AuthToken getAuth(String userName) {
+	public AuthToken getAuth(String userName) {
 		return null;
 	}
 	
@@ -17,9 +21,34 @@ public class AuthDao {
 	 * adds an authorization token to the database
 	 * @param token an object of AuthToken to be added to the database
 	 * @return a String describing how the operation went
+	 * @throws SQLException throws when the token could not be added
 	 */
-	public static String addAuth(AuthToken token) {
-		return null;
+	public String addAuth(AuthToken token) throws SQLException {
+		Connection connection = Connector.getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		
+		PreparedStatement prep = connection.prepareStatement("insert into AuthCodes values(?, ?, ?);");
+//		userName TEXT, password TEXT, authCode TEXT
+		
+		prep.setString(1, token.getUserName());
+		prep.setString(2, token.getPassword());
+		prep.setString(3, token.getAuthCode());
+		prep.addBatch();
+		
+        connection.setAutoCommit(false);
+        prep.executeBatch();
+        connection.setAutoCommit(true);
+        
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
+        
+        return null;
 	}
 	
 	/**
@@ -29,7 +58,7 @@ public class AuthDao {
 	 * @param what a String specifying what you are inserting
 	 * @return a String informing the user of how the operation went
 	 */
-	public static String insert(String who, String where, String what) {
+	public String insert(String who, String where, String what) {
 		return null;
 	}
 

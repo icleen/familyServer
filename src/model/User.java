@@ -3,9 +3,8 @@ package model;
 public class User {
 	
 	private final int DefaultGenDistance = 4;
-	private static int currentId = 0;
-	private final int id;
-	private final int personId;
+	private final String id;
+	private final String personId;
 	
 	private String userName;
 	private String password;
@@ -13,35 +12,36 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String gender;
-
-	public User(String userName, String password, String email, String firstName, String lastName, String gender) {
-		this.id = currentId++;
-		this.userName = userName;
-		this.email = email;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.gender = gender;
-		Person p = new Person(this.id, this.firstName, this.lastName, this.gender);
-		this.personId = p.getId();
-	}
 	
-	public User(String userName, String password, String email, String firstName, String lastName, String gender, int id, int personId) {
+	public User(String id, String personId) {
 		this.id = id;
-		this.userName = userName;
-		this.email = email;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.gender = gender;
 		this.personId = personId;
 	}
 	
-	public int getId() {
+	public User(String id, String personId, String userName, String password, String email) {
+		this.id = id;
+		this.personId = personId;
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+	}
+	
+	public User(String id, String personId, String userName, String password, String email, String firstName, String lastName, String gender) {
+		this.id = id;
+		this.personId = personId;
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+	}
+	
+	public String getId() {
 		return id;
 	}
 
-	public int getPersonId() {
+	public String getPersonId() {
 		return personId;
 	}
 

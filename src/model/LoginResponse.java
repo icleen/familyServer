@@ -2,7 +2,7 @@ package model;
 
 public class LoginResponse {
 	
-	private String authToken;	// Non-empty auth token string
+	private String authCode;	// Non-empty auth token string
 	private String userName;	// User name passed in with request
 	private String personId;	// Non-empty string containing the Person ID of the
 	private String errorMessage;// error for if the operation failed
@@ -11,18 +11,18 @@ public class LoginResponse {
 		
 	}
 	
-	public LoginResponse(String authToken, String userName, String personId) {
-		this.authToken = authToken;
+	public LoginResponse(String authCode, String userName, String personId) {
+		this.authCode = authCode;
 		this.userName = userName;
 		this.personId = personId;
 	}
 
-	public String getAuthToken() {
-		return authToken;
+	public String getAuthCode() {
+		return authCode;
 	}
 
-	public void setAuthToken(String authToken) {
-		this.authToken = authToken;
+	public void setAuthCode(String authCode) {
+		this.authCode = authCode;
 	}
 
 	public String getUserName() {
@@ -54,7 +54,7 @@ public class LoginResponse {
 		if(this.errorMessage != null) {
 			output.append(errorMessage);
 		}else {
-			output.append(authToken + ", " + userName + ", " + personId);
+			output.append(authCode + ", " + userName + ", " + personId);
 		}
 		return output.toString();
 	}
