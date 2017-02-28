@@ -50,7 +50,7 @@ public class ServerCommunicator {
 	public static final String EVENT_DESIGNATOR = "/event";
 	public static final String DEFAULT_DESIGNATOR = "/";
 	
-	public static final String HTTP_ROOT = "http_root/familymapserver/data/HTML";
+	public static final String HTTP_ROOT = "http_root/familymapserver/data/HTML/";
 	
 	private ServerCommunicator() {
 	}

@@ -56,11 +56,33 @@ public class LoginResponse {
 			output.append("message:\"" + errorMessage + "\"\n");
 		}else {
 			output.append("authToken:\"" + authCode + "\",\n");
-			output.append("userName:\"" + userName + "\"\n");
+			output.append("userName:\"" + userName + "\",\n");
 			output.append("persondId:\"" + personId + "\"\n");
 		}
 		output.append("}");
 		return output.toString();
+	}
+	
+	public boolean equals(Object o) {
+		if(o.getClass() != this.getClass()) {
+			return false;
+		}
+		LoginResponse temp = (LoginResponse) o;
+		if(this.errorMessage != null || temp.errorMessage != null) {
+			if(this.errorMessage != null && temp.errorMessage != null) {
+				if( !this.errorMessage.equals(temp.errorMessage) ) {
+					return false;
+				}
+			}else {
+				return false;
+			}
+		}
+		if(this.authCode.equals(temp.authCode) && this.personId.equals(temp.personId) 
+				&& this.userName.equals(temp.userName)) 
+		{
+			return true;
+		}
+		return false;
 	}
 
 }

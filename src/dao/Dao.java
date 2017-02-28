@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -69,6 +70,16 @@ public class Dao {
 			System.out.println("Could not create table AuthCodes: " + e.getMessage());
 			return;
 		}
+		
+//		add table AuthCodes
+		try {
+			statem.executeUpdate("drop table if exists Id"); 
+			statem.executeUpdate("create table Id (id INTEGER, person INTEGER, event INTEGER);");
+			statem.executeUpdate("insert into Id values (0, 0, 0);");
+		} catch (SQLException e) {
+			System.out.println("Could not create table Id: " + e.getMessage());
+			return;
+		}
 	}
 	
 	/**
@@ -122,6 +133,42 @@ public class Dao {
 			e.printStackTrace();
 		}
         
+	}
+	
+	public int[] getNextId() throws SQLException {
+		Connection connection = Dao.getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		int[] result = { 0, 0 };
+		Statement statement = connection.createStatement();
+		ResultSet rs = statement.executeQuery("select * from Id where id=\"0\";");
+        result[0] = rs.getInt(2);
+        result[1] = rs.getInt(3);
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public void putId(int[] id) throws SQLException {
+		Connection connection = Dao.getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		
+		Statement state = connection.createStatement();
+		state.executeUpdate("update Id set person=\"" + id[0] + "\", event=\"" + id[1] + "\" where id=\"0\";");
+        
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
 	}
 
 }

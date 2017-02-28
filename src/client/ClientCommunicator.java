@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import model.Event;
 import model.LoginRequest;
@@ -21,28 +22,6 @@ public class ClientCommunicator extends BaseClientCommunicator {
 	public static final String PERSONS_KEY = "person";
 	public static final String EVENTS_KEY = "event";
 	
-	public Object hello(Object toBeSent) {
-		Object response = null;
-		HttpURLConnection connection = openConnection(ServerCommunicator.HELLO_DESIGNATOR, HTTP_POST, authCode, true);
-		if(connection == null) {
-			return null;
-		}
-		sendToServer(connection, toBeSent);
-		response = getResponse(connection, toBeSent.getClass());
-		return response;
-	}
-	
-	public Object primitive(Object toBeSent) {
-		Object response = null;
-		HttpURLConnection connection = openConnection(ServerCommunicator.PRIMITIVE_DESIGNATOR, HTTP_POST, authCode, true);
-		if(connection == null) {
-			return null;
-		}
-		sendToServer(connection, toBeSent);
-		response = getResponse(connection, toBeSent.getClass());
-		return response;
-	}
-	
 	public Object register(User toBeSent) {
 		Object response = null;
 		HttpURLConnection connection = openConnection(ServerCommunicator.REGISTER_DESIGNATOR, HTTP_POST, authCode, true);
@@ -51,6 +30,10 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		}
 		sendToServer(connection, toBeSent);
 		response = getResponse(connection, LoginResponse.class);
+		LoginResponse temp = (LoginResponse) response;
+		if(temp.getAuthCode() != null) {
+			this.authCode = temp.getAuthCode();
+		}
 		return response;
 	}
 	
@@ -62,6 +45,10 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		}
 		sendToServer(connection, toBeSent);
 		response = getResponse(connection, LoginResponse.class);
+		LoginResponse temp = (LoginResponse) response;
+		if(temp.getAuthCode() != null) {
+			this.authCode = temp.getAuthCode();
+		}
 		return response;
 	}
 	
@@ -114,7 +101,12 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		if(connection == null) {
 			return null;
 		}
-		response = getResponse(connection, Event.class);
+		if(eventId != null) {
+			response = getResponse(connection, Event.class);
+		}else {
+			response = getResponse(connection, Event[].class);
+		}
+		
 		return response;
 	}
 	
@@ -128,7 +120,11 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		if(connection == null) {
 			return null;
 		}
-		response = getResponse(connection, Person.class);
+		if(personId != null) {
+			response = getResponse(connection, Person.class);
+		}else {
+			response = getResponse(connection, Person[].class);
+		}
 		return response;
 	}
 	
@@ -140,6 +136,9 @@ public class ClientCommunicator extends BaseClientCommunicator {
 												boolean sendingToServer,
 												String header)
 	{
+		if(header == null) {
+			return openConnection(context, action, authCode, sendingToServer);
+		}
 		HttpURLConnection result = null;
 		try {
 			URL url = new URL(URL_PREFIX + context + header);
@@ -163,3 +162,26 @@ public class ClientCommunicator extends BaseClientCommunicator {
 	}
 	
 }
+
+
+//public Object hello(Object toBeSent) {
+//	Object response = null;
+//	HttpURLConnection connection = openConnection(ServerCommunicator.HELLO_DESIGNATOR, HTTP_POST, authCode, true);
+//	if(connection == null) {
+//		return null;
+//	}
+//	sendToServer(connection, toBeSent);
+//	response = getResponse(connection, toBeSent.getClass());
+//	return response;
+//}
+//
+//public Object primitive(Object toBeSent) {
+//	Object response = null;
+//	HttpURLConnection connection = openConnection(ServerCommunicator.PRIMITIVE_DESIGNATOR, HTTP_POST, authCode, true);
+//	if(connection == null) {
+//		return null;
+//	}
+//	sendToServer(connection, toBeSent);
+//	response = getResponse(connection, toBeSent.getClass());
+//	return response;
+//}

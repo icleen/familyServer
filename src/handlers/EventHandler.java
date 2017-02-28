@@ -32,9 +32,9 @@ public class EventHandler implements HttpHandler {
 		
 		String[] pathParts = path.split("/");
 		String id = null;
-		if(pathParts.length == 2) {
-			id = pathParts[1];
-		}else if(pathParts.length > 2) {
+		if(pathParts.length == 3) {
+			id = pathParts[2];
+		}else if(pathParts.length > 3) {
 			throw new InvalidPathException(path, "The path had too many segments");
 		}
 		
@@ -44,6 +44,8 @@ public class EventHandler implements HttpHandler {
 		System.out.println("the event id is: " + id);
 		
 		Object response = EventService.serve(authCode, id);
+		
+		System.out.print(response);
 		
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 		// 0 means the response body has an unknown amount of stuff in it

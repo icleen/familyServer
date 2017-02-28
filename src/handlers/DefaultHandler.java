@@ -1,11 +1,16 @@
 package handlers;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -16,40 +21,43 @@ public class DefaultHandler implements HttpHandler {
 
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
+		ServerCommunicator.sendingToBrowser = true;
+		
 		URI uri = exchange.getRequestURI();
 		String path = uri.getPath();
 		System.out.println("Path: " + path);
 		
 		String[] pathParts = path.split("/");
-		StringBuilder segments = new StringBuilder();
+		System.out.println("pathParts.length: " + pathParts.length);
 		for(int i = 0; i < pathParts.length; i++) {
-			segments.append(pathParts[i]);
-			if(i < pathParts.length - 1) {
-				segments.append(", ");
-			}
+			System.out.println(pathParts[i]);
 		}
-		System.out.println("Path parts: " + segments.toString());
 		
-//		switch(path) {
-//		case "/":
-////			blah
-//			break;
-//		case "/clear/other":
-////			blah
-//			break;
-//			default:
-////				bleh
-//				
-//		}
-		
-		File file = new File(ServerCommunicator.HTTP_ROOT + index_html_location);
-		byte[] result = getBytesFromTextFile(file);
-		
+		if(pathParts.length == 0) {
+			OutputStream writer = exchange.getResponseBody();
+			writer.write( getBytesFromTextFile(new File(ServerCommunicator.HTTP_ROOT + index_html_location)) );
+
+			writer.close();
+		}else if(pathParts[1].equals("favicon.ico")) {
+			OutputStream writer = exchange.getResponseBody();
+			writer.write( getBytesFromNonTextFile(pathParts[0]) );
+
+			writer.close();
+		}
 	}
 	
 	private byte[] getBytesFromTextFile(File file) {
 //		read in from file through scanner and append to a StringBuilder and then return result.toString().toBytes();
 		StringBuilder result = new StringBuilder();
+		try {
+			Scanner scanner = new Scanner(new BufferedReader(new FileReader(file)));
+			while(scanner.hasNext()) {
+				result.append(scanner.nextLine());
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return result.toString().getBytes();
 	}
 	
@@ -66,6 +74,6 @@ public class DefaultHandler implements HttpHandler {
 		return result.toString().getBytes();
 	}
 
-	public final String index_html_location = "";
+	public final String index_html_location = "index.html";
 	
 }

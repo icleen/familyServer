@@ -1,7 +1,6 @@
 package handlers;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -14,10 +13,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import client.ClientCommunicator;
-import model.Person;
-import model.User;
 import server.ServerCommunicator;
-import services.LoginService;
 import services.PersonService;
 
 public class PersonHandler implements HttpHandler {

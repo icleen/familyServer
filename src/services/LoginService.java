@@ -17,7 +17,7 @@ public class LoginService {
 		try {
 			aToken = aDao.getAuth(request.getUserName());
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			response.setErrorMessage("The given userName does not exist in the database");
 			return response;
 		}
