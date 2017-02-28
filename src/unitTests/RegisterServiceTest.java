@@ -52,7 +52,8 @@ public class RegisterServiceTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertEquals(peeps.size(), 31);
+//		2 + 2*2 + 2*2*2 + 2*2*2*2 = 2 + 4 + 8 + 16 = 30
+		assertEquals(31, peeps.size());
 		EventDao eDao = new EventDao();
 		ArrayList<Event> events = null;
 		try {
@@ -61,7 +62,8 @@ public class RegisterServiceTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertEquals(events.size(), 120);
+//		30 persons * 4 events = 30 * 4 = 120
+		assertEquals(120, events.size());
 	}
 
 }

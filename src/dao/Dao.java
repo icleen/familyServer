@@ -104,7 +104,6 @@ public class Dao {
 	 * delete the row of information corresponding to the userId given
 	 * @param userName the userName of the person who's info you're deleting
 	 * @param table which table you want to delete from (People, Events, Users, or AuthCodes)
-	 * @return a a message about the outcome: "authorization deleted" if it worked, an error message otherwise
 	 * @throws SQLException if unable to execute the deletion operation throws this error
 	 */
 	public void delete(String userName, String table) throws SQLException {

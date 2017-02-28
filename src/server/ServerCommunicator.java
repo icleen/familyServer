@@ -19,10 +19,12 @@ import handlers.RegisterHandler;
 
 public class ServerCommunicator {
 	
-	private static final int SERVER_PORT_NUMBER = 3722;
+	private static final int SERVER_PORT_NUMBER = 3740;
 	private static final int MAX_WAITING_CONNECTIONS = 10;
 	
 	private HttpServer server;
+	
+	public static boolean sendingToBrowser = false;
 	
 	private HttpHandler helloHandler = new HelloWorldHandler();
 	private HttpHandler primitiveHandler = new PrimitiveHandler();

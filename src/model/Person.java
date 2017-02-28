@@ -106,7 +106,7 @@ public class Person {
 	
 	public String toString() {
 		StringBuilder output = new StringBuilder();
-		
+		output.append("{\n");
 		output.append("descendant: " + this.userName + "\",\n");
 		output.append("personId:\"" + this.id + "\",\n");
 		output.append("firstName:\"" + this.firstName + "\",\n");
@@ -114,9 +114,17 @@ public class Person {
 		output.append("gender:\"" + this.gender + "\",\n");
 		output.append("father:\"" + this.father + "\",\n");
 		output.append("mother:\"" + this.mother + "\",\n");
-		output.append("spouse:\"" + this.spouse + "\",\n");
-		
+		output.append("spouse:\"" + this.spouse + "\"\n");
+		output.append("}\n");
 		return output.toString();
+	}
+	
+	public boolean equals(Person other) {
+		if( this.id.equals(other.getId()) && this.userName.equals(other.getUserName()) && this.firstName.equals(other.getFirstName()) 
+				&& this.lastName.equals(other.getLastName()) && this.gender.equals(other.getGender()) ) {
+			return true;
+		}
+		return false;
 	}
 
 }

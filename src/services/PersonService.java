@@ -5,49 +5,89 @@ import java.util.ArrayList;
 
 import dao.AuthDao;
 import dao.PersonDao;
+import dao.UserDao;
 import model.AuthToken;
 import model.Person;
 
 public class PersonService {
 	
-	public static Object serve(String id) {
+	public static Object serve(String authCode, String id) {
 		
-		PersonDao pDao = new PersonDao();
-		Person person = null;
+		AuthDao aDao = new AuthDao();
+		AuthToken token = null;
 		try {
-			person = pDao.getPerson(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			String response = "Could not get the person";
+			token = aDao.getAuthByCode(authCode);
+		} catch (SQLException e1) {
+//			e1.printStackTrace();
+			String response = "The authCode was incorrect";
 			return response;
 		}
+		if(token == null) {
+			return "The authCode was incorrect";
+		}
 		
-		return person;
+		PersonDao pDao = new PersonDao();
+//		if the id is not null, get just the person with the specified id
+		if(id != null) {
+			Person person = null;
+			try {
+				person = pDao.getPerson(id);
+			} catch (SQLException e) {
+//				e.printStackTrace();
+				String response = "Could not get the person";
+				return response;
+			}
+			
+			return person;
+		}
+//		if the id is null, get all of the people associated with the user
+		else {
+			ArrayList<Person> people = null;
+			try {
+				people = pDao.getPeople(token.getUserName());
+			} catch (SQLException e) {
+				e.printStackTrace();
+				String response = "Could not get the people";
+				return response;
+			}
+			return people;
+		}
+		
 	}
 	
-	public static Object people(String authCode) {
-		
-		PersonDao pDao = new PersonDao();
-		AuthDao aDao = new AuthDao();
-		AuthToken temp;
-		try {
-			temp = aDao.getAuth(authCode);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-			String response = "The authCode was invalid";
-			return response;
-		}
-		
-		ArrayList<Person> people = null;
-		try {
-			people = pDao.getPeople(temp.getUserName());
-		} catch (SQLException e) {
-			e.printStackTrace();
-			String response = "Could not get the people";
-			return response;
-		}
-		
-		return people;
-	}
+//	private static String toString(Person p, String user) {
+//		StringBuilder output = new StringBuilder();
+//		output.append("{\n");
+//		output.append("descendant:\"" + user + "\",\n");
+//		output.append("personId:\"" + p.getId() + "\"\n");
+//		output.append("firstName:\"" + p.getFirstName() + "\"\n");
+//		output.append("lastName:\"" + p.getLastName() + "\"\n");
+//		output.append("gender:\"" + p.getGender() + "\"\n");
+//		output.append("father:\"" + p.getFather() + "\"\n");
+//		output.append("mother:\"" + p.getMother() + "\"\n");
+//		output.append("spouse:\"" + p.getSpouse() + "\"\n");
+//		output.append("}\n");
+//		return output.toString();
+//	}
+//	
+//	private static String toString(ArrayList<Person> people, String user) {
+//		StringBuilder output = new StringBuilder();
+//		output.append("\"data\": [\n");
+//		for(int i = 0; i < people.size(); i++) {
+//			Person p = people.get(i);
+//			output.append("{\n");
+//			output.append("descendant:\"" + user + "\",\n");
+//			output.append("personId:\"" + p.getId() + "\"\n");
+//			output.append("firstName:\"" + p.getFirstName() + "\"\n");
+//			output.append("lastName:\"" + p.getLastName() + "\"\n");
+//			output.append("gender:\"" + p.getGender() + "\"\n");
+//			output.append("father:\"" + p.getFather() + "\"\n");
+//			output.append("mother:\"" + p.getMother() + "\"\n");
+//			output.append("spouse:\"" + p.getSpouse() + "\"\n");
+//			output.append("}\n");
+//		}
+//		output.append("]");
+//		return output.toString();
+//	}
 
 }

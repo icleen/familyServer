@@ -50,6 +50,45 @@ public class AuthDao extends Dao {
 	}
 	
 	/**
+	 * takes in a authCode and gives back the authorization token with all of its information
+	 * @param authCode a String containing the authCode of the current user
+	 * @return an object of AuthToken
+	 * @throws SQLException throws when the entry matching the given authCode is not found
+	 */
+	public AuthToken getAuthByCode(String authCode) throws SQLException {
+		Connection connection = getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		Statement statement;
+        ResultSet rs = null;
+        AuthToken token = null;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from AuthCodes where authCode=\""+ authCode + "\";");
+			
+		} catch (SQLException e) {
+			System.err.println("The attempt to get the user info failed!");
+			e.printStackTrace();
+		}
+//		userName TEXT, password TEXT, authCode TEXT, userId INTEGER
+		token = new AuthToken();
+		token.setUserName(rs.getString(1));
+		token.setPassword(rs.getString(2));
+		token.setAuthCode(rs.getString(3));
+		token.setUserId(rs.getString(4));
+		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
+		
+		return token;
+	}
+	
+	/**
 	 * adds an authorization token to the database
 	 * @param token an object of AuthToken to be added to the database
 	 * @return a String describing how the operation went

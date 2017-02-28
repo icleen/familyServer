@@ -93,7 +93,7 @@ public class Event {
 	
 	public String toString() {
 		StringBuilder output = new StringBuilder();
-		
+		output.append("{\n");
 		output.append("descendant: " + this.userName + "\",\n");
 		output.append("eventId:\"" + this.eventId + "\",\n");
 		output.append("personId:\"" + this.personId + "\",\n");
@@ -102,9 +102,18 @@ public class Event {
 		output.append("country:\"" + this.country + "\",\n");
 		output.append("city:\"" + this.city + "\",\n");
 		output.append("eventType:\"" + this.type + "\",\n");
-		output.append("year:\"" + this.year + "\",\n");
-		
+		output.append("year:\"" + this.year + "\"\n");
+		output.append("}\n");
 		return output.toString();
+	}
+	
+	public boolean equals(Event other) {
+		if( this.userName.equals(other.getUserName()) && this.eventId.equals(other.eventId) && this.personId.equals(other.personId)
+				&& this.type.equals(other.type) && this.latitude.equals(other.latitude) && this.longitude.equals(other.longitude) 
+				&& this.country.equals(other.country) && this.city.equals(other.city) && this.year.equals(other.year) ) {
+			return true;
+		}
+		return false;
 	}
 	
 }
