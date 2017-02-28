@@ -137,10 +137,10 @@ public class DaoTest {
 	
 	public void personTest() {
 		PersonDao pDao = new PersonDao();
-		
-		Person person = new Person("1", "1", "iclee141", "burtina", "lambert", "female");
+		String userName = "userName";
+		Person person = new Person("1", userName, "burtina", "lambert", "female", "11", "10", null);
 		person.setSpouse("2");
-		Person person2 = new Person("2", "1", "iclee141", "bob", "lambert", "male");
+		Person person2 = new Person("2", userName, "bob", "lambert", "male", "12", "13", null);
 		person2.setSpouse("1");
 		
 		try {
@@ -171,13 +171,13 @@ public class DaoTest {
 		
 		ArrayList<Person> people = null;
 		try {
-			people = pDao.getPeople("1");
+			people = pDao.getPeople(userName);
 		} catch (SQLException e) {
 			System.err.println("couldn't get the array");
 			e.printStackTrace();
 		}
 		
-		if(people.size() != 2) {
+		if(people != null && people.size() != 2) {
 			System.out.println("There were " + people.size() + " people");
 		}
 //		if( !people.get(0).equals(feedback) || !people.get(1).equals(feedback2) ) {
@@ -186,7 +186,7 @@ public class DaoTest {
 //		}
 		
 		try {
-			pDao.delete("1", "People");
+			pDao.delete(userName, "People");
 			if(pDao.getPeople("1") == null) {
 				System.out.println("They were all deleted");
 			}
@@ -200,8 +200,9 @@ public class DaoTest {
 	
 	public void eventTest() {
 		EventDao eDao = new EventDao();
-		Event birth = new Event(null, "1", "iclee141", "2");
-		Event death = new Event(null, "1", "iclee141", "1");
+		String userName = "userName";
+		Event birth = new Event("1", userName, "1");
+		Event death = new Event("2", userName, "1");
 		try {
 			eDao.addEvent(birth);
 			eDao.addEvent(death);
@@ -212,7 +213,7 @@ public class DaoTest {
 		
 		ArrayList<Event> events = new ArrayList<>();
 		try {
-			events = eDao.getEvents("1");
+			events = eDao.getEvents(userName);
 		} catch (SQLException e) {
 			System.err.println("couldn't get the array");
 			e.printStackTrace();
@@ -227,14 +228,14 @@ public class DaoTest {
 		}
 		
 		try {
-			eDao.getEvents("1");
+			eDao.getEvents(userName);
 		} catch (SQLException e) {
 			System.err.println("couldn't get the events array");
 			e.printStackTrace();
 		}
 		
 		try {
-			eDao.delete("1", "Events");
+			eDao.delete(userName, "Events");
 		} catch (SQLException e) {
 			System.err.println("couldn't delete the events or the events didn't exist");
 			e.printStackTrace();

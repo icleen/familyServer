@@ -5,7 +5,7 @@ import model.Event;
 public class EventService {
 	
 	public static Event serve(String id) {
-		return new Event(id, "1", "userName", "1");
+		return new Event(id, "userName", "1");
 	}
 
 }

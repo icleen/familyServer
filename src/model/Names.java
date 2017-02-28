@@ -1,11 +1,11 @@
 package model;
 
-public class Locations {
-	public Location[] data;
+public class Names {
+	
+	public String[] data;
 	
 	public String toString() {
 		StringBuilder s = new StringBuilder();
-		s.append("This is the locations:\n");
 		for(int i = 0; i < data.length; i++) {
 			s.append(data[i] + ", ");
 		}
@@ -16,7 +16,7 @@ public class Locations {
 		return data.length;
 	}
 	
-	public Location get(int index) {
+	public String get(int index) {
 		return data[index];
 	}
 }

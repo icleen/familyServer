@@ -117,7 +117,10 @@ public class PersonDao extends Dao {
 		}
 		
 		PreparedStatement prep = connection.prepareStatement("insert into People values(?, ?, ?, ?, ?, ?, ?, ?);");
-//		personId INTEGER PRIMARY KEY, userName INTEGER, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
+//		personId TEXT, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
+//		if(person.getId() != null) {
+//			prep.setInt(1, Integer.parseInt(person.getId()));
+//		}
 		prep.setString(1, person.getId());
 		prep.setString(2, person.getUserName());
 		prep.setString(3, person.getFirstName());
@@ -144,10 +147,40 @@ public class PersonDao extends Dao {
 	
 	/**
 	 * adds people to the database
-	 * @param people an array of Person objects
+	 * @param objects an array of Person objects
 	 * @return a String object describing the result of the operation
 	 */
-	public String addPeople(Person[] people) throws SQLException {
+	public String addPeople(Object[] objects) throws SQLException {
+		Connection connection = Dao.getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		
+		PreparedStatement prep = connection.prepareStatement("insert into People values(?, ?, ?, ?, ?, ?, ?, ?);");
+		for(int i = 0; i < objects.length; i++) {
+			//		personId INTEGER PRIMARY KEY, userName INTEGER, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
+			Person person = (Person) objects[i];
+			prep.setString(1, person.getId());
+			prep.setString(2, person.getUserName());
+			prep.setString(3, person.getFirstName());
+			prep.setString(4, person.getLastName());
+			prep.setString(5, person.getGender());
+			prep.setString(6, person.getFather());
+			prep.setString(7, person.getMother());
+			prep.setString(8, person.getSpouse());
+			prep.addBatch();
+		}
+		
+        connection.setAutoCommit(false);
+        prep.executeBatch();
+        connection.setAutoCommit(true);
+        
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
 		return null;
 	}
 

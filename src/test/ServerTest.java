@@ -1,6 +1,7 @@
 package test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import client.ClientCommunicator;
 import dao.PersonDao;
@@ -10,6 +11,7 @@ import model.LoginRequest;
 import model.LoginResponse;
 import model.Person;
 import model.User;
+import services.ClearService;
 
 public class ServerTest {
 	
@@ -89,17 +91,33 @@ public class ServerTest {
 	}
 	
 	static void generateTest() {
+		ClearService.serve();
+		
 		Generate gen = new Generate();
 		String userName = "userName";
-		gen.generatePeople(4, userName);
-		
+		ArrayList<Person> people = gen.generatePeople(4, userName);
 		PersonDao pDao = new PersonDao();
-		
 		try {
-			pDao.getPeople(userName);
+			pDao.addPeople(people.toArray());
+		} catch (SQLException e1) {
+			System.out.println("It didn't work!");
+			e1.printStackTrace();
+		}
+		ArrayList<Person> others = null;
+//		for(int i = 0; i < people.size(); i++) {
+//			try {
+//				pDao.addPerson(people.get(i));
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		try {
+			others = pDao.getPeople(userName);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("People: " + others);
 	}
 	
 }

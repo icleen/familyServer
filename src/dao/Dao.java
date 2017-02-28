@@ -34,7 +34,7 @@ public class Dao {
 //		add table Users
 		try {
 			statem.executeUpdate("drop table if exists Users");
-			statem.executeUpdate("create table Users (userId INTEGER PRIMARY KEY, personId INTEGER, "
+			statem.executeUpdate("create table Users (userId TEXT, personId TEXT, "
 					+ "userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT);");
 		} catch (SQLException e) {
 			System.out.println("Could not create table Users: " + e.getMessage());
@@ -44,8 +44,8 @@ public class Dao {
 //		add table People
 		try {
 			statem.executeUpdate("drop table if exists People"); 
-			statem.executeUpdate("create table People (personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, "
-					+ "father INTEGER, mother INTEGER, spouse INTEGER);");
+			statem.executeUpdate("create table People (personId TEXT, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, "
+					+ "father TEXT, mother TEXT, spouse TEXT);");
 		} catch (SQLException e) {
 			System.out.println("Could not create table People: " + e.getMessage());
 			return;
@@ -54,7 +54,7 @@ public class Dao {
 //		add table Events
 		try {
 			statem.executeUpdate("drop table if exists Events"); 
-			statem.executeUpdate("create table Events (eventId INTEGER PRIMARY KEY, userName TEXT, personId INTEGER, type TEXT, "
+			statem.executeUpdate("create table Events (eventId TEXT, userName TEXT, personId TEXT, type TEXT, "
 					+ "country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT);");
 		} catch (SQLException e) {
 			System.out.println("Could not create table Events: " + e.getMessage());
@@ -64,7 +64,7 @@ public class Dao {
 //		add table AuthCodes
 		try {
 			statem.executeUpdate("drop table if exists AuthCodes"); 
-			statem.executeUpdate("create table AuthCodes (userName TEXT, password TEXT, authCode TEXT, userId INTEGER);");
+			statem.executeUpdate("create table AuthCodes (userName TEXT, password TEXT, authCode TEXT, userId TEXT);");
 		} catch (SQLException e) {
 			System.out.println("Could not create table AuthCodes: " + e.getMessage());
 			return;
@@ -102,19 +102,19 @@ public class Dao {
 	
 	/**
 	 * delete the row of information corresponding to the userId given
-	 * @param userId the userId of the person who's info you're deleting
+	 * @param userName the userName of the person who's info you're deleting
 	 * @param table which table you want to delete from (People, Events, Users, or AuthCodes)
 	 * @return a a message about the outcome: "authorization deleted" if it worked, an error message otherwise
 	 * @throws SQLException if unable to execute the deletion operation throws this error
 	 */
-	public void delete(String userId, String table) throws SQLException {
+	public void delete(String userName, String table) throws SQLException {
 		Connection connection = Dao.getConnection();
 		if(connection == null) {
 			throw new NullPointerException();
 		}
 		
 		Statement state = connection.createStatement();
-		state.executeUpdate("delete from " + table + " where userId=\"" + userId + "\";");
+		state.executeUpdate("delete from " + table + " where userName=\"" + userName + "\";");
         
 		try {
 			connection.close();
