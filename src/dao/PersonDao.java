@@ -11,7 +11,7 @@ import model.Person;
 
 public class PersonDao extends Dao {
 	
-	private static int id = 0;
+//	private static int id = 0;
 	
 	/**
 	 * gives back the person specified by the id

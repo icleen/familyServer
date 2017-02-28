@@ -20,7 +20,7 @@ public class Generate {
 	private NameStore nameStore;
 	
 	private static final int curYear = 2017;
-	private static final int oneGen = 80;
+	private static final int oneGen = 60;
 	
 	public Generate() {
 		nameStore = new NameStore();
@@ -30,11 +30,11 @@ public class Generate {
 		events = new ArrayList<>();
 	}
 	
-	public ArrayList<Person> generatePeople(int number, String userName) {
+	public ArrayList<Person> generatePeople(int generations, String userName) {
 		people = new ArrayList<>();
 		events = new ArrayList<>();
 		this.userName = userName;
-		MAX = number;
+		MAX = generations;
 //		PersonDao pDao = new PersonDao();
 		
 		recurse(0);
@@ -84,11 +84,15 @@ public class Generate {
 	public ArrayList<Event> generateEvents(String personId, String userName, int generation) {
 		ArrayList<Event> temp = new ArrayList<>();
 		Location loc = eventData.getRandomLocation();
-		int year = curYear - (generation * oneGen);
-		temp.add( new Event(null, userName, personId, loc.latitude, loc.longitude, loc.country, loc.city, "birth", "" + year));
+		int year = curYear - (generation * oneGen + 21);
+		temp.add( new Event(null, userName, personId, loc.latitude, loc.longitude, loc.country, loc.city, "birth", "" + year) );
 		temp.add( new Event(null, userName, personId, loc.latitude, loc.longitude, loc.country, loc.city, "baptism", "" + (year + 8)) );
-		temp.add( new Event(null, userName, personId, loc.latitude, loc.longitude, loc.country, loc.city, "marriage", "" + (year + 20)));
-		temp.add( new Event(null, userName, personId, loc.latitude, loc.longitude, loc.country, loc.city, "death", "" + (year + 80)));
+		temp.add( new Event(null, userName, personId, loc.latitude, loc.longitude, loc.country, loc.city, "marriage", "" + (year + 20)) );
+		if(year + 80 < curYear) {
+			temp.add( new Event(null, userName, personId, loc.latitude, loc.longitude, loc.country, loc.city, "death", "" + (year + 80)) );
+		}else {
+			temp.add( new Event(null, userName, personId, null, null, null, null, "death", null) );
+		}
 		
 		events.addAll(temp);
 		return temp;

@@ -1,11 +1,17 @@
 package services;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import dao.AuthDao;
+import dao.EventDao;
+import dao.PersonDao;
 import dao.UserDao;
+import generate.Generate;
 import model.AuthToken;
+import model.Event;
 import model.LoginResponse;
+import model.Person;
 import model.User;
 
 public class RegisterService {
@@ -45,20 +51,53 @@ public class RegisterService {
 			response.setErrorMessage("Could not find the recently created user");
 			return response;
 		}
+		
+		generateFamily(temp);
+		
 //		add the info to the AuthCodes table
 		AuthDao aDao = new AuthDao();
-		String authCode = "newAuthCode";
+		StringBuilder authCode = new StringBuilder(temp.getId() + temp.getUserName() + temp.getId());
+		authCode.setCharAt(authCode.length()/2, 'z');
+		authCode.insert(0, "ba");
+		authCode.insert(authCode.length(), "ab");
 		try {
-			aDao.addAuth(new AuthToken(temp.getUserName(), temp.getPassword(), authCode, temp.getId()));
+			aDao.addAuth(new AuthToken(temp.getUserName(), temp.getPassword(), authCode.toString(), temp.getId()));
 		} catch (SQLException e) {
 			System.err.println("Could not add the authToken: " + e.getMessage());
 			response.setErrorMessage("Could not add the authToken");
 			return response;
 		}
-		response.setAuthCode(authCode);
+		response.setAuthCode(authCode.toString());
 		response.setPersonId(temp.getId());
 		response.setUserName(temp.getUserName());
 		return response;
+	}
+	
+	public static void generateFamily(User user) {
+		Generate gen = new Generate();
+		PersonDao pDao = new PersonDao();
+		EventDao eDao = new EventDao();
+		ArrayList<Person> p = gen.generatePeople(4, user.getUserName());
+		ArrayList<Event> events = gen.getEvents();
+		try {
+			pDao.addPeople(p.toArray());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			pDao.addPerson(new Person(user.getPersonId(), user.getUserName(), user.getFirstName(), user.getLastName(),
+					user.getGender(), p.get(p.size() - 2).getId(), p.get(p.size() - 1).getId(), null));
+			// grabs the last two people in the ArrayList to be the parents of the user because those are the last ones created
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			eDao.addEvents(events.toArray());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@SuppressWarnings("serial")

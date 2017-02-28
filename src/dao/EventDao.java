@@ -129,8 +129,7 @@ public class EventDao extends Dao {
 
 		PreparedStatement prep = connection.prepareStatement("insert into Events values(?, ?, ?, ?, ?, ?, ?, ?, ?);");
 		// eventId INTEGER PRIMARY KEY, userName INTEGER, personId INTEGER, type
-		// TEXT, country TEXT, city TEXT, year TEXT, latitude TEXT, longitude
-		// TEXT
+		// TEXT, country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
 		prep.setString(1, event.getEventId());
 		prep.setString(2, event.getUserName());
 		prep.setString(3, event.getPersonId());
@@ -159,11 +158,43 @@ public class EventDao extends Dao {
 	/**
 	 * adds the specified events into the Event table
 	 * 
-	 * @param events
+	 * @param objects
 	 *            an array of Event objects
 	 * @return a String informing of the operation result
 	 */
-	public String addEvents(Event[] events) throws SQLException {
+	public String addEvents(Object[] objects) throws SQLException {
+		Connection connection = Dao.getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		
+		PreparedStatement prep = connection.prepareStatement("insert into Events values(?, ?, ?, ?, ?, ?, ?, ?, ?);");
+		for(int i = 0; i < objects.length; i++) {
+			// eventId INTEGER PRIMARY KEY, userName INTEGER, personId INTEGER, type
+			// TEXT, country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
+			Event event = (Event) objects[i];
+			prep.setString(1, event.getEventId());
+			prep.setString(2, event.getUserName());
+			prep.setString(3, event.getPersonId());
+			prep.setString(4, event.getType());
+			prep.setString(5, event.getCountry());
+			prep.setString(6, event.getCity());
+			prep.setString(7, event.getYear());
+			prep.setString(8, event.getLatitude());
+			prep.setString(9, event.getLongitude());
+			prep.addBatch();
+		}
+		
+        connection.setAutoCommit(false);
+        prep.executeBatch();
+        connection.setAutoCommit(true);
+        
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
 		return null;
 	}
 

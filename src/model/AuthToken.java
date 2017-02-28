@@ -68,4 +68,11 @@ public class AuthToken {
 		this.userId = userId;
 	}
 	
+	public boolean equals(AuthToken a) {
+		if(this.authCode.equals(a.getAuthCode()) && this.userName.equals(a.getUserName()) && this.password.equals(a.getPassword())) {
+			return true;
+		}
+		return false;
+	}
+	
 }
