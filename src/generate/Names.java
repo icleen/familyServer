@@ -8,16 +8,12 @@ public class Names {
 			"Iain", "Bob", "Anakin", "Lucas", "Brigham", "Joseph", "Obiwan", "Taylor", "Kyle", "Mace"
 	};
 	
-	private String[] maleLnames = {
-			"Lee", "Burt", "Skywalker", "Young", "Smitherson", "Kenobi", "Evert", "Whatcott", "Windu"
-	};
-	
 	private String[] femaleFnames = {
 			"Kelly", "Bobina", "Jyn", "Rey", "Leia", "Emma", "Obiwan", "Taylor", "Lacy", "Padme"
 	};
 	
-	private String[] femaleLnames = {
-			"Lee", "Burtina", "Skywalker", "Smitherson", "Amidala", "Smokall", "Whatcott", "Erso"
+	private String[] lastNames = {
+			"Lee", "Burt", "Skywalker", "Young", "Smitherson", "Kenobi", "Evert", "Whatcott", "Windu"
 	};
 	
 	public String maleFirstName() {

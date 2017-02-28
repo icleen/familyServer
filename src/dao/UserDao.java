@@ -35,6 +35,7 @@ public class UserDao extends Dao {
 			e.printStackTrace();
 		}
 		
+//		userId INTEGER PRIMARY KEY, personId INTEGER, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
 		String id = rs.getString(1);
 		String personId = rs.getString(2);
 		response = new User(id, personId);

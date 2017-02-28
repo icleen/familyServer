@@ -11,6 +11,8 @@ import model.Person;
 
 public class PersonDao extends Dao {
 	
+	private static int id = 0;
+	
 	/**
 	 * gives back the person specified by the id
 	 * @param personId a String containing the person's id
@@ -33,9 +35,9 @@ public class PersonDao extends Dao {
 			System.err.println("The attempt to get the person info failed!");
 			e.printStackTrace();
 		}
-//		personId INTEGER PRIMARY KEY, userId INTEGER, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
-		String userId = rs.getString(2);
-		response = new Person(personId, userId, null);
+//		personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
+		String userName = rs.getString(2);
+		response = new Person(personId, userName);
 		response.setFirstName(rs.getString(3));
 		response.setLastName(rs.getString(4));
 		response.setGender(rs.getString(5));
@@ -55,11 +57,11 @@ public class PersonDao extends Dao {
 	
 	/**
 	 * returns an array version of the people in the database connected to the current user
-	 * @param userId the id of the user you want the people connected to
+	 * @param userName the username of the user you want the people connected to
 	 * @return an array of Person objects
 	 * @throws SQLException
 	 */
-	public ArrayList<Person> getPeople(String userId) throws SQLException {
+	public ArrayList<Person> getPeople(String userName) throws SQLException {
 		Connection connection = getConnection();
 		if(connection == null) {
 			throw new NullPointerException();
@@ -69,19 +71,19 @@ public class PersonDao extends Dao {
         ArrayList<Person> people = null;
 		try {
 			statement = connection.createStatement();
-			rs = statement.executeQuery("select * from People where userId=\""+ userId + "\";");
+			rs = statement.executeQuery("select * from People where userName=\""+ userName + "\";");
 			
 		} catch (SQLException e) {
 			System.err.println("The attempt to get the person info failed!");
 			e.printStackTrace();
 		}
-//		personId INTEGER PRIMARY KEY, userId INTEGER, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
+//		personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
 		Person response = null;
 		String personId = null;
 		people = new ArrayList<>();
 		while(rs.next()) {
 			personId = rs.getString(1);
-			response = new Person(personId, userId, null);
+			response = new Person(personId, userName);
 			response.setFirstName(rs.getString(3));
 			response.setLastName(rs.getString(4));
 			response.setGender(rs.getString(5));
@@ -106,7 +108,7 @@ public class PersonDao extends Dao {
 	/**
 	 * adds a person's data into the database
 	 * @param person an object of type Person
-	 * @return a String object describing the result of the operation
+	 * @return a String object describing the result of the operation; if it went well it returns the new id
 	 */
 	public String addPerson(Person person) throws SQLException {
 		Connection connection = Dao.getConnection();
@@ -115,9 +117,9 @@ public class PersonDao extends Dao {
 		}
 		
 		PreparedStatement prep = connection.prepareStatement("insert into People values(?, ?, ?, ?, ?, ?, ?, ?);");
-//		personId INTEGER PRIMARY KEY, userId INTEGER, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
+//		personId INTEGER PRIMARY KEY, userName INTEGER, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
 		prep.setString(1, person.getId());
-		prep.setString(2, person.getUserId());
+		prep.setString(2, person.getUserName());
 		prep.setString(3, person.getFirstName());
 		prep.setString(4, person.getLastName());
 		prep.setString(5, person.getGender());

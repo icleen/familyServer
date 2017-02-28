@@ -44,7 +44,7 @@ public class Dao {
 //		add table People
 		try {
 			statem.executeUpdate("drop table if exists People"); 
-			statem.executeUpdate("create table People (personId INTEGER PRIMARY KEY, userId INTEGER, firstName TEXT, lastName TEXT, gender TEXT, "
+			statem.executeUpdate("create table People (personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, "
 					+ "father INTEGER, mother INTEGER, spouse INTEGER);");
 		} catch (SQLException e) {
 			System.out.println("Could not create table People: " + e.getMessage());
@@ -54,7 +54,7 @@ public class Dao {
 //		add table Events
 		try {
 			statem.executeUpdate("drop table if exists Events"); 
-			statem.executeUpdate("create table Events (eventId INTEGER PRIMARY KEY, userId INTEGER, personId INTEGER, type TEXT, "
+			statem.executeUpdate("create table Events (eventId INTEGER PRIMARY KEY, userName TEXT, personId INTEGER, type TEXT, "
 					+ "country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT);");
 		} catch (SQLException e) {
 			System.out.println("Could not create table Events: " + e.getMessage());

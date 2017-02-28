@@ -3,7 +3,7 @@ package model;
 public class Person {
 
 	protected final String id;
-	protected final String userId;
+//	protected final String userId;
 	protected String userName;
 	protected String firstName;
 	protected String lastName;
@@ -13,24 +13,24 @@ public class Person {
 	protected String mother;
 	protected String spouse;
 	
-	public Person(String id, String userId, String userName) {
+	public Person(String id, String userName) {
 		this.id = id;
-		this.userId = userId;
+//		this.userId = userId;
 		this.userName = userName;
 	}
 	
-	public Person(String id, String userId, String userName, String fName, String lName, String gender) {
+	public Person(String id, String userName, String fName, String lName, String gender) {
 		this.id = id;
-		this.userId = userId;
+//		this.userId = userId;
 		this.userName = userName;
 		this.firstName = fName;
 		this.lastName = lName;
 		this.gender = gender;
 	}
 	
-	public Person(String id, String userId, String userName, String fName, String lName, String gender, String father, String mother, String spouse) {
+	public Person(String id, String userName, String fName, String lName, String gender, String father, String mother, String spouse) {
 		this.id = id;
-		this.userId = userId;
+//		this.userId = userId;
 		this.userName = userName;
 		this.firstName = fName;
 		this.lastName = lName;
@@ -92,9 +92,9 @@ public class Person {
 		return id;
 	}
 
-	public String getUserId() {
-		return userId;
-	}
+//	public String getUserId() {
+//		return userId;
+//	}
 	
 	public void setUserName(String userName) {
 		this.userName = userName;

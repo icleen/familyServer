@@ -3,7 +3,7 @@ package model;
 public class Event {
 	
 	private final String eventId;
-	private final String userId;
+//	private final String userId;
 	private String userName;
 	private final String personId;
 	
@@ -14,17 +14,17 @@ public class Event {
 	private String type;
 	private String year;
 	
-	public Event(String eventId, String userId, String userName, String personId) {
+	public Event(String eventId, String userName, String personId) {
 		this.eventId = eventId;
-		this.userId = userId;
+//		this.userId = userId;
 		this.userName = userName;
 		this.personId = personId;
 	}
 	
-	public Event(String eventId, String userId, String userName, String personId, String latitude, String longitude, 
+	public Event(String eventId, String userName, String personId, String latitude, String longitude, 
 			String country, String city, String type, String year) {
 		this.eventId = eventId;
-		this.userId = userId;
+//		this.userId = userId;
 		this.userName = userName;
 		this.personId = personId;
 		
@@ -87,9 +87,9 @@ public class Event {
 		return userName;
 	}
 
-	public String getUserId() {
-		return userId;
-	}
+//	public String getUserId() {
+//		return userId;
+//	}
 	
 	public String toString() {
 		StringBuilder output = new StringBuilder();

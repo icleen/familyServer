@@ -106,7 +106,11 @@ public class ClientCommunicator extends BaseClientCommunicator {
 	
 	public Object event(String eventId) {
 		Object response = null;
-		HttpURLConnection connection = openConnection(ServerCommunicator.EVENT_DESIGNATOR, HTTP_POST, authCode, false, "/" + eventId);
+		String header = null;
+		if(eventId != null) {
+			header = "/" + eventId;
+		}
+		HttpURLConnection connection = openConnection(ServerCommunicator.EVENT_DESIGNATOR, HTTP_POST, authCode, false, header);
 		if(connection == null) {
 			return null;
 		}
@@ -116,7 +120,11 @@ public class ClientCommunicator extends BaseClientCommunicator {
 	
 	public Object person(String personId) {
 		Object response = null;
-		HttpURLConnection connection = openConnection(ServerCommunicator.PERSON_DESIGNATOR, HTTP_POST, authCode, false, "/" + personId);
+		String header = null;
+		if(personId != null) {
+			header = "/" + personId;
+		}
+		HttpURLConnection connection = openConnection(ServerCommunicator.PERSON_DESIGNATOR, HTTP_POST, authCode, false, header);
 		if(connection == null) {
 			return null;
 		}
