@@ -4,6 +4,7 @@ public class Event {
 	
 	private final String eventId;
 	private final String userId;
+	private String userName;
 	private final String personId;
 	
 	private String latitude;
@@ -13,16 +14,18 @@ public class Event {
 	private String type;
 	private String year;
 	
-	public Event(String eventId, String userId, String personId) {
+	public Event(String eventId, String userId, String userName, String personId) {
 		this.eventId = eventId;
 		this.userId = userId;
+		this.userName = userName;
 		this.personId = personId;
 	}
 	
-	public Event(String eventId, String userId, String personId, String latitude, String longitude, 
+	public Event(String eventId, String userId, String userName, String personId, String latitude, String longitude, 
 			String country, String city, String type, String year) {
 		this.eventId = eventId;
 		this.userId = userId;
+		this.userName = userName;
 		this.personId = personId;
 		
 		this.latitude = latitude;
@@ -75,6 +78,14 @@ public class Event {
 	public String getEventId() {
 		return eventId;
 	}
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
 
 	public String getUserId() {
 		return userId;
@@ -83,10 +94,15 @@ public class Event {
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		
-		output.append("Id: " + this.eventId);
-		output.append(" Descendant: " + this.userId);
-		output.append(" Person: " + this.personId);
-		output.append(" Type: " + this.type);
+		output.append("descendant: " + this.userName + "\",\n");
+		output.append("eventId:\"" + this.eventId + "\",\n");
+		output.append("personId:\"" + this.personId + "\",\n");
+		output.append("lattitude:\"" + this.latitude + "\",\n");
+		output.append("longitude:\"" + this.longitude + "\",\n");
+		output.append("country:\"" + this.country + "\",\n");
+		output.append("city:\"" + this.city + "\",\n");
+		output.append("eventType:\"" + this.type + "\",\n");
+		output.append("year:\"" + this.year + "\",\n");
 		
 		return output.toString();
 	}

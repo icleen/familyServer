@@ -36,7 +36,7 @@ public class EventDao extends Dao {
 //		eventId INTEGER PRIMARY KEY, userId INTEGER, personId INTEGER, type TEXT, country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
 		String userId = rs.getString(2);
 		String personId = rs.getString(3);
-		response = new Event(eventId, userId, personId);
+		response = new Event(eventId, userId, null, personId);
 		response.setType(rs.getString(4));
 		response.setCountry(rs.getString(5));
 		response.setCity(rs.getString(6));
@@ -84,7 +84,7 @@ public class EventDao extends Dao {
 		while(rs.next()) {
 			eventId = rs.getString(1);
 			personId = rs.getString(3);
-			response = new Event(eventId, userId, personId);
+			response = new Event(eventId, userId, null, personId);
 			response.setType(rs.getString(4));
 			response.setCountry(rs.getString(5));
 			response.setCity(rs.getString(6));

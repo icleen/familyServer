@@ -35,7 +35,7 @@ public class PersonDao extends Dao {
 		}
 //		personId INTEGER PRIMARY KEY, userId INTEGER, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
 		String userId = rs.getString(2);
-		response = new Person(personId, userId);
+		response = new Person(personId, userId, null);
 		response.setFirstName(rs.getString(3));
 		response.setLastName(rs.getString(4));
 		response.setGender(rs.getString(5));
@@ -81,7 +81,7 @@ public class PersonDao extends Dao {
 		people = new ArrayList<>();
 		while(rs.next()) {
 			personId = rs.getString(1);
-			response = new Person(personId, userId);
+			response = new Person(personId, userId, null);
 			response.setFirstName(rs.getString(3));
 			response.setLastName(rs.getString(4));
 			response.setGender(rs.getString(5));

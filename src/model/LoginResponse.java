@@ -51,11 +51,15 @@ public class LoginResponse {
 	
 	public String toString() {
 		StringBuilder output = new StringBuilder();
+		output.append("{\n");
 		if(this.errorMessage != null) {
-			output.append(errorMessage);
+			output.append("message:\"" + errorMessage + "\"\n");
 		}else {
-			output.append(authCode + ", " + userName + ", " + personId);
+			output.append("authToken:\"" + authCode + "\",\n");
+			output.append("userName:\"" + userName + "\"\n");
+			output.append("persondId:\"" + personId + "\"\n");
 		}
+		output.append("}");
 		return output.toString();
 	}
 

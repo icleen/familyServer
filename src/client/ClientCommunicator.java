@@ -76,10 +76,14 @@ public class ClientCommunicator extends BaseClientCommunicator {
 	}
 	
 	public Object fill(String userName, String generations) {
-		String[] keys = { USERNAME_KEY, GENERATIONS_KEY };
-		String[] values = { userName, generations };
 		Object response = null;
-		HttpURLConnection connection = openConnection(ServerCommunicator.FILL_DESIGNATOR, HTTP_POST, authCode, false, keys, values);
+		String header = null;
+		if(generations == null) {
+			header = "/" + userName;
+		}else {
+			header = "/" + userName + "/" + generations;
+		}
+		HttpURLConnection connection = openConnection(ServerCommunicator.FILL_DESIGNATOR, HTTP_POST, authCode, false, header);
 		if(connection == null) {
 			return null;
 		}
@@ -101,10 +105,8 @@ public class ClientCommunicator extends BaseClientCommunicator {
 	}
 	
 	public Object event(String eventId) {
-		String[] keys = { EVENTS_KEY };
-		String[] values = { eventId };
 		Object response = null;
-		HttpURLConnection connection = openConnection(ServerCommunicator.EVENT_DESIGNATOR, HTTP_POST, authCode, false, keys, values);
+		HttpURLConnection connection = openConnection(ServerCommunicator.EVENT_DESIGNATOR, HTTP_POST, authCode, false, "/" + eventId);
 		if(connection == null) {
 			return null;
 		}
@@ -113,10 +115,8 @@ public class ClientCommunicator extends BaseClientCommunicator {
 	}
 	
 	public Object person(String personId) {
-		String[] keys = { PERSONS_KEY };
-		String[] values = { personId };
 		Object response = null;
-		HttpURLConnection connection = openConnection(ServerCommunicator.PERSON_DESIGNATOR, HTTP_POST, authCode, false, keys, values);
+		HttpURLConnection connection = openConnection(ServerCommunicator.PERSON_DESIGNATOR, HTTP_POST, authCode, false, "/" + personId);
 		if(connection == null) {
 			return null;
 		}
@@ -130,21 +130,15 @@ public class ClientCommunicator extends BaseClientCommunicator {
 												String action,
 												String authCode,
 												boolean sendingToServer,
-												String[] keys,
-												String[] values)
+												String header)
 	{
 		HttpURLConnection result = null;
 		try {
-			URL url = new URL(URL_PREFIX + context);
+			URL url = new URL(URL_PREFIX + context + header);
 			result = (HttpURLConnection) url.openConnection();
 			result.setRequestMethod(action);
 			result.setDoOutput(sendingToServer);
 			result.setRequestProperty(AUTHORIZATION_KEY, authCode);
-			
-			assert(keys.length == values.length);
-			for(int i = 0; i < keys.length; i++) {
-				result.addRequestProperty(keys[i], values[i]);
-			}
 			
 			result.connect();
 

@@ -2,7 +2,7 @@ package model;
 
 public class User {
 	
-	private final int DefaultGenDistance = 4;
+//	private final int DefaultGenDistance = 4;
 	private final String id;
 	private final String personId;
 	
@@ -102,12 +102,15 @@ public class User {
 	
 	public String toString() {
 		StringBuilder output = new StringBuilder();
-		output.append(userName + ", ");
-		output.append(password + ", ");
-		output.append(email + ", ");
-		output.append(firstName + ", ");
-		output.append(lastName + ", ");
-		output.append(gender);
+		
+		output.append("userId:\"" + this.id + "\",\n");
+		output.append("userName: " + this.userName + "\",\n");
+		output.append("password:\"" + this.password + "\",\n");
+		output.append("email:\"" + this.email + "\",\n");
+		output.append("firstName:\"" + this.firstName + "\",\n");
+		output.append("lastName:\"" + this.lastName + "\",\n");
+		output.append("gender:\"" + this.gender + "\",\n");
+		
 		return output.toString();
 	}
 

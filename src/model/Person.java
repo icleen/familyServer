@@ -4,6 +4,7 @@ public class Person {
 
 	protected final String id;
 	protected final String userId;
+	protected String userName;
 	protected String firstName;
 	protected String lastName;
 	protected String gender;
@@ -12,22 +13,25 @@ public class Person {
 	protected String mother;
 	protected String spouse;
 	
-	public Person(String id, String userId) {
+	public Person(String id, String userId, String userName) {
 		this.id = id;
 		this.userId = userId;
+		this.userName = userName;
 	}
 	
-	public Person(String id, String userId, String fName, String lName, String gender) {
+	public Person(String id, String userId, String userName, String fName, String lName, String gender) {
 		this.id = id;
 		this.userId = userId;
+		this.userName = userName;
 		this.firstName = fName;
 		this.lastName = lName;
 		this.gender = gender;
 	}
 	
-	public Person(String id, String userId, String fName, String lName, String gender, String father, String mother, String spouse) {
+	public Person(String id, String userId, String userName, String fName, String lName, String gender, String father, String mother, String spouse) {
 		this.id = id;
 		this.userId = userId;
+		this.userName = userName;
 		this.firstName = fName;
 		this.lastName = lName;
 		this.gender = gender;
@@ -91,13 +95,26 @@ public class Person {
 	public String getUserId() {
 		return userId;
 	}
-
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+	
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		
-		output.append("Descendant: " + this.userId);
-		output.append(" Name: " + this.firstName + " " + this.lastName);
-		output.append(" Gender: " + this.gender);
+		output.append("descendant: " + this.userName + "\",\n");
+		output.append("personId:\"" + this.id + "\",\n");
+		output.append("firstName:\"" + this.firstName + "\",\n");
+		output.append("lastName:\"" + this.lastName + "\",\n");
+		output.append("gender:\"" + this.gender + "\",\n");
+		output.append("father:\"" + this.father + "\",\n");
+		output.append("mother:\"" + this.mother + "\",\n");
+		output.append("spouse:\"" + this.spouse + "\",\n");
 		
 		return output.toString();
 	}

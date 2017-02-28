@@ -15,8 +15,7 @@ public class Test {
 //		serverTest.registerLoginTest();
 		
 		DaoTest dTest = new DaoTest();
-		dTest.userTest();
-		dTest.authTest();
+		dTest.combinedTest();
 		
 		System.out.println("----End of tests----");
 		

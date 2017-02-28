@@ -138,9 +138,9 @@ public class DaoTest {
 	public void personTest() {
 		PersonDao pDao = new PersonDao();
 		
-		Person person = new Person("1", "1", "burtina", "lambert", "female");
+		Person person = new Person("1", "1", "iclee141", "burtina", "lambert", "female");
 		person.setSpouse("2");
-		Person person2 = new Person("2", "1", "bob", "lambert", "male");
+		Person person2 = new Person("2", "1", "iclee141", "bob", "lambert", "male");
 		person2.setSpouse("1");
 		
 		try {
@@ -200,8 +200,8 @@ public class DaoTest {
 	
 	public void eventTest() {
 		EventDao eDao = new EventDao();
-		Event birth = new Event(null, "1", "2");
-		Event death = new Event(null, "1", "1");
+		Event birth = new Event(null, "1", "iclee141", "2");
+		Event death = new Event(null, "1", "iclee141", "1");
 		try {
 			eDao.addEvent(birth);
 			eDao.addEvent(death);
