@@ -55,21 +55,27 @@ public class RegisterService {
 		generateFamily(temp);
 		
 //		add the info to the AuthCodes table
-		AuthDao aDao = new AuthDao();
-		StringBuilder authCode = new StringBuilder(temp.getId() + temp.getUserName() + temp.getId());
-		authCode.setCharAt(authCode.length()/2, 'z');
-		authCode.insert(0, "ba");
-		authCode.insert(authCode.length(), "ab");
 		try {
-			aDao.addAuth(new AuthToken(temp.getUserName(), temp.getPassword(), authCode.toString(), temp.getId()));
+			response = generateAuthCode(temp);
 		} catch (SQLException e) {
 			System.err.println("Could not add the authToken: " + e.getMessage());
 			response.setErrorMessage("Could not add the authToken");
 			return response;
 		}
+		return response;
+	}
+	
+	public static LoginResponse generateAuthCode(User user) throws SQLException {
+		LoginResponse response = new LoginResponse();
+		AuthDao aDao = new AuthDao();
+		StringBuilder authCode = new StringBuilder(user.getId() + user.getUserName() + user.getId());
+		authCode.setCharAt(authCode.length()/2, 'z');
+		authCode.insert(0, "ba");
+		authCode.insert(authCode.length(), "ab");
+		aDao.addAuth(new AuthToken(user.getUserName(), user.getPassword(), authCode.toString(), user.getId()));
 		response.setAuthCode(authCode.toString());
-		response.setPersonId(temp.getId());
-		response.setUserName(temp.getUserName());
+		response.setPersonId(user.getId());
+		response.setUserName(user.getUserName());
 		return response;
 	}
 	

@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import model.Event;
+import model.LoadRequest;
 import model.LoginRequest;
 import model.LoginResponse;
 import model.Person;
@@ -82,11 +83,12 @@ public class ClientCommunicator extends BaseClientCommunicator {
 	
 	public String load(User[] users, Person[] people, Event[] events) {
 		Object response = null;
+		LoadRequest request = new LoadRequest(users, people, events);
 		HttpURLConnection connection = openConnection(ServerCommunicator.LOAD_DESIGNATOR, HTTP_POST, authCode, true);
 		if(connection == null) {
 			return null;
 		}
-		sendToServer(connection, users);
+		sendToServer(connection, request);
 		response = getResponse(connection, String.class);
 		return (String) response;
 	}

@@ -3,12 +3,10 @@ package services;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dao.AuthDao;
 import dao.EventDao;
 import dao.PersonDao;
 import dao.UserDao;
 import generate.Generate;
-import model.AuthToken;
 import model.Event;
 import model.Person;
 import model.User;
