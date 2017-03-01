@@ -47,13 +47,13 @@ public class DaoTest {
 		User feedback = null;
 		User feedback2 = null;
 		try {
-			feedback = uDao.getUser(me.getUserName());
+			feedback = uDao.getUser(me.getusername());
 		} catch (SQLException e) {
 			System.err.println("couldn't find the user; the user didn't exist");
 			e.printStackTrace();
 		}
 		try {
-			feedback2 = uDao.getUser(parker.getUserName());
+			feedback2 = uDao.getUser(parker.getusername());
 		} catch (SQLException e) {
 			System.err.println("couldn't find the user; the user didn't exist");
 			e.printStackTrace();

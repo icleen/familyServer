@@ -34,9 +34,9 @@ public class EventDao extends Dao {
 		} catch (SQLException e) {
 			System.err.println("The attempt to get the user info failed!");
 			e.printStackTrace();
-		}
-		// eventId TEXT, userName TEXT, personId INTEGER, type
-		// TEXT, country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
+		}		
+		// eventId INTEGER PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
+		// country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
 		String userName = rs.getString(2);
 		String personId = rs.getString(3);
 		response = new Event(eventId, userName, personId);
@@ -81,7 +81,7 @@ public class EventDao extends Dao {
 			System.err.println("The attempt to get the user info failed!");
 			e.printStackTrace();
 		}
-		// eventId TEXT, userName TEXT, personId TEXT, type TEXT, 
+		// eventId INTEGER PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
 		// country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
 		String eventId = null;
 		String personId = null;
@@ -126,7 +126,7 @@ public class EventDao extends Dao {
 		}
 
 		PreparedStatement prep = connection.prepareStatement("insert into Events values(?, ?, ?, ?, ?, ?, ?, ?, ?);");
-		// eventId TEXT, userName TEXT, personId TEXT, type TEXT, 
+		// eventId INTEGER PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
 		// country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
 		prep.setString(1, event.getEventId());
 		prep.setString(2, event.getUserName());
@@ -168,7 +168,7 @@ public class EventDao extends Dao {
 		
 		PreparedStatement prep = connection.prepareStatement("insert into Events values(?, ?, ?, ?, ?, ?, ?, ?, ?);");
 		for(int i = 0; i < objects.length; i++) {
-			// eventId TEXT, userName TEXT, personId TEXT, type TEXT, 
+			// eventId INTEGER PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
 			// country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
 			Event event = (Event) objects[i];
 			prep.setString(1, event.getEventId());

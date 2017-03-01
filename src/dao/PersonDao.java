@@ -77,7 +77,7 @@ public class PersonDao extends Dao {
 			System.err.println("The attempt to get the person info failed!");
 			e.printStackTrace();
 		}
-//		personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
+//		personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
 		Person response = null;
 		String personId = null;
 		people = new ArrayList<>();
@@ -117,11 +117,11 @@ public class PersonDao extends Dao {
 		}
 		
 		PreparedStatement prep = connection.prepareStatement("insert into People values(?, ?, ?, ?, ?, ?, ?, ?);");
-//		personId TEXT, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
+//		personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
 //		if(person.getId() != null) {
 //			prep.setInt(1, Integer.parseInt(person.getId()));
 //		}
-		prep.setString(1, person.getId());
+		prep.setInt( 1, Integer.parseInt(person.getId()) );
 		prep.setString(2, person.getUserName());
 		prep.setString(3, person.getFirstName());
 		prep.setString(4, person.getLastName());
@@ -158,9 +158,9 @@ public class PersonDao extends Dao {
 		
 		PreparedStatement prep = connection.prepareStatement("insert into People values(?, ?, ?, ?, ?, ?, ?, ?);");
 		for(int i = 0; i < objects.length; i++) {
-			//		personId INTEGER PRIMARY KEY, userName INTEGER, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
+//			personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
 			Person person = (Person) objects[i];
-			prep.setString(1, person.getId());
+			prep.setInt( 1, Integer.parseInt(person.getId()) );
 			prep.setString(2, person.getUserName());
 			prep.setString(3, person.getFirstName());
 			prep.setString(4, person.getLastName());

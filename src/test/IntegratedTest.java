@@ -60,7 +60,7 @@ public class IntegratedTest {
 		ClientCommunicator.SINGLETON.register(me);
 		
 		expected = new LoginResponse("ba12pazky12ab", "parky", "12");
-		result = ClientCommunicator.SINGLETON.login(new LoginRequest(parker.getUserName(), parker.getPassword()));
+		result = ClientCommunicator.SINGLETON.login(new LoginRequest(parker.getusername(), parker.getPassword()));
 		assertEquals(LoginResponse.class, result.getClass());
 		assertTrue(expected.equals(result));
 		LoginResponse r = (LoginResponse) result;
@@ -68,7 +68,7 @@ public class IntegratedTest {
 		System.out.println("result of login: " + result.toString());
 		
 		expected = new LoginResponse("ba10iclez14110ab", "iclee141", "10");
-		result = ClientCommunicator.SINGLETON.login(new LoginRequest(me.getUserName(), me.getPassword()));
+		result = ClientCommunicator.SINGLETON.login(new LoginRequest(me.getusername(), me.getPassword()));
 		assertEquals(LoginResponse.class, result.getClass());
 		assertTrue(expected.equals(result));
 		r = (LoginResponse) result;

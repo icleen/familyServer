@@ -52,7 +52,7 @@ public class ServerTest {
 		
 		System.out.println();
 		
-		result = ClientCommunicator.SINGLETON.login(new LoginRequest(parker.getUserName(), parker.getPassword()));
+		result = ClientCommunicator.SINGLETON.login(new LoginRequest(parker.getusername(), parker.getPassword()));
 		if(result.getClass() != LoginResponse.class) {
 			System.out.println("It isn't the right class?" + result.getClass());
 		}
@@ -60,7 +60,7 @@ public class ServerTest {
 		
 		System.out.println();
 		
-		result = ClientCommunicator.SINGLETON.login(new LoginRequest(me.getUserName(), me.getPassword()));
+		result = ClientCommunicator.SINGLETON.login(new LoginRequest(me.getusername(), me.getPassword()));
 		if(result.getClass() != LoginResponse.class) {
 			System.out.println("It isn't the right class?" + result.getClass());
 		}

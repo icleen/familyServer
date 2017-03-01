@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import model.Person;
 import model.User;
 
 public class UserDao extends Dao {
@@ -35,15 +34,15 @@ public class UserDao extends Dao {
 			e.printStackTrace();
 		}
 		
-//		userId INTEGER PRIMARY KEY, personId INTEGER, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
+//		userId INTEGER PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
 		String id = rs.getString(1);
 		String personId = rs.getString(2);
 		response = new User(id, personId);
-		response.setUserName(rs.getString(3));
+		response.setusername(rs.getString(3));
 		response.setPassword(rs.getString(4));
 		response.setEmail(rs.getString(5));
-		response.setFirstName(rs.getString(6));
-		response.setLastName(rs.getString(7));
+		response.setfirstname(rs.getString(6));
+		response.setlastname(rs.getString(7));
 		response.setGender(rs.getString(8));
 		
 		try {
@@ -77,7 +76,7 @@ public class UserDao extends Dao {
 			System.err.println("The attempt to get the user info failed!");
 			e.printStackTrace();
 		}
-//		userId INTEGER PRIMARY KEY, personId INTEGER, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
+//		userId INTEGER PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
 		User response = null;
 		String userId = null;
 		String personId = null;
@@ -86,11 +85,11 @@ public class UserDao extends Dao {
 			userId = rs.getString(1);
 			personId = rs.getString(2);
 			response = new User(personId, userId);
-			response.setUserName(rs.getString(3));
+			response.setusername(rs.getString(3));
 			response.setPassword(rs.getString(4));
 			response.setEmail(rs.getString(5));
-			response.setFirstName(rs.getString(6));
-			response.setLastName(rs.getString(7));
+			response.setfirstname(rs.getString(6));
+			response.setlastname(rs.getString(7));
 			response.setGender(rs.getString(8));
 			users.add(response);
 		}
@@ -120,14 +119,14 @@ public class UserDao extends Dao {
 		}
 		
 		PreparedStatement prep = connection.prepareStatement("insert into Users values(?, ?, ?, ?, ?, ?, ?, ?);");
-//		userId INTEGER PRIMARY KEY, personId INTEGER, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
-		prep.setString(1, user.getId());
+//		userId INTEGER PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
+		prep.setInt( 1, Integer.parseInt(user.getId()) );
 		prep.setString(2, user.getPersonId());
-		prep.setString(3, user.getUserName());
+		prep.setString(3, user.getusername());
 		prep.setString(4, user.getPassword());
 		prep.setString(5, user.getEmail());
-		prep.setString(6, user.getFirstName());
-		prep.setString(7, user.getLastName());
+		prep.setString(6, user.getfirstname());
+		prep.setString(7, user.getlastname());
 		prep.setString(8, user.getGender());
 		prep.addBatch();
 		
@@ -151,7 +150,37 @@ public class UserDao extends Dao {
 	 * @return a String telling how the operation went
 	 * @throws SQLException
 	 */
-	public String addUsers(User[] users) throws SQLException {
+	public String addUsers(Object[] objects) throws SQLException {
+		Connection connection = Dao.getConnection();
+		if(connection == null) {
+			throw new NullPointerException();
+		}
+		
+		PreparedStatement prep = connection.prepareStatement("insert into People values(?, ?, ?, ?, ?, ?, ?, ?);");
+		for(int i = 0; i < objects.length; i++) {
+			User user = (User) objects[i];
+//			userId INTEGER PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
+			prep.setInt( 1, Integer.parseInt(user.getId()) );
+			prep.setString(2, user.getPersonId());
+			prep.setString(3, user.getusername());
+			prep.setString(4, user.getPassword());
+			prep.setString(5, user.getEmail());
+			prep.setString(6, user.getfirstname());
+			prep.setString(7, user.getlastname());
+			prep.setString(8, user.getGender());
+			prep.addBatch();
+		}
+		
+        connection.setAutoCommit(false);
+        prep.executeBatch();
+        connection.setAutoCommit(true);
+        
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Couldn't close the connection!");
+			e.printStackTrace();
+		}
 		return null;
 	}
 	

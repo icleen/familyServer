@@ -26,7 +26,7 @@ public class ServerProxy {
 	 */
 	public LoginResponse userLogin(User user) {
 		LoginRequest lr = new LoginRequest();
-		lr.setUserName(user.getUserName());
+		lr.setUserName(user.getusername());
 		lr.setPassword(user.getPassword());
 		LoginResponse response = ClientCommunicator.SINGLETON.login(lr);
 		if(response.getErrorMessage() != null) {
@@ -50,7 +50,7 @@ public class ServerProxy {
 	 * @param generations the number of generations you want to add to this user
 	 */
 	public String fill(User user, int generations) {
-		String result = ClientCommunicator.SINGLETON.fill(user.getUserName(), "" + generations);
+		String result = ClientCommunicator.SINGLETON.fill(user.getusername(), "" + generations);
 		System.out.println(result);
 		return result;
 	}

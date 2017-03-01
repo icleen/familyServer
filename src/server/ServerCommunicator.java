@@ -22,8 +22,6 @@ public class ServerCommunicator {
 	
 	private HttpServer server;
 	
-	public static boolean sendingToBrowser = false;
-	
 	private HttpHandler registerHandler = new RegisterHandler();
 	private HttpHandler loginHandler = new LoginHandler();
 	private HttpHandler clearHandler = new ClearHandler();

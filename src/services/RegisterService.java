@@ -23,7 +23,7 @@ public class RegisterService {
 		UserDao uDao = new UserDao();
 		Boolean found = true;
 		try {
-			uDao.getUser(user.getUserName());
+			uDao.getUser(user.getusername());
 		} catch (SQLException e1) {
 //			System.out.println("User did not exist");
 			found = false;
@@ -44,7 +44,7 @@ public class RegisterService {
 //		get back the additional server info like the id
 		User temp = null;
 		try {
-			temp = uDao.getUser(user.getUserName());
+			temp = uDao.getUser(user.getusername());
 		} catch (SQLException e1) {
 			System.err.println("Could not find the recently created user! " + e1.getMessage());
 			e1.printStackTrace();
@@ -68,14 +68,14 @@ public class RegisterService {
 	public static LoginResponse generateAuthCode(User user) throws SQLException {
 		LoginResponse response = new LoginResponse();
 		AuthDao aDao = new AuthDao();
-		StringBuilder authCode = new StringBuilder(user.getId() + user.getUserName() + user.getId());
+		StringBuilder authCode = new StringBuilder(user.getId() + user.getusername() + user.getId());
 		authCode.setCharAt(authCode.length()/2, 'z');
 		authCode.insert(0, "ba");
 		authCode.insert(authCode.length(), "ab");
-		aDao.addAuth(new AuthToken(user.getUserName(), user.getPassword(), authCode.toString(), user.getId()));
+		aDao.addAuth(new AuthToken(user.getusername(), user.getPassword(), authCode.toString(), user.getId()));
 		response.setAuthCode(authCode.toString());
 		response.setPersonId(user.getId());
-		response.setUserName(user.getUserName());
+		response.setUserName(user.getusername());
 		return response;
 	}
 	
@@ -83,7 +83,7 @@ public class RegisterService {
 		Generate gen = new Generate();
 		PersonDao pDao = new PersonDao();
 		EventDao eDao = new EventDao();
-		ArrayList<Person> p = gen.generatePeople(4, user.getUserName());
+		ArrayList<Person> p = gen.generatePeople(4, user.getusername());
 		ArrayList<Event> events = gen.getEvents();
 		try {
 			pDao.addPeople(p.toArray());
@@ -91,7 +91,7 @@ public class RegisterService {
 			e.printStackTrace();
 		}
 		try {
-			pDao.addPerson(new Person(user.getPersonId(), user.getUserName(), user.getFirstName(), user.getLastName(),
+			pDao.addPerson(new Person(user.getPersonId(), user.getusername(), user.getfirstname(), user.getlastname(),
 					user.getGender(), p.get(p.size() - 2).getId(), p.get(p.size() - 1).getId(), null));
 			// grabs the last two people in the ArrayList to be the parents of the user because those are the last ones created
 		} catch (SQLException e) {

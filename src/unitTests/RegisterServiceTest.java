@@ -47,7 +47,7 @@ public class RegisterServiceTest {
 		PersonDao pDao = new PersonDao();
 		ArrayList<Person> peeps = null;
 		try {
-			peeps = pDao.getPeople(me.getUserName());
+			peeps = pDao.getPeople(me.getusername());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,7 +57,7 @@ public class RegisterServiceTest {
 		EventDao eDao = new EventDao();
 		ArrayList<Event> events = null;
 		try {
-			events = eDao.getEvents(me.getUserName());
+			events = eDao.getEvents(me.getusername());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

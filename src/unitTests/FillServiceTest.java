@@ -39,7 +39,7 @@ public class FillServiceTest {
 		EventDao eDao = new EventDao();
 		ArrayList<Event> events = null;
 		try {
-			peeps = pDao.getPeople(me.getUserName());
+			peeps = pDao.getPeople(me.getusername());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,7 +47,7 @@ public class FillServiceTest {
 //		2 + 2*2 + 2*2*2 + 2*2*2*2 = 2 + 4 + 8 + 16 = 30
 		assertEquals(31, peeps.size());
 		try {
-			events = eDao.getEvents(me.getUserName());
+			events = eDao.getEvents(me.getusername());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,7 +57,7 @@ public class FillServiceTest {
 		
 		System.out.println(FillService.serve(response.getAuthCode(), "5"));
 		try {
-			peeps = pDao.getPeople(me.getUserName());
+			peeps = pDao.getPeople(me.getusername());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class FillServiceTest {
 //		2 + 2*2 + 2*2*2 + 2*2*2*2 + 2*2*2*2*2 = 2 + 4 + 8 + 16 + 32 = 62
 		assertEquals(63, peeps.size());
 		try {
-			events = eDao.getEvents(me.getUserName());
+			events = eDao.getEvents(me.getusername());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,7 +84,7 @@ public class FillServiceTest {
 		EventDao eDao = new EventDao();
 		ArrayList<Event> events = null;
 		try {
-			peeps = pDao.getPeople(me.getUserName());
+			peeps = pDao.getPeople(me.getusername());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -92,7 +92,7 @@ public class FillServiceTest {
 //		2 + 2*2 + 2*2*2 + 2*2*2*2 = 2 + 4 + 8 + 16 = 30
 		assertEquals(31, peeps.size());
 		try {
-			events = eDao.getEvents(me.getUserName());
+			events = eDao.getEvents(me.getusername());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,7 +102,7 @@ public class FillServiceTest {
 		
 		System.out.println(FillService.serve(response.getAuthCode(), "3"));
 		try {
-			peeps = pDao.getPeople(me.getUserName());
+			peeps = pDao.getPeople(me.getusername());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,7 +110,7 @@ public class FillServiceTest {
 //		2 + 2*2 + 2*2*2 = 2 + 4 + 8 = 14
 		assertEquals(15, peeps.size());
 		try {
-			events = eDao.getEvents(me.getUserName());
+			events = eDao.getEvents(me.getusername());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

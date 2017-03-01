@@ -2,38 +2,37 @@ package model;
 
 public class User {
 	
-//	private final int DefaultGenDistance = 4;
-	private final String id;
-	private final String personId;
-	
-	private String userName;
+	private String username;
 	private String password;
 	private String email;
-	private String firstName;
-	private String lastName;
+	private String firstname;
+	private String lastname;
 	private String gender;
+	
+	private final String id;
+	private final String personId;
 	
 	public User(String id, String personId) {
 		this.id = id;
 		this.personId = personId;
 	}
 	
-	public User(String id, String personId, String userName, String password, String email) {
+	public User(String username, String password, String email, String id, String personId) {
 		this.id = id;
 		this.personId = personId;
-		this.userName = userName;
+		this.username = username;
 		this.password = password;
 		this.email = email;
 	}
 	
-	public User(String id, String personId, String userName, String password, String email, String firstName, String lastName, String gender) {
+	public User(String username, String password, String email, String firstname, String lastname, String gender, String id, String personId) {
 		this.id = id;
 		this.personId = personId;
-		this.userName = userName;
+		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.firstname = firstname;
+		this.lastname = lastname;
 		this.gender = gender;
 	}
 	
@@ -45,20 +44,20 @@ public class User {
 		return personId;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getfirstname() {
+		return firstname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setfirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getlastname() {
+		return lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setlastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getGender() {
@@ -92,25 +91,25 @@ public class User {
 		this.email = email;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getusername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setusername(String username) {
+		this.username = username;
 	}
 	
 	public String toString() {
 		StringBuilder output = new StringBuilder();
-		
-		output.append("userId:\"" + this.id + "\",\n");
-		output.append("userName: " + this.userName + "\",\n");
-		output.append("password:\"" + this.password + "\",\n");
-		output.append("email:\"" + this.email + "\",\n");
-		output.append("firstName:\"" + this.firstName + "\",\n");
-		output.append("lastName:\"" + this.lastName + "\",\n");
-		output.append("gender:\"" + this.gender + "\",\n");
-		
+		output.append("{\n");
+//		output.append("\tuserId:\"" + this.id + "\",\n");
+		output.append("\tusername: " + this.username + "\",\n");
+		output.append("\tpassword:\"" + this.password + "\",\n");
+		output.append("\temail:\"" + this.email + "\",\n");
+		output.append("\tfirstname:\"" + this.firstname + "\",\n");
+		output.append("\tlastname:\"" + this.lastname + "\",\n");
+		output.append("\tgender:\"" + this.gender + "\",\n");
+		output.append("}\n");
 		return output.toString();
 	}
 
