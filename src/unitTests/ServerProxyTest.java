@@ -1,13 +1,12 @@
 package unitTests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import client.ClientCommunicator;
 import client.ServerProxy;
 import model.Event;
 import model.LoginResponse;
@@ -101,7 +100,25 @@ public class ServerProxyTest {
 
 	@Test
 	public void testLoad() {
-		fail("Not yet implemented");
+		User[] users = {
+				new User("1", "1", "iclee141", "password", "icleen@my.com", "iain", "lee", "male")
+		};
+		Person[] people = {
+				new Person("1", "iclee141", "iain", "lee", "m", "10", "11", null), 
+				new Person("10", "iclee141", "bob", "lee", "m", null, null, "11"),
+				new Person("11", "iclee141", "bobina", "lee", "f", null, null, "10")
+		};
+		Event[] events = {
+				new Event("10", "iclee141", "10", "lat", "long", "country", "city", "birth", "1990"),
+				new Event("11", "iclee141", "10", "lat", "long", "country", "city", "death", null),
+				new Event("12", "iclee141", "11", "lat", "long", "country", "city", "birth", "1990"),
+				new Event("13", "iclee141", "11", "lat", "long", "country", "city", "death", null)
+		};
+		String response = ClientCommunicator.SINGLETON.load(users, people, events);
+		System.out.println(response);
+		String expected = "Successfully added " + users.length + " users, " + people.length 
+				+ " persons, and " + events.length + " events to the database.";
+		assertEquals(expected, response);
 	}
 
 	@Test
