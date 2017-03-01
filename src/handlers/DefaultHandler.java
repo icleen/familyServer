@@ -1,16 +1,12 @@
 package handlers;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Scanner;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -21,59 +17,53 @@ public class DefaultHandler implements HttpHandler {
 
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		ServerCommunicator.sendingToBrowser = true;
-		
 		URI uri = exchange.getRequestURI();
-		String path = uri.getPath();
-		System.out.println("Path: " + path);
+		String pathString = uri.getPath();
 		
-		String[] pathParts = path.split("/");
-		System.out.println("pathParts.length: " + pathParts.length);
-		for(int i = 0; i < pathParts.length; i++) {
-			System.out.println(pathParts[i]);
-		}
-		
-		if(pathParts.length == 0) {
-			OutputStream writer = exchange.getResponseBody();
-			writer.write( getBytesFromTextFile(new File(ServerCommunicator.HTTP_ROOT + index_html_location)) );
-
-			writer.close();
-		}else if(pathParts[1].equals("favicon.ico")) {
-			OutputStream writer = exchange.getResponseBody();
-			writer.write( getBytesFromNonTextFile(pathParts[0]) );
-
-			writer.close();
-		}
-	}
-	
-	private byte[] getBytesFromTextFile(File file) {
-//		read in from file through scanner and append to a StringBuilder and then return result.toString().toBytes();
-		StringBuilder result = new StringBuilder();
-		try {
-			Scanner scanner = new Scanner(new BufferedReader(new FileReader(file)));
-			while(scanner.hasNext()) {
-				result.append(scanner.nextLine());
+		String [] pathParts = pathString.split("/");
+		StringBuilder pathSegments = new StringBuilder();
+		for(int i = 1; i < pathParts.length; i++) {
+			pathSegments.append(pathParts[i]);
+			if(i < pathParts.length - 1) {
+				pathSegments.append(", ");
 			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		return result.toString().getBytes();
-	}
-	
-	private byte[] getBytesFromNonTextFile(String pathString) {
+		System.out.println("    PathString parts = " + pathSegments.toString());
+		
+		if(pathString.equals("/")) {
+			pathString = DEFAULT_PATH;
+		}
+		
+		int responseCode = 0;
+		int bodyIsEmptyCode = 0;
 		Path path = Paths.get(ServerCommunicator.HTTP_ROOT + pathString);
-//		read in from file through scanner and append to a StringBuilder and then return result.toString().toBytes();
 		byte[] result = new byte[0];
 		try {
 			result = Files.readAllBytes(path);
+			responseCode = HttpURLConnection.HTTP_OK;
+			bodyIsEmptyCode = 0;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				path = Paths.get(ServerCommunicator.HTTP_ROOT + LOC_404);
+				result = Files.readAllBytes(path);
+				responseCode = HttpURLConnection.HTTP_NOT_FOUND;
+				bodyIsEmptyCode = 0;
+				System.out.println("result = " + result);
+			} catch (IOException error404) {
+				bodyIsEmptyCode = -1;
+				responseCode = HttpURLConnection.HTTP_NOT_FOUND;
+			}
 		}
-		return result.toString().getBytes();
+		
+		//0 means something is coming back
+		exchange.sendResponseHeaders(responseCode, bodyIsEmptyCode);
+		
+		OutputStream os = exchange.getResponseBody();
+		os.write(result);
+		os.close();
 	}
 
-	public final String index_html_location = "index.html";
+	public final String DEFAULT_PATH = "/index.html";
+	public final String LOC_404 = "/404.html";
 	
 }

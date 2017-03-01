@@ -15,26 +15,19 @@ import model.User;
 
 public class FillService {
 	
-	public static String serve(String authCode, String gens) {
-		AuthDao aDao = new AuthDao();
-		AuthToken token = null;
-		try {
-			token = aDao.getAuthByCode(authCode);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return "Couldn't find the information matching the authCode";
-		}
+	public static String serve(String userName, String gens) {
+		
 		UserDao uDao = new UserDao();
-		User user = null;
 		PersonDao pDao = new PersonDao();
 		EventDao eDao = new EventDao();
+		User user = null;
+		Person userP = null;
 		try {
-			user = uDao.getUser(token.getUserName());
+			user = uDao.getUser(userName);
 		} catch (SQLException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		Person userP = null;
 		try {
 			userP = pDao.getPerson(user.getPersonId());
 		} catch (SQLException e2) {
@@ -43,15 +36,15 @@ public class FillService {
 		}
 		
 		Generate gen = new Generate();
-		ArrayList<Person> people = gen.generatePeople(Integer.parseInt(gens), token.getUserName());
+		ArrayList<Person> people = gen.generatePeople(Integer.parseInt(gens), userName);
 		ArrayList<Event> events = gen.getEvents();
 		
 		try {
-			pDao.delete(token.getUserName(), "People");
-			eDao.delete(token.getUserName(), "Events");
+			pDao.delete(userName, "People");
+			eDao.delete(userName, "Events");
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-			return "Couldn't delete the data associated with " + token.getUserName();
+			return "Couldn't delete the data associated with " + userName;
 		}
 		
 		try {
@@ -68,7 +61,7 @@ public class FillService {
 			return "Couldn't add the events";
 		}
 		
-		return "You filled " + token.getUserName() + " with " + gens + " generations";
+		return "You filled " + userName + " with " + gens + " generations";
 	}
 
 }

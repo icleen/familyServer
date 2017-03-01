@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import model.Event;
 import model.LoginRequest;
@@ -22,7 +21,10 @@ public class ClientCommunicator extends BaseClientCommunicator {
 	public static final String PERSONS_KEY = "person";
 	public static final String EVENTS_KEY = "event";
 	
-	public Object register(User toBeSent) {
+	private ClientCommunicator() {
+	}
+	
+	public LoginResponse register(User toBeSent) {
 		Object response = null;
 		HttpURLConnection connection = openConnection(ServerCommunicator.REGISTER_DESIGNATOR, HTTP_POST, authCode, true);
 		if(connection == null) {
@@ -34,10 +36,10 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		if(temp.getAuthCode() != null) {
 			this.authCode = temp.getAuthCode();
 		}
-		return response;
+		return temp;
 	}
 	
-	public Object login(LoginRequest toBeSent) {
+	public LoginResponse login(LoginRequest toBeSent) {
 		Object response = null;
 		HttpURLConnection connection = openConnection(ServerCommunicator.LOGIN_DESIGNATOR, HTTP_POST, authCode, true);
 		if(connection == null) {
@@ -49,20 +51,20 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		if(temp.getAuthCode() != null) {
 			this.authCode = temp.getAuthCode();
 		}
-		return response;
+		return temp;
 	}
 	
-	public Object clear() {
+	public String clear() {
 		Object response = null;
 		HttpURLConnection connection = openConnection(ServerCommunicator.CLEAR_DESIGNATOR, HTTP_POST, authCode, false);
 		if(connection == null) {
 			return null;
 		}
 		response = getResponse(connection, String.class);
-		return response;
+		return (String) response;
 	}
 	
-	public Object fill(String userName, String generations) {
+	public String fill(String userName, String generations) {
 		Object response = null;
 		String header = null;
 		if(generations == null) {
@@ -70,17 +72,15 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		}else {
 			header = "/" + userName + "/" + generations;
 		}
-		HttpURLConnection connection = openConnection(ServerCommunicator.FILL_DESIGNATOR, HTTP_POST, authCode, false, header);
+		HttpURLConnection connection = openConnection(ServerCommunicator.FILL_DESIGNATOR, HTTP_POST, null, false, header);
 		if(connection == null) {
 			return null;
 		}
 		response = getResponse(connection, String.class);
-		userName = null;
-		generations = null;
-		return response;
+		return (String) response;
 	}
 	
-	public Object load(User[] users, Person[] people, Event[] events) {
+	public String load(User[] users, Person[] people, Event[] events) {
 		Object response = null;
 		HttpURLConnection connection = openConnection(ServerCommunicator.LOAD_DESIGNATOR, HTTP_POST, authCode, true);
 		if(connection == null) {
@@ -88,7 +88,7 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		}
 		sendToServer(connection, users);
 		response = getResponse(connection, String.class);
-		return response;
+		return (String) response;
 	}
 	
 	public Object event(String eventId) {

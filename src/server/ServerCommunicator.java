@@ -10,11 +10,9 @@ import handlers.ClearHandler;
 import handlers.DefaultHandler;
 import handlers.EventHandler;
 import handlers.FillHandler;
-import handlers.HelloWorldHandler;
 import handlers.LoadHandler;
 import handlers.LoginHandler;
 import handlers.PersonHandler;
-import handlers.PrimitiveHandler;
 import handlers.RegisterHandler;
 
 public class ServerCommunicator {
@@ -26,8 +24,6 @@ public class ServerCommunicator {
 	
 	public static boolean sendingToBrowser = false;
 	
-	private HttpHandler helloHandler = new HelloWorldHandler();
-	private HttpHandler primitiveHandler = new PrimitiveHandler();
 	private HttpHandler registerHandler = new RegisterHandler();
 	private HttpHandler loginHandler = new LoginHandler();
 	private HttpHandler clearHandler = new ClearHandler();
@@ -37,20 +33,16 @@ public class ServerCommunicator {
 	private HttpHandler eventHandler = new EventHandler();
 	private HttpHandler defaultHandler = new DefaultHandler();
 	
-	public static final String HELLO_DESIGNATOR = "/hello";
-	public static final String PRIMITIVE_DESIGNATOR = "/primitive";
 	public static final String REGISTER_DESIGNATOR = "/user/register";
 	public static final String LOGIN_DESIGNATOR = "/user/login";
 	public static final String CLEAR_DESIGNATOR = "/clear";
 	public static final String FILL_DESIGNATOR = "/fill";
 	public static final String LOAD_DESIGNATOR = "/load";
-//	public static final String PERSONID_DESIGNATOR = "/person/*";
 	public static final String PERSON_DESIGNATOR = "/person";
-//	public static final String EVENTID_DESIGNATOR = "/event/*";
 	public static final String EVENT_DESIGNATOR = "/event";
 	public static final String DEFAULT_DESIGNATOR = "/";
 	
-	public static final String HTTP_ROOT = "http_root/familymapserver/data/HTML/";
+	public static final String HTTP_ROOT = "http_root/familymapserver/data/HTML";
 	
 	private ServerCommunicator() {
 	}
@@ -67,16 +59,12 @@ public class ServerCommunicator {
 		}
 		server.setExecutor(null); // use the default executor
 		
-		server.createContext(HELLO_DESIGNATOR, helloHandler);
-		server.createContext(PRIMITIVE_DESIGNATOR, primitiveHandler);
 		server.createContext(REGISTER_DESIGNATOR, registerHandler);
 		server.createContext(LOGIN_DESIGNATOR, this.loginHandler);
 		server.createContext(CLEAR_DESIGNATOR, this.clearHandler);
 		server.createContext(FILL_DESIGNATOR, this.fillHandler);
 		server.createContext(LOAD_DESIGNATOR, this.loadHandler);
-//		server.createContext(PERSONID_DESIGNATOR, this.personHandler);
 		server.createContext(PERSON_DESIGNATOR, this.personHandler);
-//		server.createContext(EVENTID_DESIGNATOR, this.eventHandler);
 		server.createContext(EVENT_DESIGNATOR, this.eventHandler);
 		server.createContext(DEFAULT_DESIGNATOR, this.defaultHandler);
 		
