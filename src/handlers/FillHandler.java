@@ -18,6 +18,7 @@ import services.FillService;
 public class FillHandler implements HttpHandler {
 	
 	private static Gson gson = new Gson();
+	private static String DEFAULT_GENERATIONS = "4";
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
@@ -31,10 +32,13 @@ public class FillHandler implements HttpHandler {
 		String[] pathParts = path.split("/");
 		String userName = null;
 		String gens = null;
-		if(pathParts.length == 4) {
+		if(pathParts.length == 3) {
+			userName = pathParts[2];
+			gens = DEFAULT_GENERATIONS;
+		}else if(pathParts.length == 4) {
 			userName = pathParts[2];
 			gens = pathParts[3];
-		}else if(pathParts.length > 3) {
+		}else if(pathParts.length > 4) {
 			throw new InvalidPathException(path, "The path had too many segments");
 		}
 		

@@ -7,6 +7,7 @@ import dao.AuthDao;
 import dao.PersonDao;
 import model.AuthToken;
 import model.Message;
+import model.ObjectResponse;
 import model.Person;
 
 public class PersonService {
@@ -51,7 +52,7 @@ public class PersonService {
 				String response = "Could not get the people";
 				return new Message(response);
 			}
-			return people;
+			return new ObjectResponse(people.toArray());
 		}
 		
 	}

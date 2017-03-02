@@ -45,6 +45,7 @@ public class RegisterService {
 		User temp = null;
 		try {
 			temp = uDao.getUser(user.getusername());
+			System.out.println(temp);
 		} catch (SQLException e1) {
 			System.err.println("Could not find the recently created user! " + e1.getMessage());
 			e1.printStackTrace();
@@ -52,8 +53,13 @@ public class RegisterService {
 			return response;
 		}
 		
-		generateFamily(temp);
-		
+		String id = generateFamily(temp);
+		user.setPersonId(id);
+		try {
+			uDao.insert("Users", user.getusername(), "personId", id);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 //		add the info to the AuthCodes table
 		try {
 			response = generateAuthCode(temp);
@@ -79,21 +85,25 @@ public class RegisterService {
 		return response;
 	}
 	
-	public static void generateFamily(User user) {
+	public static String generateFamily(User user) {
 		Generate gen = new Generate();
 		PersonDao pDao = new PersonDao();
 		EventDao eDao = new EventDao();
 		ArrayList<Person> p = gen.generatePeople(4, user.getusername());
 		ArrayList<Event> events = gen.getEvents();
+		String id = gen.nextId();
+		gen.updateID();
+		user.setPersonId(id);
+		// grabs the last two people in the ArrayList to be the parents of the user because those are the last ones created
+		Person userP = new Person(id, user.getusername(), user.getfirstname(), user.getlastname(),
+				user.getGender(), p.get(p.size() - 2).getId(), p.get(p.size() - 1).getId(), null);
 		try {
 			pDao.addPeople(p.toArray());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		try {
-			pDao.addPerson(new Person(user.getPersonId(), user.getusername(), user.getfirstname(), user.getlastname(),
-					user.getGender(), p.get(p.size() - 2).getId(), p.get(p.size() - 1).getId(), null));
-			// grabs the last two people in the ArrayList to be the parents of the user because those are the last ones created
+			pDao.addPerson(userP);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,6 +114,7 @@ public class RegisterService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return id;
 	}
 	
 	@SuppressWarnings("serial")

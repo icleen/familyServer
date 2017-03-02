@@ -91,14 +91,14 @@ public class Dao {
 	 * @return a String informing the user of how the operation went
 	 * @throws SQLException 
 	 */
-	public String insert(String table, String userId, String column, String change) throws SQLException {
+	public String insert(String table, String userName, String column, String change) throws SQLException {
 		Connection connection = Dao.getConnection();
 		if(connection == null) {
 			throw new NullPointerException();
 		}
 		
 		Statement state = connection.createStatement();
-		state.executeUpdate("update " + table + " set " + column + "='" + change + "' where userId=\"" + userId + "\";");
+		state.executeUpdate("update " + table + " set " + column + "='" + change + "' where userName=\"" + userName + "\";");
 //		"update Person set Id = '7', Name = 'Suzy' where Name = 'Susan';"
         
 		try {

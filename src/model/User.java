@@ -10,7 +10,7 @@ public class User {
 	private String gender;
 	
 	private final String id;
-	private final String personId;
+	private String personId;
 	
 	public User(String id, String personId) {
 		this.id = id;
@@ -42,6 +42,10 @@ public class User {
 
 	public String getPersonId() {
 		return personId;
+	}
+	
+	public void setPersonId(String personId) {
+		this.personId = personId;
 	}
 
 	public String getfirstname() {
@@ -102,14 +106,15 @@ public class User {
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		output.append("{\n");
-//		output.append("\tuserId:\"" + this.id + "\",\n");
+		output.append("\tuserId:\"" + this.id + "\",\n");
 		output.append("\tusername: " + this.username + "\",\n");
 		output.append("\tpassword:\"" + this.password + "\",\n");
 		output.append("\temail:\"" + this.email + "\",\n");
 		output.append("\tfirstname:\"" + this.firstname + "\",\n");
 		output.append("\tlastname:\"" + this.lastname + "\",\n");
 		output.append("\tgender:\"" + this.gender + "\",\n");
-		output.append("}\n");
+		output.append("\tpersonID:\"" + this.personId + "\",\n");
+		output.append("}");
 		return output.toString();
 	}
 

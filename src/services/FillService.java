@@ -24,10 +24,10 @@ public class FillService {
 		try {
 			user = uDao.getUser(userName);
 		} catch (SQLException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 		try {
+			System.out.println(user.getPersonId());
 			userP = pDao.getPerson(user.getPersonId());
 		} catch (SQLException e2) {
 			e2.printStackTrace();

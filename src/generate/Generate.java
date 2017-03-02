@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.Dao;
-import dao.EventDao;
 import model.Event;
 import model.Location;
 import model.Person;
@@ -62,13 +61,7 @@ public class Generate {
 //		PersonDao pDao = new PersonDao();
 		
 		recurse(0);
-		Dao dao = new Dao();
-		int[] temp = { id, eventId };
-		try {
-			dao.putId(temp);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		updateID();
 		return people;
 	}
 	
@@ -106,10 +99,20 @@ public class Generate {
 		return temp;
 	}
 	
-	private String nextId() {
+	public String nextId() {
 		String s = ("" + id++);
 //		System.out.println(s);
 		return s;
+	}
+	
+	public void updateID() {
+		Dao dao = new Dao();
+		int[] temp = { id, eventId };
+		try {
+			dao.putId(temp);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private String nextEventId() {
