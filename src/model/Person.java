@@ -5,13 +5,15 @@ public class Person {
 //	protected final String userId;
 	protected String descendant;
 	protected final String personID;
-	protected String firstName;
-	protected String lastName;
+	protected String firstname;
+	protected String lastname;
 	protected String gender;
 	
 	protected String father;
 	protected String mother;
 	protected String spouse;
+	
+	private String message;
 	
 	public Person(String personID, String descendant) {
 		this.personID = personID;
@@ -23,8 +25,8 @@ public class Person {
 		this.personID = personID;
 //		this.userId = userId;
 		this.descendant = descendant;
-		this.firstName = fName;
-		this.lastName = lName;
+		this.firstname = fName;
+		this.lastname = lName;
 		this.gender = gender;
 	}
 	
@@ -32,8 +34,8 @@ public class Person {
 		this.personID = personID;
 //		this.userId = userId;
 		this.descendant = descendant;
-		this.firstName = fName;
-		this.lastName = lName;
+		this.firstname = fName;
+		this.lastname = lName;
 		this.gender = gender;
 		this.father = father;
 		this.mother = mother;
@@ -41,19 +43,19 @@ public class Person {
 	}
 	
 	public String getFirstName() {
-		return firstName;
+		return firstname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstName(String firstname) {
+		this.firstname = firstname;
 	}
 
 	public String getLastName() {
-		return lastName;
+		return lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastName(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getGender() {
@@ -105,26 +107,37 @@ public class Person {
 	}
 	
 	public String toString() {
+		if(message != null) {
+			return message;
+		}
 		StringBuilder output = new StringBuilder();
 		output.append("{\n");
-		output.append("descendant: " + this.descendant + "\",\n");
-		output.append("personID:\"" + this.personID + "\",\n");
-		output.append("firstName:\"" + this.firstName + "\",\n");
-		output.append("lastName:\"" + this.lastName + "\",\n");
-		output.append("gender:\"" + this.gender + "\",\n");
-		output.append("father:\"" + this.father + "\",\n");
-		output.append("mother:\"" + this.mother + "\",\n");
-		output.append("spouse:\"" + this.spouse + "\"\n");
+		output.append("\tdescendant: " + this.descendant + "\",\n");
+		output.append("\tpersonID:\"" + this.personID + "\",\n");
+		output.append("\tfirstname:\"" + this.firstname + "\",\n");
+		output.append("\tlastname:\"" + this.lastname + "\",\n");
+		output.append("\tgender:\"" + this.gender + "\",\n");
+		output.append("\tfather:\"" + this.father + "\",\n");
+		output.append("\tmother:\"" + this.mother + "\",\n");
+		output.append("\tspouse:\"" + this.spouse + "\"\n");
 		output.append("}\n");
 		return output.toString();
 	}
 	
 	public boolean equals(Person other) {
-		if( this.personID.equals(other.getId()) && this.descendant.equals(other.getDescendant()) && this.firstName.equals(other.getFirstName()) 
-				&& this.lastName.equals(other.getLastName()) && this.gender.equals(other.getGender()) ) {
+		if( this.personID.equals(other.getId()) && this.descendant.equals(other.getDescendant()) && this.firstname.equals(other.getFirstName()) 
+				&& this.lastname.equals(other.getLastName()) && this.gender.equals(other.getGender()) ) {
 			return true;
 		}
 		return false;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }

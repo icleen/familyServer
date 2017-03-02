@@ -32,7 +32,7 @@ public class FillServiceTest {
 	@Test
 	public void testServeFiveGen() {
 		ClearService.serve();
-		User me = new User("1", "1", "iclee141", "bob", "icleen@my.com", "iain", "lee", "male");
+		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "1", "1");
 		LoginResponse response = RegisterService.register(me);
 		PersonDao pDao = new PersonDao();
 		ArrayList<Person> peeps = null;
@@ -55,7 +55,7 @@ public class FillServiceTest {
 //		30 persons * 4 events = 30 * 4 = 120
 		assertEquals(120, events.size());
 		
-		System.out.println(FillService.serve(response.getAuthCode(), "5"));
+		System.out.println(FillService.serve(me.getusername(), "5"));
 		try {
 			peeps = pDao.getPeople(me.getusername());
 		} catch (SQLException e) {
@@ -77,7 +77,7 @@ public class FillServiceTest {
 	@Test
 	public void testServeThreeGen() {
 		ClearService.serve();
-		User me = new User("1", "1", "iclee141", "bob", "icleen@my.com", "iain", "lee", "male");
+		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "1", "1");
 		LoginResponse response = RegisterService.register(me);
 		PersonDao pDao = new PersonDao();
 		ArrayList<Person> peeps = null;
@@ -100,7 +100,7 @@ public class FillServiceTest {
 //		30 persons * 4 events = 30 * 4 = 120
 		assertEquals(120, events.size());
 		
-		System.out.println(FillService.serve(response.getAuthCode(), "3"));
+		System.out.println(FillService.serve(me.getusername(), "3"));
 		try {
 			peeps = pDao.getPeople(me.getusername());
 		} catch (SQLException e) {

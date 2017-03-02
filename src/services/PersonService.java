@@ -7,7 +7,7 @@ import dao.AuthDao;
 import dao.PersonDao;
 import model.AuthToken;
 import model.Message;
-import model.ObjectResponse;
+import model.People;
 import model.Person;
 
 public class PersonService {
@@ -36,7 +36,7 @@ public class PersonService {
 				person = pDao.getPerson(id);
 			} catch (SQLException e) {
 //				e.printStackTrace();
-				String response = "Could not get the person";
+				String response = "Could not get the person; id did not exist";
 				return new Message(response);
 			}
 			
@@ -52,7 +52,7 @@ public class PersonService {
 				String response = "Could not get the people";
 				return new Message(response);
 			}
-			return new ObjectResponse(people.toArray());
+			return new People(people.toArray());
 		}
 		
 	}

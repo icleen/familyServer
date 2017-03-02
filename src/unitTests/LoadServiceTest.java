@@ -11,6 +11,7 @@ import model.LoadRequest;
 import model.Message;
 import model.Person;
 import model.User;
+import services.ClearService;
 import services.LoadService;
 
 public class LoadServiceTest {
@@ -25,25 +26,26 @@ public class LoadServiceTest {
 
 	@Test
 	public void testServe() {
+		ClearService.serve();
 		User[] users = {
-				new User("1", "1", "iclee141", "password", "icleen@my.com", "iain", "lee", "male")
+				new User("iclee141", "password", "icleen@my.com", "iain", "lee", "male", "1", "10")
 		};
 		Person[] people = {
-				new Person("1", "iclee141", "iain", "lee", "m", "10", "11", null), 
-				new Person("10", "iclee141", "bob", "lee", "m", null, null, "11"),
-				new Person("11", "iclee141", "bobina", "lee", "f", null, null, "10")
+				new Person("10", "iclee141", "iain", "lee", "m", "10", "11", null), 
+				new Person("20", "iclee141", "bob", "lee", "m", null, null, "11"),
+				new Person("21", "iclee141", "bobina", "lee", "f", null, null, "10")
 		};
 		Event[] events = {
-				new Event("10", "iclee141", "10", "lat", "long", "country", "city", "birth", "1990"),
-				new Event("11", "iclee141", "10", "lat", "long", "country", "city", "death", null),
-				new Event("12", "iclee141", "11", "lat", "long", "country", "city", "birth", "1990"),
-				new Event("13", "iclee141", "11", "lat", "long", "country", "city", "death", null)
+				new Event("30", "iclee141", "20", "lat", "long", "country", "city", "birth", "1990"),
+				new Event("31", "iclee141", "20", "lat", "long", "country", "city", "death", null),
+				new Event("32", "iclee141", "21", "lat", "long", "country", "city", "birth", "1990"),
+				new Event("33", "iclee141", "21", "lat", "long", "country", "city", "death", null)
 		};
 		LoadRequest request = new LoadRequest(users, people, events);
 		Message response = LoadService.serve(request);
 		System.out.println(response);
-		String expected = "Successfully added " + users.length + " users, " + people.length 
-				+ " persons, and " + events.length + " events to the database.";
+		String expected = "{\n\t\"message\":\"Successfully added " + users.length + " users, " + people.length 
+				+ " persons, and " + events.length + " events to the database.\"\n}";
 		assertEquals(expected, response.toString());
 	}
 

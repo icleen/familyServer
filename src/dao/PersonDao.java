@@ -163,6 +163,7 @@ public class PersonDao extends Dao {
 //			personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
 			Person person = (Person) objects[i];
 			if(person.getId() != null) {
+//				System.out.println(person.getId());
 				prep.setInt( 1, Integer.parseInt(person.getId()) );
 			}
 			prep.setString(2, person.getDescendant());

@@ -21,7 +21,7 @@ public class ClearHandler implements HttpHandler {
 		System.out.println("Starting clear handler");
 		
 		Message response = ClearService.serve();
-		System.out.println(response);
+//		System.out.println(response);
 		
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 		// 0 means the response body has an unknown amount of stuff in it

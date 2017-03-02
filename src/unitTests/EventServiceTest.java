@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
@@ -13,11 +12,11 @@ import org.junit.Test;
 import dao.EventDao;
 import model.Event;
 import model.LoginResponse;
-import model.Person;
+import model.Message;
+import model.ObjectResponse;
 import model.User;
 import services.ClearService;
 import services.EventService;
-import services.PersonService;
 import services.RegisterService;
 
 public class EventServiceTest {
@@ -33,7 +32,7 @@ public class EventServiceTest {
 	@Test
 	public void testServe() {
 		ClearService.serve();
-		User me = new User("1", "1", "iclee141", "bob", "icleen@my.com", "iain", "lee", "male");
+		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "1", "1");
 		LoginResponse response = RegisterService.register(me);
 		Event check = null;
 		Event original = new Event("10", "iclee141", "10", "lat", "long", "country", "city", "birth", "1990");
@@ -53,9 +52,11 @@ public class EventServiceTest {
 		assertEquals(original.getEventId(), check.getEventId());
 		System.out.print(check.toString());
 		
-		ArrayList<Event> listCheck = (ArrayList<Event>) EventService.serve(response.getAuthCode(), null);
+		Object listCheck = EventService.serve(response.getAuthCode(), null);
 		assertTrue(listCheck != null);
-		assertEquals(121, listCheck.size());
+		assertEquals(ObjectResponse.class, listCheck.getClass());
+		ObjectResponse or = (ObjectResponse) listCheck;
+		assertEquals(121, or.data.length);
 		
 		try {
 			check = eDao.getEvent("monkey");
@@ -65,15 +66,13 @@ public class EventServiceTest {
 		}
 		assertTrue(check == null);
 		
-		Object o = null;
+		listCheck = EventService.serve(response.getAuthCode(), "null");
+		assertEquals(Message.class, listCheck.getClass());
+		System.out.println(listCheck);
 		
-		o = EventService.serve(response.getAuthCode(), "null");
-		assertEquals(String.class, o.getClass());
-		System.out.println(o);
-		
-		o = EventService.serve("null", null);
-		assertEquals(String.class, o.getClass());
-		System.out.println(o);
+		listCheck = EventService.serve("null", null);
+		assertEquals(Message.class, listCheck.getClass());
+		System.out.println(listCheck);
 	}
 
 }

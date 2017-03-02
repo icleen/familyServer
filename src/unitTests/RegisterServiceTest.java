@@ -31,7 +31,7 @@ public class RegisterServiceTest {
 	@Test
 	public void testRegister() {
 		ClearService.serve();
-		User me = new User("1", "1", "iclee141", "bob", "icleen@my.com", "iain", "lee", "male");
+		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "1", "1");
 		LoginResponse response = RegisterService.register(me);
 		LoginResponse expected = new LoginResponse("ba1iclez1411ab", "iclee141", "1");
 		assertEquals(response.getUserName(), expected.getUserName());
@@ -42,7 +42,7 @@ public class RegisterServiceTest {
 	@Test
 	public void testGenerateFamily() {
 		ClearService.serve();
-		User me = new User("1", "1", "iclee141", "bob", "icleen@my.com", "iain", "lee", "male");
+		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "1", "1");
 		RegisterService.generateFamily(me);
 		PersonDao pDao = new PersonDao();
 		ArrayList<Person> peeps = null;

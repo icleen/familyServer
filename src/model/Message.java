@@ -19,7 +19,7 @@ public class Message {
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		output.append("{\n");
-		output.append("\t\"message\":" + message + "\n");
+		output.append("\t\"message\":\"" + message + "\"\n");
 		output.append("}");
 		return output.toString();
 	}

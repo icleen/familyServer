@@ -91,9 +91,12 @@ public class RegisterService {
 		EventDao eDao = new EventDao();
 		ArrayList<Person> p = gen.generatePeople(4, user.getusername());
 		ArrayList<Event> events = gen.getEvents();
-		String id = gen.nextId();
-		gen.updateID();
-		user.setPersonId(id);
+		String id = user.getPersonId();
+		if(user.getPersonId() == null) {
+			id = gen.nextId();
+			gen.updateID();
+			user.setPersonId(id);
+		}
 		// grabs the last two people in the ArrayList to be the parents of the user because those are the last ones created
 		Person userP = new Person(id, user.getusername(), user.getfirstname(), user.getlastname(),
 				user.getGender(), p.get(p.size() - 2).getId(), p.get(p.size() - 1).getId(), null);

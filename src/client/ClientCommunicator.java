@@ -6,9 +6,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import model.Event;
+import model.Events;
 import model.LoadRequest;
 import model.LoginRequest;
 import model.LoginResponse;
+import model.Message;
+import model.People;
 import model.Person;
 import model.User;
 import server.ServerCommunicator;
@@ -55,17 +58,17 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		return temp;
 	}
 	
-	public String clear() {
+	public Message clear() {
 		Object response = null;
 		HttpURLConnection connection = openConnection(ServerCommunicator.CLEAR_DESIGNATOR, HTTP_POST, authCode, false);
 		if(connection == null) {
 			return null;
 		}
-		response = getResponse(connection, String.class);
-		return (String) response;
+		response = getResponse(connection, Message.class);
+		return (Message) response;
 	}
 	
-	public String fill(String userName, String generations) {
+	public Message fill(String userName, String generations) {
 		Object response = null;
 		String header = null;
 		if(generations == null) {
@@ -77,11 +80,11 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		if(connection == null) {
 			return null;
 		}
-		response = getResponse(connection, String.class);
-		return (String) response;
+		response = getResponse(connection, Message.class);
+		return (Message) response;
 	}
 	
-	public String load(User[] users, Person[] people, Event[] events) {
+	public Message load(User[] users, Person[] people, Event[] events) {
 		Object response = null;
 		LoadRequest request = new LoadRequest(users, people, events);
 		HttpURLConnection connection = openConnection(ServerCommunicator.LOAD_DESIGNATOR, HTTP_POST, authCode, true);
@@ -89,8 +92,8 @@ public class ClientCommunicator extends BaseClientCommunicator {
 			return null;
 		}
 		sendToServer(connection, request);
-		response = getResponse(connection, String.class);
-		return (String) response;
+		response = getResponse(connection, Message.class);
+		return (Message) response;
 	}
 	
 	public Object event(String eventId) {
@@ -106,7 +109,8 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		if(eventId != null) {
 			response = getResponse(connection, Event.class);
 		}else {
-			response = getResponse(connection, Event[].class);
+			response = getResponse(connection, Events.class);
+			System.out.println(response);
 		}
 		
 		return response;
@@ -125,7 +129,7 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		if(personId != null) {
 			response = getResponse(connection, Person.class);
 		}else {
-			response = getResponse(connection, Person[].class);
+			response = getResponse(connection, People.class);
 		}
 		return response;
 	}

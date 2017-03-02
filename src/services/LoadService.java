@@ -34,22 +34,25 @@ public class LoadService {
 			uDao.addUsers(users);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.println("Could not add the users: " + e.getMessage());
-			return new Message("Could not add the users");
+			String err = "Could not add the users: " + e.getMessage();
+			System.err.println(err);
+			return new Message(err);
 		}
 		try {
 			pDao.addPeople(people);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.println("Could not add the persons: " + e.getMessage());
-			return new Message("Could not add the persons");
+			String err = "Could not add the persons: " + e.getMessage();
+			System.err.println(err);
+			return new Message(err);
 		}
 		try {
 			eDao.addEvents(events);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.println("Could not add the events: " + e.getMessage());
-			return new Message("Could not add the events");
+			String err = "Could not add the events: " + e.getMessage();
+			System.err.println(err);
+			return new Message(err);
 		}
 		
 		for(int i = 0; i < users.length; i++) {
@@ -57,8 +60,9 @@ public class LoadService {
 				RegisterService.generateAuthCode(users[i]);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				System.err.println("Could not add the authTokens: " + e.getMessage());
-				return new Message("Could not add the authTokens");
+				String err = "Could not add the authTokens: " + e.getMessage();
+				System.err.println(err);
+				return new Message(err);
 			}
 		}
 		String success = "Successfully added " + users.length + " users, " + people.length 

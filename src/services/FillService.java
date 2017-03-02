@@ -25,6 +25,8 @@ public class FillService {
 			user = uDao.getUser(userName);
 		} catch (SQLException e2) {
 			e2.printStackTrace();
+			String result = "Couldn't find the username " + userName;
+			return new Message(result);
 		}
 		try {
 			System.out.println(user.getPersonId());

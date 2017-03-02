@@ -1,9 +1,9 @@
 package unitTests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,10 +11,11 @@ import org.junit.Test;
 
 import dao.PersonDao;
 import model.LoginResponse;
+import model.Message;
+import model.People;
 import model.Person;
 import model.User;
 import services.ClearService;
-import services.EventService;
 import services.PersonService;
 import services.RegisterService;
 
@@ -31,11 +32,16 @@ public class PersonServiceTest {
 	@Test
 	public void testServe() {
 		ClearService.serve();
-		User me = new User("1", "1", "iclee141", "bob", "icleen@my.com", "iain", "lee", "male");
+		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "1", "10");
 		LoginResponse response = RegisterService.register(me);
-		Person check = (Person) PersonService.serve(response.getAuthCode(), "1010");
-		assertTrue(check != null);
-		Person bob = new Person("10", "iclee141", "bob", "lee", "m", null, null, null);
+		Person check = null;
+		Object result = PersonService.serve(response.getAuthCode(), "10");
+		if(result.getClass() == Message.class) {
+			System.out.println(result);
+		}
+		assertEquals(Person.class, result.getClass());
+		check = (Person) result;
+		Person bob = new Person("27", "iclee141", "bob", "lee", "m", null, null, null);
 		PersonDao pDao = new PersonDao();
 		try {
 			pDao.addPerson(bob);
@@ -52,9 +58,11 @@ public class PersonServiceTest {
 		assertEquals(bob.getId(), check.getId());
 		System.out.print(check.toString());
 		
-		ArrayList<Person> listCheck = (ArrayList<Person>) PersonService.serve(response.getAuthCode(), null);
+		Object listCheck = PersonService.serve(response.getAuthCode(), null);
 		assertTrue(listCheck != null);
-		assertEquals(32, listCheck.size());
+		assertEquals(People.class, listCheck.getClass());
+		People or = (People) listCheck;
+		assertEquals(32, or.data.length);
 		
 		try {
 			check = pDao.getPerson("monkey");
@@ -65,7 +73,7 @@ public class PersonServiceTest {
 		assertTrue(check == null);
 		
 		Object o = PersonService.serve(response.getAuthCode(), "null");
-		assertEquals(String.class, o.getClass());
+		assertEquals(Message.class, o.getClass());
 		System.out.println(o);
 	}
 

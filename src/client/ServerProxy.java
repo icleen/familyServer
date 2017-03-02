@@ -1,8 +1,11 @@
 package client;
 
 import model.Event;
+import model.Events;
 import model.LoginRequest;
 import model.LoginResponse;
+import model.Message;
+import model.People;
 import model.Person;
 import model.User;
 
@@ -39,9 +42,9 @@ public class ServerProxy {
 	 * deletes all data from the database
 	 */
 	public String clear() {
-		String result = ClientCommunicator.SINGLETON.clear();
+		Message result = ClientCommunicator.SINGLETON.clear();
 		System.out.println(result);
-		return result;
+		return result.toString();
 	}
 
 	/**
@@ -50,9 +53,9 @@ public class ServerProxy {
 	 * @param generations the number of generations you want to add to this user
 	 */
 	public String fill(User user, int generations) {
-		String result = ClientCommunicator.SINGLETON.fill(user.getusername(), "" + generations);
+		Message result = ClientCommunicator.SINGLETON.fill(user.getusername(), "" + generations);
 		System.out.println(result);
-		return result;
+		return result.toString();
 	}
 
 	/**
@@ -62,9 +65,9 @@ public class ServerProxy {
 	 * @param events an array of Event objects
 	 */
 	public String load(User[] users, Person[] people, Event[] events) {
-		String result = ClientCommunicator.SINGLETON.load(users, people, events);
+		Message result = ClientCommunicator.SINGLETON.load(users, people, events);
 		System.out.println(result);
-		return result;
+		return result.toString();
 	}
 
 	/**
@@ -73,12 +76,13 @@ public class ServerProxy {
 	 */
 	public Person[] getPeople() {
 		Object result = ClientCommunicator.SINGLETON.person(null);
-		if(result.getClass() == String.class) {
-			System.out.println(result);
+		assert(result.getClass() == People.class);
+		People temp = (People) result;
+		if(temp.message != null) {
+			System.out.println(temp);
 			return null;
 		}
-		assert(result.getClass() == Person[].class);
-		Person[] people = (Person[]) result;
+		Person[] people = temp.data;
 		return people;
 	}
 
@@ -89,12 +93,12 @@ public class ServerProxy {
 	 */
 	public Person getPerson(String id) {
 		Object result = ClientCommunicator.SINGLETON.person(id);
-		if(result.getClass() == String.class) {
-			System.out.println(result);
-			return null;
-		}
 		assert(result.getClass() == Person.class);
 		Person person = (Person) result;
+		if(person.getMessage() != null) {
+			System.out.println(person.getMessage());
+			return null;
+		}
 		return person;
 	}
 
@@ -104,12 +108,13 @@ public class ServerProxy {
 	 */
 	public Event[] getEvents() {
 		Object result = ClientCommunicator.SINGLETON.event(null);
-		if(result.getClass() == String.class) {
-			System.out.println(result);
+		assert(result.getClass() == Events.class);
+		Events temp = (Events) result;
+		if(temp.message != null) {
+			System.out.println(temp.message);
 			return null;
 		}
-		assert(result.getClass() == Event[].class);
-		Event[] events = (Event[]) result;
+		Event[] events = temp.data;
 		return events;
 	}
 
@@ -120,12 +125,12 @@ public class ServerProxy {
 	 */
 	public Event getEvent(String id) {
 		Object result = ClientCommunicator.SINGLETON.event(id);
-		if(result.getClass() == String.class) {
-			System.out.println(result);
-			return null;
-		}
 		assert(result.getClass() == Event.class);
 		Event event = (Event) result;
+		if(event.getMessage() != null) {
+			System.out.println(event.getMessage());
+			return null;
+		}
 		return event;
 	}
 

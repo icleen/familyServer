@@ -7,8 +7,8 @@ import dao.AuthDao;
 import dao.EventDao;
 import model.AuthToken;
 import model.Event;
+import model.Events;
 import model.Message;
-import model.ObjectResponse;
 
 public class EventService {
 	
@@ -52,7 +52,7 @@ public class EventService {
 				String response = "Could not get the events";
 				return new Message(response);
 			}
-			return new ObjectResponse(events.toArray());
+			return new Events(events.toArray());
 		}
 	}
 

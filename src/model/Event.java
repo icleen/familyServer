@@ -1,6 +1,6 @@
 package model;
 
-public class Event {
+public class Event extends Object {
 	
 	private String descendant;
 	private final String eventId;
@@ -12,6 +12,8 @@ public class Event {
 	private String city;
 	private String eventType;
 	private String year;
+	
+	private String message;
 	
 	public Event(String eventId, String descendant, String personId) {
 		this.eventId = eventId;
@@ -91,6 +93,9 @@ public class Event {
 //	}
 	
 	public String toString() {
+		if(message != null) {
+			return message;
+		}
 		StringBuilder output = new StringBuilder();
 		output.append("{\n");
 		output.append("descendant: " + this.descendant + "\",\n");
@@ -113,6 +118,14 @@ public class Event {
 			return true;
 		}
 		return false;
+	}
+	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
 }
