@@ -2,7 +2,7 @@ package model;
 
 public class AuthToken {
 	
-	private String userName;
+	private String username;
 	private String password;
 	private String authCode;
 	private String userId;
@@ -10,25 +10,25 @@ public class AuthToken {
 	public AuthToken() {
 	}
 	
-	public AuthToken(String userName, String password, String authCode, String userId) {
-		this.userName = userName;
+	public AuthToken(String username, String password, String authCode, String userId) {
+		this.username = username;
 		this.password = password;
 		this.authCode = authCode;
 		this.userId = userId;
 	}
 	
 	/**
-	 * @return a String with the userName
+	 * @return a String with the username
 	 */
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 	/**
-	 * set the userName
-	 * @param userName a String witht the userName
+	 * set the username
+	 * @param username a String witht the username
 	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserName(String username) {
+		this.username = username;
 	}
 	
 	/**
@@ -69,7 +69,7 @@ public class AuthToken {
 	}
 	
 	public boolean equals(AuthToken a) {
-		if(this.authCode.equals(a.getAuthCode()) && this.userName.equals(a.getUserName()) && this.password.equals(a.getPassword())) {
+		if(this.authCode.equals(a.getAuthCode()) && this.username.equals(a.getUserName()) && this.password.equals(a.getPassword())) {
 			return true;
 		}
 		return false;

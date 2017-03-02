@@ -1,6 +1,6 @@
 package unitTests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import model.Event;
 import model.LoadRequest;
+import model.Message;
 import model.Person;
 import model.User;
 import services.LoadService;
@@ -39,11 +40,11 @@ public class LoadServiceTest {
 				new Event("13", "iclee141", "11", "lat", "long", "country", "city", "death", null)
 		};
 		LoadRequest request = new LoadRequest(users, people, events);
-		String response = LoadService.serve(request);
+		Message response = LoadService.serve(request);
 		System.out.println(response);
 		String expected = "Successfully added " + users.length + " users, " + people.length 
 				+ " persons, and " + events.length + " events to the database.";
-		assertEquals(expected, response);
+		assertEquals(expected, response.toString());
 	}
 
 }

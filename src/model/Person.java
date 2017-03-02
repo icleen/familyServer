@@ -2,9 +2,9 @@ package model;
 
 public class Person {
 
-	protected final String id;
 //	protected final String userId;
-	protected String userName;
+	protected String descendant;
+	protected final String personID;
 	protected String firstName;
 	protected String lastName;
 	protected String gender;
@@ -13,25 +13,25 @@ public class Person {
 	protected String mother;
 	protected String spouse;
 	
-	public Person(String id, String userName) {
-		this.id = id;
+	public Person(String personID, String descendant) {
+		this.personID = personID;
 //		this.userId = userId;
-		this.userName = userName;
+		this.descendant = descendant;
 	}
 	
-	public Person(String id, String userName, String fName, String lName, String gender) {
-		this.id = id;
+	public Person(String personID, String descendant, String fName, String lName, String gender) {
+		this.personID = personID;
 //		this.userId = userId;
-		this.userName = userName;
+		this.descendant = descendant;
 		this.firstName = fName;
 		this.lastName = lName;
 		this.gender = gender;
 	}
 	
-	public Person(String id, String userName, String fName, String lName, String gender, String father, String mother, String spouse) {
-		this.id = id;
+	public Person(String personID, String descendant, String fName, String lName, String gender, String father, String mother, String spouse) {
+		this.personID = personID;
 //		this.userId = userId;
-		this.userName = userName;
+		this.descendant = descendant;
 		this.firstName = fName;
 		this.lastName = lName;
 		this.gender = gender;
@@ -89,26 +89,26 @@ public class Person {
 	}
 
 	public String getId() {
-		return id;
+		return personID;
 	}
 
 //	public String getUserId() {
 //		return userId;
 //	}
 	
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setDescendant(String descendant) {
+		this.descendant = descendant;
 	}
 	
-	public String getUserName() {
-		return userName;
+	public String getDescendant() {
+		return descendant;
 	}
 	
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		output.append("{\n");
-		output.append("descendant: " + this.userName + "\",\n");
-		output.append("personId:\"" + this.id + "\",\n");
+		output.append("descendant: " + this.descendant + "\",\n");
+		output.append("personID:\"" + this.personID + "\",\n");
 		output.append("firstName:\"" + this.firstName + "\",\n");
 		output.append("lastName:\"" + this.lastName + "\",\n");
 		output.append("gender:\"" + this.gender + "\",\n");
@@ -120,7 +120,7 @@ public class Person {
 	}
 	
 	public boolean equals(Person other) {
-		if( this.id.equals(other.getId()) && this.userName.equals(other.getUserName()) && this.firstName.equals(other.getFirstName()) 
+		if( this.personID.equals(other.getId()) && this.descendant.equals(other.getDescendant()) && this.firstName.equals(other.getFirstName()) 
 				&& this.lastName.equals(other.getLastName()) && this.gender.equals(other.getGender()) ) {
 			return true;
 		}

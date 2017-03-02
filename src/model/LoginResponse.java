@@ -3,17 +3,17 @@ package model;
 public class LoginResponse {
 	
 	private String authCode;	// Non-empty auth token string
-	private String userName;	// User name passed in with request
+	private String username;	// User name passed in with request
 	private String personId;	// Non-empty string containing the Person ID of the
-	private String errorMessage;// error for if the operation failed
+	private String message;// error for if the operation failed
 	
 	public LoginResponse() {
 		
 	}
 	
-	public LoginResponse(String authCode, String userName, String personId) {
+	public LoginResponse(String authCode, String username, String personId) {
 		this.authCode = authCode;
-		this.userName = userName;
+		this.username = username;
 		this.personId = personId;
 	}
 
@@ -26,11 +26,11 @@ public class LoginResponse {
 	}
 
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserName(String username) {
+		this.username = username;
 	}
 
 	public String getPersonId() {
@@ -42,21 +42,21 @@ public class LoginResponse {
 	}
 
 	public String getErrorMessage() {
-		return errorMessage;
+		return message;
 	}
 
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
+	public void setErrorMessage(String message) {
+		this.message = message;
 	}
 	
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		output.append("{\n");
-		if(this.errorMessage != null) {
-			output.append("message:\"" + errorMessage + "\"\n");
+		if(this.message != null) {
+			output.append("message:\"" + message + "\"\n");
 		}else {
 			output.append("authToken:\"" + authCode + "\",\n");
-			output.append("userName:\"" + userName + "\",\n");
+			output.append("username:\"" + username + "\",\n");
 			output.append("persondId:\"" + personId + "\"\n");
 		}
 		output.append("}");
@@ -68,9 +68,9 @@ public class LoginResponse {
 			return false;
 		}
 		LoginResponse temp = (LoginResponse) o;
-		if(this.errorMessage != null || temp.errorMessage != null) {
-			if(this.errorMessage != null && temp.errorMessage != null) {
-				if( !this.errorMessage.equals(temp.errorMessage) ) {
+		if(this.message != null || temp.message != null) {
+			if(this.message != null && temp.message != null) {
+				if( !this.message.equals(temp.message) ) {
 					return false;
 				}
 			}else {
@@ -78,7 +78,7 @@ public class LoginResponse {
 			}
 		}
 		if(this.authCode.equals(temp.authCode) && this.personId.equals(temp.personId) 
-				&& this.userName.equals(temp.userName)) 
+				&& this.username.equals(temp.username)) 
 		{
 			return true;
 		}

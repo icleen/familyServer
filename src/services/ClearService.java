@@ -1,12 +1,14 @@
 package services;
 
 import dao.Dao;
+import model.Message;
 
 public class ClearService {
 	
-	public static String serve() {
+	public static Message serve() {
 		Dao.initializeTable();
-		return "You cleared the database!";
+		String result = "You cleared the database!";
+		return new Message(result);
 	}
 
 }

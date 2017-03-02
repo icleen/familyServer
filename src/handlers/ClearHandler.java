@@ -1,7 +1,6 @@
 package handlers;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
@@ -9,6 +8,7 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import model.Message;
 import services.ClearService;
 
 public class ClearHandler implements HttpHandler {
@@ -20,7 +20,8 @@ public class ClearHandler implements HttpHandler {
 		System.out.println();
 		System.out.println("Starting clear handler");
 		
-		String response = ClearService.serve();
+		Message response = ClearService.serve();
+		System.out.println(response);
 		
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 		// 0 means the response body has an unknown amount of stuff in it

@@ -10,6 +10,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import model.LoadRequest;
+import model.Message;
 import services.LoadService;
 
 public class LoadHandler implements HttpHandler {
@@ -25,7 +26,7 @@ public class LoadHandler implements HttpHandler {
 		LoadRequest request = (LoadRequest) gson.fromJson(inputStreamReader, LoadRequest.class);
 		inputStreamReader.close();
 		
-		String response = LoadService.serve(request);
+		Message response = LoadService.serve(request);
 		System.out.println(response);
 		
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);

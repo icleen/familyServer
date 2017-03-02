@@ -40,7 +40,7 @@ public class EventDao extends Dao {
 		String userName = rs.getString(2);
 		String personId = rs.getString(3);
 		response = new Event(eventId, userName, personId);
-		response.setType(rs.getString(4));
+		response.setEventType(rs.getString(4));
 		response.setCountry(rs.getString(5));
 		response.setCity(rs.getString(6));
 		response.setYear(rs.getString(7));
@@ -91,7 +91,7 @@ public class EventDao extends Dao {
 			eventId = rs.getString(1);
 			personId = rs.getString(3);
 			response = new Event(eventId, userName, personId);
-			response.setType(rs.getString(4));
+			response.setEventType(rs.getString(4));
 			response.setCountry(rs.getString(5));
 			response.setCity(rs.getString(6));
 			response.setYear(rs.getString(7));
@@ -128,10 +128,12 @@ public class EventDao extends Dao {
 		PreparedStatement prep = connection.prepareStatement("insert into Events values(?, ?, ?, ?, ?, ?, ?, ?, ?);");
 		// eventId INTEGER PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
 		// country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
-		prep.setString(1, event.getEventId());
-		prep.setString(2, event.getUserName());
+		if(event.getEventId() != null) {
+			prep.setInt( 1, Integer.parseInt(event.getEventId()) );
+		}
+		prep.setString(2, event.getDescendant());
 		prep.setString(3, event.getPersonId());
-		prep.setString(4, event.getType());
+		prep.setString(4, event.getEventType());
 		prep.setString(5, event.getCountry());
 		prep.setString(6, event.getCity());
 		prep.setString(7, event.getYear());
@@ -171,10 +173,12 @@ public class EventDao extends Dao {
 			// eventId INTEGER PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
 			// country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
 			Event event = (Event) objects[i];
-			prep.setString(1, event.getEventId());
-			prep.setString(2, event.getUserName());
+			if(event.getEventId() != null) {
+				prep.setInt( 1, Integer.parseInt(event.getEventId()) );
+			}
+			prep.setString(2, event.getDescendant());
 			prep.setString(3, event.getPersonId());
-			prep.setString(4, event.getType());
+			prep.setString(4, event.getEventType());
 			prep.setString(5, event.getCountry());
 			prep.setString(6, event.getCity());
 			prep.setString(7, event.getYear());

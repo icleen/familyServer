@@ -5,10 +5,9 @@ import java.util.ArrayList;
 
 import dao.AuthDao;
 import dao.EventDao;
-import dao.PersonDao;
 import model.AuthToken;
 import model.Event;
-import model.Person;
+import model.Message;
 
 public class EventService {
 	
@@ -21,10 +20,11 @@ public class EventService {
 		} catch (SQLException e1) {
 //			e1.printStackTrace();
 			String response = "The authCode was incorrect";
-			return response;
+			return new Message(response);
 		}
 		if(token == null) {
-			return "The authCode was incorrect";
+			String response = "The authCode was incorrect";
+			return new Message(response);
 		}
 		
 		EventDao eDao = new EventDao();
@@ -36,7 +36,7 @@ public class EventService {
 			} catch (SQLException e) {
 //				e.printStackTrace();
 				String response = "Could not get the event";
-				return response;
+				return new Message(response);
 			}
 			
 			return event;
@@ -49,7 +49,7 @@ public class EventService {
 			} catch (SQLException e) {
 				e.printStackTrace();
 				String response = "Could not get the events";
-				return response;
+				return new Message(response);
 			}
 			return events;
 		}

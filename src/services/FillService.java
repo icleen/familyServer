@@ -8,12 +8,13 @@ import dao.PersonDao;
 import dao.UserDao;
 import generate.Generate;
 import model.Event;
+import model.Message;
 import model.Person;
 import model.User;
 
 public class FillService {
 	
-	public static String serve(String userName, String gens) {
+	public static Message serve(String userName, String gens) {
 		
 		UserDao uDao = new UserDao();
 		PersonDao pDao = new PersonDao();
@@ -29,7 +30,6 @@ public class FillService {
 		try {
 			userP = pDao.getPerson(user.getPersonId());
 		} catch (SQLException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 		
@@ -42,7 +42,8 @@ public class FillService {
 			eDao.delete(userName, "Events");
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-			return "Couldn't delete the data associated with " + userName;
+			String result = "Couldn't delete the data associated with " + userName;
+			return new Message(result);
 		}
 		
 		try {
@@ -50,16 +51,19 @@ public class FillService {
 			pDao.addPeople(people.toArray());
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Couldn't add the people";
+			String result = "Couldn't add the people";
+			return new Message(result);
 		}
 		try {
 			eDao.addEvents(events.toArray());
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Couldn't add the events";
+			String result = "Couldn't add the events";
+			return new Message(result);
 		}
 		
-		return "You filled " + userName + " with " + gens + " generations";
+		String result = "You filled " + userName + " with " + gens + " generations";
+		return new Message(result);
 	}
 
 }

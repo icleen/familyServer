@@ -1,7 +1,6 @@
 package handlers;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -12,7 +11,7 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import client.ClientCommunicator;
+import model.Message;
 import server.ServerCommunicator;
 import services.PersonService;
 
@@ -38,13 +37,13 @@ public class PersonHandler implements HttpHandler {
 		}
 		
 		Headers headers = exchange.getRequestHeaders();
-		String authCode = headers.getFirst(ClientCommunicator.AUTHORIZATION_KEY);
+		String authCode = headers.getFirst(ServerCommunicator.AUTHORIZATION);
 		System.out.println("the authCode is: " + authCode);
 		System.out.println("the person id is: " + id);
 		
 		Object response = null;
 		response = PersonService.serve(authCode, id);
-		if(response.getClass() == String.class) {
+		if(response.getClass() == Message.class) {
 			System.out.println(response);
 		}
 		

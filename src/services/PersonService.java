@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 import dao.AuthDao;
 import dao.PersonDao;
-import dao.UserDao;
 import model.AuthToken;
+import model.Message;
 import model.Person;
 
 public class PersonService {
@@ -20,10 +20,11 @@ public class PersonService {
 		} catch (SQLException e1) {
 //			e1.printStackTrace();
 			String response = "The authCode was incorrect";
-			return response;
+			return new Message(response);
 		}
 		if(token == null) {
-			return "The authCode was incorrect";
+			String response = "The authCode was incorrect";
+			return new Message(response);
 		}
 		
 		PersonDao pDao = new PersonDao();
@@ -35,7 +36,7 @@ public class PersonService {
 			} catch (SQLException e) {
 //				e.printStackTrace();
 				String response = "Could not get the person";
-				return response;
+				return new Message(response);
 			}
 			
 			return person;
@@ -48,7 +49,7 @@ public class PersonService {
 			} catch (SQLException e) {
 				e.printStackTrace();
 				String response = "Could not get the people";
-				return response;
+				return new Message(response);
 			}
 			return people;
 		}

@@ -1,8 +1,6 @@
 package handlers;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -14,8 +12,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import client.ClientCommunicator;
-import model.User;
-import server.ServerCommunicator;
+import model.Message;
 import services.FillService;
 
 public class FillHandler implements HttpHandler {
@@ -46,7 +43,8 @@ public class FillHandler implements HttpHandler {
 		System.out.println("the userName is: " + userName);
 		System.out.println("the generations are: " + gens);
 		
-		String response = FillService.serve(userName, gens);
+		Message response = FillService.serve(userName, gens);
+		System.out.println(response);
 		
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 		// 0 means the response body has an unknown amount of stuff in it

@@ -120,7 +120,9 @@ public class UserDao extends Dao {
 		
 		PreparedStatement prep = connection.prepareStatement("insert into Users values(?, ?, ?, ?, ?, ?, ?, ?);");
 //		userId INTEGER PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
-		prep.setInt( 1, Integer.parseInt(user.getId()) );
+		if(user.getId() != null) {
+			prep.setInt( 1, Integer.parseInt(user.getId()) );
+		}
 		prep.setString(2, user.getPersonId());
 		prep.setString(3, user.getusername());
 		prep.setString(4, user.getPassword());
@@ -160,7 +162,9 @@ public class UserDao extends Dao {
 		for(int i = 0; i < objects.length; i++) {
 			User user = (User) objects[i];
 //			userId INTEGER PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
-			prep.setInt( 1, Integer.parseInt(user.getId()) );
+			if(user.getId() != null) {
+				prep.setInt( 1, Integer.parseInt(user.getId()) );
+			}
 			prep.setString(2, user.getPersonId());
 			prep.setString(3, user.getusername());
 			prep.setString(4, user.getPassword());

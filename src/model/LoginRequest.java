@@ -2,23 +2,23 @@ package model;
 
 public class LoginRequest {
 	
-	private String userName;
+	private String username;
 	private String password;
 	
 	public LoginRequest() {
 	}
 	
-	public LoginRequest(String userName, String password) {
-		this.setUserName(userName);
-		this.setPassword(password);
+	public LoginRequest(String username, String password) {
+		this.username = username;
+		this.password = password;
 	}
 
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserName(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -30,7 +30,7 @@ public class LoginRequest {
 	}
 	
 	public String toString() {
-		return ("userName: " + userName + ", password: " + password);
+		return ("username: " + username + ", password: " + password);
 	}
 
 }

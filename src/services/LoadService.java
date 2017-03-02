@@ -8,12 +8,13 @@ import dao.PersonDao;
 import dao.UserDao;
 import model.Event;
 import model.LoadRequest;
+import model.Message;
 import model.Person;
 import model.User;
 
 public class LoadService {
 	
-	public static String serve(LoadRequest request) {
+	public static Message serve(LoadRequest request) {
 		
 		Dao.initializeTable();
 		
@@ -34,21 +35,21 @@ public class LoadService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println("Could not add the users: " + e.getMessage());
-			return "Could not add the users";
+			return new Message("Could not add the users");
 		}
 		try {
 			pDao.addPeople(people);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println("Could not add the persons: " + e.getMessage());
-			return "Could not add the persons";
+			return new Message("Could not add the persons");
 		}
 		try {
 			eDao.addEvents(events);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println("Could not add the events: " + e.getMessage());
-			return "Could not add the events";
+			return new Message("Could not add the events");
 		}
 		
 		for(int i = 0; i < users.length; i++) {
@@ -57,12 +58,12 @@ public class LoadService {
 			} catch (SQLException e) {
 				e.printStackTrace();
 				System.err.println("Could not add the authTokens: " + e.getMessage());
-				return "Could not add the authTokens";
+				return new Message("Could not add the authTokens");
 			}
 		}
 		String success = "Successfully added " + users.length + " users, " + people.length 
 				+ " persons, and " + events.length + " events to the database.";
-		return success;
+		return new Message(success);
 	}
 
 }

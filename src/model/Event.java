@@ -2,37 +2,36 @@ package model;
 
 public class Event {
 	
+	private String descendant;
 	private final String eventId;
-//	private final String userId;
-	private String userName;
 	private final String personId;
 	
 	private String latitude;
 	private String longitude;
 	private String country;
 	private String city;
-	private String type;
+	private String eventType;
 	private String year;
 	
-	public Event(String eventId, String userName, String personId) {
+	public Event(String eventId, String descendant, String personId) {
 		this.eventId = eventId;
 //		this.userId = userId;
-		this.userName = userName;
+		this.descendant = descendant;
 		this.personId = personId;
 	}
 	
-	public Event(String eventId, String userName, String personId, String latitude, String longitude, 
-			String country, String city, String type, String year) {
+	public Event(String eventId, String descendant, String personId, String latitude, String longitude, 
+			String country, String city, String eventType, String year) {
 		this.eventId = eventId;
 //		this.userId = userId;
-		this.userName = userName;
+		this.descendant = descendant;
 		this.personId = personId;
 		
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.country = country;
 		this.city = city;
-		this.type = type;
+		this.eventType = eventType;
 		this.year = year;
 	}
 	
@@ -60,11 +59,11 @@ public class Event {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public String getType() {
-		return type;
+	public String getEventType() {
+		return eventType;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setEventType(String eventType) {
+		this.eventType = eventType;
 	}
 	public String getYear() {
 		return year;
@@ -79,12 +78,12 @@ public class Event {
 		return eventId;
 	}
 	
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setDescendant(String descendant) {
+		this.descendant = descendant;
 	}
 	
-	public String getUserName() {
-		return userName;
+	public String getDescendant() {
+		return descendant;
 	}
 
 //	public String getUserId() {
@@ -94,22 +93,22 @@ public class Event {
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		output.append("{\n");
-		output.append("descendant: " + this.userName + "\",\n");
+		output.append("descendant: " + this.descendant + "\",\n");
 		output.append("eventId:\"" + this.eventId + "\",\n");
 		output.append("personId:\"" + this.personId + "\",\n");
 		output.append("lattitude:\"" + this.latitude + "\",\n");
 		output.append("longitude:\"" + this.longitude + "\",\n");
 		output.append("country:\"" + this.country + "\",\n");
 		output.append("city:\"" + this.city + "\",\n");
-		output.append("eventType:\"" + this.type + "\",\n");
+		output.append("eventeventType:\"" + this.eventType + "\",\n");
 		output.append("year:\"" + this.year + "\"\n");
 		output.append("}\n");
 		return output.toString();
 	}
 	
 	public boolean equals(Event other) {
-		if( this.userName.equals(other.getUserName()) && this.eventId.equals(other.eventId) && this.personId.equals(other.personId)
-				&& this.type.equals(other.type) && this.latitude.equals(other.latitude) && this.longitude.equals(other.longitude) 
+		if( this.descendant.equals(other.getDescendant()) && this.eventId.equals(other.eventId) && this.personId.equals(other.personId)
+				&& this.eventType.equals(other.eventType) && this.latitude.equals(other.latitude) && this.longitude.equals(other.longitude) 
 				&& this.country.equals(other.country) && this.city.equals(other.city) && this.year.equals(other.year) ) {
 			return true;
 		}

@@ -121,8 +121,10 @@ public class PersonDao extends Dao {
 //		if(person.getId() != null) {
 //			prep.setInt(1, Integer.parseInt(person.getId()));
 //		}
-		prep.setInt( 1, Integer.parseInt(person.getId()) );
-		prep.setString(2, person.getUserName());
+		if(person.getId() != null) {
+			prep.setInt( 1, Integer.parseInt(person.getId()) );
+		}
+		prep.setString(2, person.getDescendant());
 		prep.setString(3, person.getFirstName());
 		prep.setString(4, person.getLastName());
 		prep.setString(5, person.getGender());
@@ -160,8 +162,10 @@ public class PersonDao extends Dao {
 		for(int i = 0; i < objects.length; i++) {
 //			personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
 			Person person = (Person) objects[i];
-			prep.setInt( 1, Integer.parseInt(person.getId()) );
-			prep.setString(2, person.getUserName());
+			if(person.getId() != null) {
+				prep.setInt( 1, Integer.parseInt(person.getId()) );
+			}
+			prep.setString(2, person.getDescendant());
 			prep.setString(3, person.getFirstName());
 			prep.setString(4, person.getLastName());
 			prep.setString(5, person.getGender());

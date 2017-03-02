@@ -19,7 +19,7 @@ public class BaseClientCommunicator {
 	protected static final String HTTP_POST = "POST";
 	protected static final String HTTP_GET = "GET";
 	
-	public static final String AUTHORIZATION_KEY = "myAuth";
+	public static final String AUTHORIZATION_KEY = "Authorization";
 	protected String authCode;
 	
 	protected Gson gson = new Gson();
