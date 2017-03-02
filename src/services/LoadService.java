@@ -17,7 +17,6 @@ public class LoadService {
 	public static Message serve(LoadRequest request) {
 		
 		Dao.initializeTable();
-		
 		UserDao uDao = new UserDao();
 		PersonDao pDao = new PersonDao();
 		EventDao eDao = new EventDao();
@@ -25,11 +24,17 @@ public class LoadService {
 		User[] users = null;
 		Person[] people = null;
 		Event[] events = null;
-		
+		if(request == null) {
+			return new Message("The request body was null");
+		}
 		users = request.users;
 		people = request.persons;
 		events = request.events;
-		
+//		System.out.println("I'm here!");
+		if(users == null && people == null && events == null) {
+			return new Message("There was no data to input");
+		}
+//		System.out.println("I'm here!");
 		try {
 			uDao.addUsers(users);
 		} catch (SQLException e) {
@@ -54,7 +59,7 @@ public class LoadService {
 			System.err.println(err);
 			return new Message(err);
 		}
-		
+//		System.out.println("I'm here!");
 		for(int i = 0; i < users.length; i++) {
 			try {
 				RegisterService.generateAuthCode(users[i]);
@@ -65,6 +70,7 @@ public class LoadService {
 				return new Message(err);
 			}
 		}
+//		System.out.println("I'm here!");
 		String success = "Successfully added " + users.length + " users, " + people.length 
 				+ " persons, and " + events.length + " events to the database.";
 		return new Message(success);

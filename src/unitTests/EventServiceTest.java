@@ -11,9 +11,9 @@ import org.junit.Test;
 
 import dao.EventDao;
 import model.Event;
+import model.Events;
 import model.LoginResponse;
 import model.Message;
-import model.ObjectResponse;
 import model.User;
 import services.ClearService;
 import services.EventService;
@@ -54,8 +54,8 @@ public class EventServiceTest {
 		
 		Object listCheck = EventService.serve(response.getAuthCode(), null);
 		assertTrue(listCheck != null);
-		assertEquals(ObjectResponse.class, listCheck.getClass());
-		ObjectResponse or = (ObjectResponse) listCheck;
+		assertEquals(Events.class, listCheck.getClass());
+		Events or = (Events) listCheck;
 		assertEquals(121, or.data.length);
 		
 		try {
