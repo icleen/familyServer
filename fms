@@ -1,0 +1,4 @@
+fms compile
+fms run 3740
+fms compile-tests
+fms run-tests localhost 3740
