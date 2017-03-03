@@ -16,6 +16,19 @@ public class FillService {
 	
 	public static Message serve(String userName, String gens) {
 		
+		int generations = 0;
+		try {
+			generations = Integer.parseInt(gens);
+			if(generations < 0) {
+				String result = "Invalid value for the generations field";
+				return new Message(result);
+			}
+		} catch(NumberFormatException e) {
+			String result = "Invalid value for the generations field";
+			return new Message(result);
+		}
+
+		
 		UserDao uDao = new UserDao();
 		PersonDao pDao = new PersonDao();
 		EventDao eDao = new EventDao();

@@ -31,6 +31,16 @@ public class PersonService {
 		PersonDao pDao = new PersonDao();
 //		if the id is not null, get just the person with the specified id
 		if(id != null) {
+			try {
+				int count = Integer.parseInt(id);
+				if(count < 0) {
+					String result = "Invalid id!";
+					return new Message(result);
+				}
+			} catch(NumberFormatException e) {
+				String result = "Invalid id!";
+				return new Message(result);
+			}
 			Person person = null;
 			try {
 				person = pDao.getPerson(id);

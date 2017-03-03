@@ -5,7 +5,7 @@
 
 #!/bin/bash
 
-SERVER_MODULE="familymapserver2"
+SERVER_MODULE="FamilyMap"
 SHARED_MODULE="shared"
 
 #"com.example" is the package name.
@@ -14,7 +14,7 @@ PACKAGE_NAME_TO_MAIN="src.server.ServerCommunicator"
 PACKAGE_NAME_TO_TEST_DRIVER="com.example.TestDriver"
 LIBS_FOLDER="libs"
 
-CODE_LOC="$SERVER_MODULE/src/main/* $SHARED_MODULE/*"
+CODE_LOC="$SERVER_MODULE/src/server/* $SHARED_MODULE/*"
 TEST_CODE_LOC="$SERVER_MODULE/src/* $SHARED_MODULE/*"
 
 if [ "$1" == "compile" ]; then

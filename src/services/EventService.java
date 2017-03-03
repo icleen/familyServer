@@ -31,6 +31,16 @@ public class EventService {
 		EventDao eDao = new EventDao();
 //		if the id is not null, get just the event with the specified id
 		if(id != null) {
+			try {
+				int count = Integer.parseInt(id);
+				if(count < 0) {
+					String result = "Invalid id!";
+					return new Message(result);
+				}
+			} catch(NumberFormatException e) {
+				String result = "Invalid id!";
+				return new Message(result);
+			}
 			Event event = null;
 			try {
 				event = eDao.getEvent(id);

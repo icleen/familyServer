@@ -53,7 +53,7 @@ public class ServerProxy {
 	 * @param generations the number of generations you want to add to this user
 	 */
 	public String fill(User user, int generations) {
-		Message result = ClientCommunicator.SINGLETON.fill(user.getusername(), "" + generations);
+		Message result = ClientCommunicator.SINGLETON.fill(user.getusername(), generations);
 		System.out.println(result);
 		return result.toString();
 	}

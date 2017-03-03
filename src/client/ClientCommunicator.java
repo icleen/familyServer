@@ -68,10 +68,10 @@ public class ClientCommunicator extends BaseClientCommunicator {
 		return (Message) response;
 	}
 	
-	public Message fill(String userName, String generations) {
+	public Message fill(String userName, int generations) {
 		Object response = null;
 		String header = null;
-		if(generations == null) {
+		if(generations < 0) {
 			header = "/" + userName;
 		}else {
 			header = "/" + userName + "/" + generations;
