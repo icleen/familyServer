@@ -22,12 +22,12 @@ public class FillHandler implements HttpHandler {
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		System.out.println();
-		System.out.println("Starting fill handler");
+//		System.out.println();
+//		System.out.println("Starting fill handler");
 		
 		URI uri = exchange.getRequestURI();
 		String path = uri.getPath();
-		System.out.println("Path: " + path);
+//		System.out.println("Path: " + path);
 		
 		String[] pathParts = path.split("/");
 		String userName = null;
@@ -43,12 +43,12 @@ public class FillHandler implements HttpHandler {
 		}
 		
 		Headers headers = exchange.getRequestHeaders();
-		System.out.println("the authCode is: " + headers.getFirst(ClientCommunicator.AUTHORIZATION_KEY));
-		System.out.println("the userName is: " + userName);
-		System.out.println("the generations are: " + gens);
+//		System.out.println("the authCode is: " + headers.getFirst(ClientCommunicator.AUTHORIZATION_KEY));
+//		System.out.println("the userName is: " + userName);
+//		System.out.println("the generations are: " + gens);
 		
 		Message response = FillService.serve(userName, gens);
-		System.out.println(response);
+//		System.out.println(response);
 		
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 		// 0 means the response body has an unknown amount of stuff in it

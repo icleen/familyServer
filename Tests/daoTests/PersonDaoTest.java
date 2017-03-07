@@ -71,10 +71,11 @@ public class PersonDaoTest {
 			e.printStackTrace();
 			fail();
 		}
-		
-		if(people != null && people.size() != 2) {
-			System.out.println("There were " + people.size() + " people");
-		}
+		assertTrue(people != null);
+		assertEquals(2, people.size());
+//		if(people != null && people.size() != 2) {
+//			System.out.println("There were " + people.size() + " people");
+//		}
 //		if( !people.get(0).equals(feedback) || !people.get(1).equals(feedback2) ) {
 //			System.out.println("The people were not equal");
 //			System.out.println("Feedback = " + feedback.getFirstName() + "\tPeople[0] = " + people.get(0).getFirstName());
@@ -82,16 +83,16 @@ public class PersonDaoTest {
 		
 		try {
 			pDao.delete(userName, "People");
-			if(pDao.getPeople("1") == null) {
-				System.out.println("They were all deleted");
-			}
+			assertTrue(pDao.getPeople("1") == null);
+//				System.out.println("They were all deleted");
+			
 		} catch (SQLException e) {
 			System.err.println("couldn't delete the persons or the persons didn't exist");
 			e.printStackTrace();
 			fail();
 		}
 		
-		System.out.println("All person tests went well");
+//		System.out.println("All person tests went well");
 	}
 
 	@Test

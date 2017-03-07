@@ -21,7 +21,7 @@ public class NameStore {
 		
 		BufferedReader reader = null;
 		try {
-			reader = new BufferedReader(new FileReader("http_root/familymapserver/data/json/snames.json"));
+			reader = new BufferedReader(new FileReader("src/generate/snames.json"));
 			surnames = gson.fromJson(reader, Names.class);
 			reader.close();
 		} catch (FileNotFoundException e) {
@@ -32,7 +32,7 @@ public class NameStore {
 			e.printStackTrace();
 		}
 		try {
-			reader = new BufferedReader(new FileReader("http_root/familymapserver/data/json/mnames.json"));
+			reader = new BufferedReader(new FileReader("src/generate/mnames.json"));
 			maleNames = gson.fromJson(reader, Names.class);
 			reader.close();
 		} catch (FileNotFoundException e) {
@@ -43,7 +43,7 @@ public class NameStore {
 			e.printStackTrace();
 		}
 		try {
-			reader = new BufferedReader(new FileReader("http_root/familymapserver/data/json/fnames.json"));
+			reader = new BufferedReader(new FileReader("src/generate/fnames.json"));
 			femaleNames = gson.fromJson(reader, Names.class);
 			reader.close();
 		} catch (FileNotFoundException e) {

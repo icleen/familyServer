@@ -19,15 +19,15 @@ public class LoadHandler implements HttpHandler {
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		System.out.println();
-		System.out.println("Starting load handler");
+//		System.out.println();
+//		System.out.println("Starting load handler");
 		
 		InputStreamReader inputStreamReader = new InputStreamReader(exchange.getRequestBody());
 		LoadRequest request = (LoadRequest) gson.fromJson(inputStreamReader, LoadRequest.class);
 		inputStreamReader.close();
 		
 		Message response = LoadService.serve(request);
-		System.out.println(response);
+//		System.out.println(response);
 		
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 		// 0 means the response body has an unknown amount of stuff in it

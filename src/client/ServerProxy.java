@@ -18,7 +18,7 @@ public class ServerProxy {
 	public LoginResponse registerUser(User user) {
 		LoginResponse response = ClientCommunicator.SINGLETON.register(user);
 		if(response.getErrorMessage() != null) {
-			System.out.println(response.getErrorMessage());
+//			System.out.println(response.getErrorMessage());
 		}
 		return response;
 	}
@@ -33,7 +33,7 @@ public class ServerProxy {
 		lr.setPassword(user.getPassword());
 		LoginResponse response = ClientCommunicator.SINGLETON.login(lr);
 		if(response.getErrorMessage() != null) {
-			System.out.println(response.getErrorMessage());
+//			System.out.println(response.getErrorMessage());
 		}
 		return response;
 	}
@@ -43,7 +43,7 @@ public class ServerProxy {
 	 */
 	public String clear() {
 		Message result = ClientCommunicator.SINGLETON.clear();
-		System.out.println(result);
+//		System.out.println(result);
 		return result.toString();
 	}
 
@@ -54,7 +54,7 @@ public class ServerProxy {
 	 */
 	public String fill(User user, int generations) {
 		Message result = ClientCommunicator.SINGLETON.fill(user.getusername(), generations);
-		System.out.println(result);
+//		System.out.println(result);
 		return result.toString();
 	}
 
@@ -66,7 +66,7 @@ public class ServerProxy {
 	 */
 	public String load(User[] users, Person[] people, Event[] events) {
 		Message result = ClientCommunicator.SINGLETON.load(users, people, events);
-		System.out.println(result);
+//		System.out.println(result);
 		return result.toString();
 	}
 
@@ -79,7 +79,7 @@ public class ServerProxy {
 		assert(result.getClass() == People.class);
 		People temp = (People) result;
 		if(temp.message != null) {
-			System.out.println(temp);
+//			System.out.println(temp);
 			return null;
 		}
 		Person[] people = temp.data;
@@ -96,7 +96,7 @@ public class ServerProxy {
 		assert(result.getClass() == Person.class);
 		Person person = (Person) result;
 		if(person.getMessage() != null) {
-			System.out.println(person.getMessage());
+//			System.out.println(person.getMessage());
 			return null;
 		}
 		return person;
@@ -111,7 +111,7 @@ public class ServerProxy {
 		assert(result.getClass() == Events.class);
 		Events temp = (Events) result;
 		if(temp.message != null) {
-			System.out.println(temp.message);
+//			System.out.println(temp.message);
 			return null;
 		}
 		Event[] events = temp.data;
@@ -128,7 +128,7 @@ public class ServerProxy {
 		assert(result.getClass() == Event.class);
 		Event event = (Event) result;
 		if(event.getMessage() != null) {
-			System.out.println(event.getMessage());
+//			System.out.println(event.getMessage());
 			return null;
 		}
 		return event;

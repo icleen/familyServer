@@ -22,13 +22,13 @@ public class LoginHandler implements HttpHandler {
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		System.out.println();
-		System.out.println("Starting login handler");
+//		System.out.println();
+//		System.out.println("Starting login handler");
 		
 		InputStreamReader inputStreamReader = new InputStreamReader(exchange.getRequestBody());
 		LoginRequest request = (LoginRequest) gson.fromJson(inputStreamReader, LoginRequest.class);
 		inputStreamReader.close();
-		System.out.println("The request  = '" + request.toString() + "'");
+//		System.out.println("The request  = '" + request.toString() + "'");
 		
 		LoginResponse response = LoginService.serve(request);
 		

@@ -64,11 +64,11 @@ public class AuthDaoTest {
 		try {
 			aDao.getAuth(feedback.getUserId());
 		} catch (SQLException e) {
-			System.out.println("They were all deleted");
+//			System.out.println("They were all deleted");
 			failed = true;
 		}
 		assertTrue(failed);
-		System.out.println("All authorization token tests went well");
+//		System.out.println("All authorization token tests went well");
 	}
 
 	@Test
@@ -119,7 +119,7 @@ public class AuthDaoTest {
 			failed = true;
 		}
 		assertTrue(failed);
-		System.out.println("All authorization token tests went well");
+//		System.out.println("All authorization token tests went well");
 	}
 
 	@Test

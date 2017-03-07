@@ -37,7 +37,7 @@ public class PersonServiceTest {
 		Person check = null;
 		Object result = PersonService.serve(response.getAuthCode(), "10");
 		if(result.getClass() == Message.class) {
-			System.out.println(result);
+//			System.out.println(result);
 		}
 		assertEquals(Person.class, result.getClass());
 		check = (Person) result;
@@ -56,7 +56,7 @@ public class PersonServiceTest {
 		check = (Person) PersonService.serve(response.getAuthCode(), bob.getId());
 		assertTrue(bob.equals(check));
 		assertEquals(bob.getId(), check.getId());
-		System.out.print(check.toString());
+//		System.out.print(check.toString());
 		
 		Object listCheck = PersonService.serve(response.getAuthCode(), null);
 		assertTrue(listCheck != null);
@@ -67,14 +67,14 @@ public class PersonServiceTest {
 		try {
 			check = pDao.getPerson("monkey");
 		} catch (SQLException e) {
-			System.out.println("there was no monkey eventId");
+//			System.out.println("there was no monkey eventId");
 			check = null;
 		}
 		assertTrue(check == null);
 		
 		Object o = PersonService.serve(response.getAuthCode(), "null");
 		assertEquals(Message.class, o.getClass());
-		System.out.println(o);
+//		System.out.println(o);
 	}
 
 }

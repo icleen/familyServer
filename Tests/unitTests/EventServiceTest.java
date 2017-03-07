@@ -50,7 +50,7 @@ public class EventServiceTest {
 		check = (Event) EventService.serve(response.getAuthCode(), original.getEventId());
 		assertTrue(original.equals(check));
 		assertEquals(original.getEventId(), check.getEventId());
-		System.out.print(check.toString());
+//		System.out.print(check.toString());
 		
 		Object listCheck = EventService.serve(response.getAuthCode(), null);
 		assertTrue(listCheck != null);
@@ -61,18 +61,18 @@ public class EventServiceTest {
 		try {
 			check = eDao.getEvent("monkey");
 		} catch (SQLException e) {
-			System.out.println("there was no monkey eventId");
+//			System.out.println("there was no monkey eventId");
 			check = null;
 		}
 		assertTrue(check == null);
 		
 		listCheck = EventService.serve(response.getAuthCode(), "null");
 		assertEquals(Message.class, listCheck.getClass());
-		System.out.println(listCheck);
+//		System.out.println(listCheck);
 		
 		listCheck = EventService.serve("null", null);
 		assertEquals(Message.class, listCheck.getClass());
-		System.out.println(listCheck);
+//		System.out.println(listCheck);
 	}
 
 }

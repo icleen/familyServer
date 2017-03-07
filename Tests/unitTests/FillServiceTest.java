@@ -1,6 +1,7 @@
 package unitTests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import dao.EventDao;
 import dao.PersonDao;
 import model.Event;
 import model.LoginResponse;
+import model.Message;
 import model.Person;
 import model.User;
 import services.ClearService;
@@ -42,7 +44,7 @@ public class FillServiceTest {
 			peeps = pDao.getPeople(me.getusername());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 //		2 + 2*2 + 2*2*2 + 2*2*2*2 = 2 + 4 + 8 + 16 = 30
 		assertEquals(31, peeps.size());
@@ -55,7 +57,8 @@ public class FillServiceTest {
 //		30 persons * 4 events = 30 * 4 = 120
 		assertEquals(120, events.size());
 		
-		System.out.println(FillService.serve(me.getusername(), "5"));
+		Message result = FillService.serve(me.getusername(), "5");
+		assertTrue(result.getMessage().equals("You filled " + me.getusername() + " with 5 generations"));
 		try {
 			peeps = pDao.getPeople(me.getusername());
 		} catch (SQLException e) {
@@ -100,7 +103,8 @@ public class FillServiceTest {
 //		30 persons * 4 events = 30 * 4 = 120
 		assertEquals(120, events.size());
 		
-		System.out.println(FillService.serve(me.getusername(), "3"));
+		Message result = FillService.serve(me.getusername(), "3");
+		assertTrue(result.getMessage().equals("You filled " + me.getusername() + " with 3 generations"));
 		try {
 			peeps = pDao.getPeople(me.getusername());
 		} catch (SQLException e) {

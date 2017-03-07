@@ -20,7 +20,7 @@ public class Events {
 		
 		BufferedReader reader = null;
 		try {
-			reader = new BufferedReader(new FileReader("http_root/familymapserver/data/json/woodfiel@schizo.cs.byu.edu"));
+			reader = new BufferedReader(new FileReader("src/generate/woodfiel@schizo.cs.byu.edu"));
 			locations = gson.fromJson(reader, Locations.class);
 			reader.close();
 		} catch (FileNotFoundException e) {

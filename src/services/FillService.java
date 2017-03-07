@@ -42,7 +42,7 @@ public class FillService {
 			return new Message(result);
 		}
 		try {
-			System.out.println(user.getPersonId());
+//			System.out.println(user.getPersonId());
 			userP = pDao.getPerson(user.getPersonId());
 		} catch (SQLException e2) {
 			e2.printStackTrace();

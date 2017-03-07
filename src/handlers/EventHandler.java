@@ -21,12 +21,12 @@ public class EventHandler implements HttpHandler {
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		System.out.println();
-		System.out.println("Starting event handler");
+//		System.out.println();
+//		System.out.println("Starting event handler");
 		
 		URI uri = exchange.getRequestURI();
 		String path = uri.getPath();
-		System.out.println("Path: " + path);
+//		System.out.println("Path: " + path);
 		
 		String[] pathParts = path.split("/");
 		String id = null;
@@ -38,13 +38,13 @@ public class EventHandler implements HttpHandler {
 		
 		Headers headers = exchange.getRequestHeaders();
 		String authCode = headers.getFirst(ServerCommunicator.AUTHORIZATION);
-		System.out.println("the authCode is: " + authCode);
-		System.out.println("the event id is: " + id);
+//		System.out.println("the authCode is: " + authCode);
+//		System.out.println("the event id is: " + id);
 		
 		Object response = EventService.serve(authCode, id);
-		if(response.getClass() == Message.class) {
-			System.out.println(response);
-		}
+//		if(response.getClass() == Message.class) {
+//			System.out.println(response);
+//		}
 		
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 		// 0 means the response body has an unknown amount of stuff in it

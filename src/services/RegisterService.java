@@ -25,8 +25,8 @@ public class RegisterService {
 		try {
 			uDao.getUser(user.getusername());
 		} catch (SQLException e1) {
-			System.out.println(e1.getMessage());
-			System.out.println("The user already exists!");
+//			System.out.println(e1.getMessage());
+//			System.out.println("The user already exists!");
 			found = false;
 		}
 		if(found) {
@@ -46,7 +46,7 @@ public class RegisterService {
 		User temp = null;
 		try {
 			temp = uDao.getUser(user.getusername());
-			System.out.println(temp);
+//			System.out.println(temp);
 		} catch (SQLException e1) {
 			System.err.println("Could not find the recently created user! " + e1.getMessage());
 			e1.printStackTrace();

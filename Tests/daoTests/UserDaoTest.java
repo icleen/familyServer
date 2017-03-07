@@ -127,8 +127,8 @@ public class UserDaoTest {
 			e1.printStackTrace();
 		}
 		assertEquals(2, users.size());
-		System.out.println(users.get(0));
-		System.out.println(users.get(1));
+//		System.out.println(users.get(0));
+//		System.out.println(users.get(1));
 		assertTrue(me.equals(users.get(1)));
 		assertTrue(parker.equals(users.get(0)));
 	}

@@ -19,16 +19,16 @@ public class RegisterHandler implements HttpHandler {
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		System.out.println();
-		System.out.println("Starting register handler");
+//		System.out.println();
+//		System.out.println("Starting register handler");
 		
 		InputStreamReader inputStreamReader = new InputStreamReader(exchange.getRequestBody());
 		User user = (User) gson.fromJson(inputStreamReader, User.class);
 		inputStreamReader.close();
-		System.out.println("The user  = '" + user.toString() + "'");
+//		System.out.println("The user  = '" + user.toString() + "'");
 		
 		LoginResponse response = RegisterService.register(user);
-		System.out.println(response);
+//		System.out.println(response);
 		
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 		// 0 means the response body has an unknown amount of stuff in it

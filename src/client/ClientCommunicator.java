@@ -110,7 +110,7 @@ public class ClientCommunicator extends BaseClientCommunicator {
 			response = getResponse(connection, Event.class);
 		}else {
 			response = getResponse(connection, Events.class);
-			System.out.println(response);
+//			System.out.println(response);
 		}
 		
 		return response;

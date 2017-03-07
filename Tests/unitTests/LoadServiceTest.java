@@ -43,7 +43,7 @@ public class LoadServiceTest {
 		};
 		LoadRequest request = new LoadRequest(users, people, events);
 		Message response = LoadService.serve(request);
-		System.out.println(response);
+//		System.out.println(response);
 		String expected = "{\n\t\"message\":\"Successfully added " + users.length + " users, " + people.length 
 				+ " persons, and " + events.length + " events to the database.\"\n}";
 		assertEquals(expected, response.toString());

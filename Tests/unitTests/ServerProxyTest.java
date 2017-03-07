@@ -113,7 +113,7 @@ public class ServerProxyTest {
 				new Event("33", "iclee141", "21", "lat", "long", "country", "city", "death", null)
 		};
 		Message response = ClientCommunicator.SINGLETON.load(users, people, events);
-		System.out.println(response);
+//		System.out.println(response);
 		String expected = "Successfully added " + users.length + " users, " + people.length 
 				+ " persons, and " + events.length + " events to the database.";
 		assertEquals(expected, response.getMessage());
@@ -150,7 +150,7 @@ public class ServerProxyTest {
 		
 		Person person = proxy.getPerson(people[0].getId());
 		assertTrue(person != null);
-		System.out.println(person);
+//		System.out.println(person);
 		
 		proxy.clear();
 		person = proxy.getPerson(people[0].getId());
@@ -171,12 +171,12 @@ public class ServerProxyTest {
 		
 		Event event = proxy.getEvent(events[0].getEventId());
 		assertTrue(event != null);
-		System.out.println(event);
+//		System.out.println(event);
 		
 		proxy.clear();
 		event = proxy.getEvent(events[0].getEventId());
 		assertTrue(event == null);
-		System.out.println(event);
+//		System.out.println(event);
 	}
 
 	@Test

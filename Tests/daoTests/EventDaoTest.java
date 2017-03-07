@@ -73,7 +73,7 @@ public class EventDaoTest {
 			fail();
 		}
 		
-		System.out.println("All event tests went well");
+//		System.out.println("All event tests went well");
 	}
 
 	@Test
