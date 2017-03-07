@@ -117,5 +117,21 @@ public class User {
 		output.append("}");
 		return output.toString();
 	}
+	
+	public boolean equals(Object o) {
+		
+		if(o.getClass() != this.getClass()) {
+			return false;
+		}
+		User temp = (User) o;
+		if(!this.username.equals(temp.username) || !this.password.equals(temp.password) 
+				|| !this.email.equals(temp.email) || !this.id.equals(temp.id) 
+				|| !this.personId.equals(temp.personId) || !this.firstname.equals(temp.firstname)
+				|| !this.lastname.equals(temp.lastname) || !this.gender.equals(temp.gender)) {
+			return false;
+		}
+		
+		return true;
+	}
 
 }

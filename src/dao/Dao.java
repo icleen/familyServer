@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class Dao {
 	
-	static Connection getConnection() {
+	public static Connection getConnection() {
 		Connection connect = null;
 		try {
 			Class.forName("org.sqlite.JDBC");

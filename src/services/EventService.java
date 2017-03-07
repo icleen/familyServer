@@ -46,7 +46,7 @@ public class EventService {
 				event = eDao.getEvent(id);
 			} catch (SQLException e) {
 //				e.printStackTrace();
-				String response = "Could not get the event";
+				String response = "Could not get the event; eventId does not exist";
 				return new Message(response);
 			}
 			

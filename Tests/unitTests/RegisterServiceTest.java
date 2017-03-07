@@ -1,6 +1,6 @@
 package unitTests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,6 +37,11 @@ public class RegisterServiceTest {
 		assertEquals(response.getUserName(), expected.getUserName());
 		assertEquals(response.getAuthCode(), expected.getAuthCode());
 		assertEquals(response.getPersonId(), expected.getPersonId());
+		
+		response = RegisterService.register(me);
+		expected = new LoginResponse();
+		expected.setErrorMessage("The user already exists!");
+		assertTrue(response.equals(expected));
 	}
 	
 	@Test

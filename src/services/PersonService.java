@@ -46,7 +46,7 @@ public class PersonService {
 				person = pDao.getPerson(id);
 			} catch (SQLException e) {
 //				e.printStackTrace();
-				String response = "Could not get the person; id did not exist";
+				String response = "Could not get the person; personId did not exist";
 				return new Message(response);
 			}
 			

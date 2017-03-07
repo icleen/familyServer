@@ -25,7 +25,8 @@ public class RegisterService {
 		try {
 			uDao.getUser(user.getusername());
 		} catch (SQLException e1) {
-//			System.out.println("User did not exist");
+			System.out.println(e1.getMessage());
+			System.out.println("The user already exists!");
 			found = false;
 		}
 		if(found) {

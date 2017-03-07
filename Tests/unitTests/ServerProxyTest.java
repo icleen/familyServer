@@ -3,8 +3,8 @@ package unitTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import client.ClientCommunicator;
@@ -14,23 +14,24 @@ import model.LoginResponse;
 import model.Message;
 import model.Person;
 import model.User;
+import server.ServerCommunicator;
 
 public class ServerProxyTest {
 
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		ServerCommunicator.main(null);
+	}
+	
 	@Before
 	public void setUp() throws Exception {
 		ServerProxy proxy = new ServerProxy();
 		proxy.clear();
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void testRegisterUser() {
 		ServerProxy proxy = new ServerProxy();
-		proxy.clear();
 		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "10", "23");
 		LoginResponse expected = new LoginResponse("ba10iclez14110ab", "iclee141", "10");
 		LoginResponse result = null;
@@ -42,7 +43,6 @@ public class ServerProxyTest {
 	@Test
 	public void testUserLogin() {
 		ServerProxy proxy = new ServerProxy();
-		proxy.clear();
 		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "10", "23");
 		LoginResponse expected = new LoginResponse("ba10iclez14110ab", "iclee141", "10");
 		LoginResponse result = null;
@@ -55,7 +55,6 @@ public class ServerProxyTest {
 	@Test
 	public void testClear() {
 		ServerProxy proxy = new ServerProxy();
-		proxy.clear();
 		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "10", "23");
 		LoginResponse expected = new LoginResponse("ba10iclez14110ab", "iclee141", "10");
 		LoginResponse result = null;
@@ -72,7 +71,6 @@ public class ServerProxyTest {
 	@Test
 	public void testFill() {
 		ServerProxy proxy = new ServerProxy();
-		proxy.clear();
 		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "10", "23");
 		LoginResponse expected = new LoginResponse("ba10iclez14110ab", "iclee141", "10");
 		LoginResponse result = null;
@@ -124,7 +122,6 @@ public class ServerProxyTest {
 	@Test
 	public void testGetPeople() {
 		ServerProxy proxy = new ServerProxy();
-		proxy.clear();
 		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "10", "23");
 		LoginResponse expected = new LoginResponse("ba10iclez14110ab", "iclee141", "10");
 		LoginResponse result = null;
@@ -142,7 +139,6 @@ public class ServerProxyTest {
 	@Test
 	public void testGetPerson() {
 		ServerProxy proxy = new ServerProxy();
-		proxy.clear();
 		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "10", "23");
 		LoginResponse expected = new LoginResponse("ba10iclez14110ab", "iclee141", "10");
 		LoginResponse result = null;
@@ -160,29 +156,10 @@ public class ServerProxyTest {
 		person = proxy.getPerson(people[0].getId());
 		assertTrue(person == null);
 	}
-
-	@Test
-	public void testGetEvents() {
-		ServerProxy proxy = new ServerProxy();
-		proxy.clear();
-		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "10", "23");
-		LoginResponse expected = new LoginResponse("ba10iclez14110ab", "iclee141", "10");
-		LoginResponse result = null;
-		result = proxy.registerUser(me);
-		assertTrue(expected.equals(result));
-		
-		Event[] events = proxy.getEvents();
-		assertEquals(120, events.length);
-		
-		proxy.clear();
-		events = proxy.getEvents();
-		assertTrue(events == null);
-	}
-
+	
 	@Test
 	public void testGetEvent() {
 		ServerProxy proxy = new ServerProxy();
-		proxy.clear();
 		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "10", "23");
 		LoginResponse expected = new LoginResponse("ba10iclez14110ab", "iclee141", "10");
 		LoginResponse result = null;
@@ -200,6 +177,23 @@ public class ServerProxyTest {
 		event = proxy.getEvent(events[0].getEventId());
 		assertTrue(event == null);
 		System.out.println(event);
+	}
+
+	@Test
+	public void testGetEvents() {
+		ServerProxy proxy = new ServerProxy();
+		User me = new User("iclee141", "bob", "icleen@my.com", "iain", "lee", "male", "10", "23");
+		LoginResponse expected = new LoginResponse("ba10iclez14110ab", "iclee141", "10");
+		LoginResponse result = null;
+		result = proxy.registerUser(me);
+		assertTrue(expected.equals(result));
+		
+		Event[] events = proxy.getEvents();
+		assertEquals(120, events.length);
+		
+		proxy.clear();
+		events = proxy.getEvents();
+		assertTrue(events == null);
 	}
 
 }

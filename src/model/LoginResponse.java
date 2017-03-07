@@ -72,6 +72,8 @@ public class LoginResponse {
 			if(this.message != null && temp.message != null) {
 				if( !this.message.equals(temp.message) ) {
 					return false;
+				}else {
+					return true;
 				}
 			}else {
 				return false;

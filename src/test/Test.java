@@ -18,30 +18,35 @@ public class Test {
 		
 //		DaoTest dTest = new DaoTest();
 //		dTest.combinedTest();
-		
-		ArrayList<Event> events = new ArrayList<>();
-		events.add(new Event("10", "iclee141", "10", "lat", "long", "country", "city", "birth", "1990"));
-		events.add(new Event("11", "iclee141", "10", "lat", "long", "country", "city", "marriage", "1990"));
-		events.add(new Event("12", "iclee141", "10", "lat", "long", "country", "city", "death", "1990"));
-		
-		Event temp = null;
-		
-		
-		Object[] objects = null;
-//			new Object[events.size()];
-//		for(int i = 0; i < events.size(); i++) {
-//			objects[i] = (Event) events.get(i);
+//		
+//		ArrayList<Event> events = new ArrayList<>();
+//		events.add(new Event("10", "iclee141", "10", "lat", "long", "country", "city", "birth", "1990"));
+//		events.add(new Event("11", "iclee141", "10", "lat", "long", "country", "city", "marriage", "1990"));
+//		events.add(new Event("12", "iclee141", "10", "lat", "long", "country", "city", "death", "1990"));
+//		
+//		Event temp = null;
+//		
+//		Object[] objects = null;
+////			new Object[events.size()];
+////		for(int i = 0; i < events.size(); i++) {
+////			objects[i] = (Event) events.get(i);
+////		}
+////		System.out.println(objects.getClass());
+////		temp = (Event) objects[0];
+//		
+//		objects = events.toArray();
+//		System.out.println(objects[0].getClass());
+////		temp = (Event) objects[0];
+//		
+//		Event[] eve = new Event[objects.length];
+//		for(int i = 0; i < objects.length; i++) {
+//			eve[i] = (Event) objects[i];
 //		}
-//		System.out.println(objects.getClass());
-//		temp = (Event) objects[0];
 		
-		objects = events.toArray();
-		System.out.println(objects[0].getClass());
-//		temp = (Event) objects[0];
-		
-		Event[] eve = new Event[objects.length];
-		for(int i = 0; i < objects.length; i++) {
-			eve[i] = (Event) objects[i];
+		for(int i = 0; i < 100; i++) {
+			if(i == 50) {
+				System.out.println(50);
+			}
 		}
 		
 		System.out.println("----End of tests----");

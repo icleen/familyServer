@@ -84,7 +84,7 @@ public class UserDao extends Dao {
 		while(rs.next()) {
 			userId = rs.getString(1);
 			personId = rs.getString(2);
-			response = new User(personId, userId);
+			response = new User(userId, personId);
 			response.setusername(rs.getString(3));
 			response.setPassword(rs.getString(4));
 			response.setEmail(rs.getString(5));

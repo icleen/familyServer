@@ -1,24 +1,18 @@
-#fms compile
-#fms run 3740
-#fms compile-tests
-#fms run-tests localhost 3740
-
 #!/bin/bash
 
 SERVER_MODULE="FamilyMap"
-SHARED_MODULE="shared"
 
 #"com.example" is the package name.
 #"Server" would be the class with the main function.
 PACKAGE_NAME_TO_MAIN="src.server.ServerCommunicator"
-PACKAGE_NAME_TO_TEST_DRIVER="com.example.TestDriver"
-LIBS_FOLDER="libs"
+PACKAGE_NAME_TO_TEST_DRIVER="Tests.TestDriver"
+LIBS_FOLDER="myJars"
 
-CODE_LOC="$SERVER_MODULE/src/server/* $SHARED_MODULE/*"
-TEST_CODE_LOC="$SERVER_MODULE/src/* $SHARED_MODULE/*"
+CODE_LOC="$SERVER_MODULE/src/*"
+TEST_CODE_LOC="$SERVER_MODULE/Tests/*"
 
 if [ "$1" == "compile" ]; then
-  CODE_DIR_AUTO="$(find $CODE_LOC -name '*.java')"
+  CODE_DIR_AUTO="$(find $CODE_LOC -name '*.java')
   mkdir -p bin
   javac -d "./bin" -classpath "./$LIBS_FOLDER/*" $CODE_DIR_AUTO
   if [ $? -eq 0 ]; then
