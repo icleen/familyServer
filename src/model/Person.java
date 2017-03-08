@@ -4,9 +4,9 @@ public class Person {
 
 //	protected final String userId;
 	protected String descendant;
-	protected final String personID;
-	protected String firstname;
-	protected String lastname;
+	protected String personID;
+	protected String firstName;
+	protected String lastName;
 	protected String gender;
 	
 	protected String father;
@@ -25,8 +25,8 @@ public class Person {
 		this.personID = personID;
 //		this.userId = userId;
 		this.descendant = descendant;
-		this.firstname = fName;
-		this.lastname = lName;
+		this.firstName = fName;
+		this.lastName = lName;
 		this.gender = gender;
 	}
 	
@@ -34,8 +34,8 @@ public class Person {
 		this.personID = personID;
 //		this.userId = userId;
 		this.descendant = descendant;
-		this.firstname = fName;
-		this.lastname = lName;
+		this.firstName = fName;
+		this.lastName = lName;
 		this.gender = gender;
 		this.father = father;
 		this.mother = mother;
@@ -43,19 +43,19 @@ public class Person {
 	}
 	
 	public String getFirstName() {
-		return firstname;
+		return firstName;
 	}
 
 	public void setFirstName(String firstname) {
-		this.firstname = firstname;
+		this.firstName = firstname;
 	}
 
 	public String getLastName() {
-		return lastname;
+		return lastName;
 	}
 
 	public void setLastName(String lastname) {
-		this.lastname = lastname;
+		this.lastName = lastname;
 	}
 
 	public String getGender() {
@@ -114,8 +114,8 @@ public class Person {
 		output.append("{\n");
 		output.append("\tdescendant: " + this.descendant + "\",\n");
 		output.append("\tpersonID:\"" + this.personID + "\",\n");
-		output.append("\tfirstname:\"" + this.firstname + "\",\n");
-		output.append("\tlastname:\"" + this.lastname + "\",\n");
+		output.append("\tfirstName:\"" + this.firstName + "\",\n");
+		output.append("\tlastName:\"" + this.lastName + "\",\n");
 		output.append("\tgender:\"" + this.gender + "\",\n");
 		output.append("\tfather:\"" + this.father + "\",\n");
 		output.append("\tmother:\"" + this.mother + "\",\n");
@@ -125,8 +125,8 @@ public class Person {
 	}
 	
 	public boolean equals(Person other) {
-		if( this.personID.equals(other.getId()) && this.descendant.equals(other.getDescendant()) && this.firstname.equals(other.getFirstName()) 
-				&& this.lastname.equals(other.getLastName()) && this.gender.equals(other.getGender()) ) {
+		if( this.personID.equals(other.getId()) && this.descendant.equals(other.getDescendant()) && this.firstName.equals(other.getFirstName()) 
+				&& this.lastName.equals(other.getLastName()) && this.gender.equals(other.getGender()) ) {
 			return true;
 		}
 		return false;
@@ -141,7 +141,7 @@ public class Person {
 	}
 
 	public boolean isValid() {
-		if(this.firstname == null || this.lastname == null || this.gender == null || this.descendant == null) {
+		if(this.firstName == null || this.lastName == null || this.gender == null || this.descendant == null) {
 			return false;
 		}
 		return true;

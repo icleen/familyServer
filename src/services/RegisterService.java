@@ -75,7 +75,14 @@ public class RegisterService {
 	public static LoginResponse generateAuthCode(User user) throws SQLException {
 		LoginResponse response = new LoginResponse();
 		AuthDao aDao = new AuthDao();
-		StringBuilder authCode = new StringBuilder(user.getId() + user.getusername() + user.getId());
+		String temp = user.getId();
+		if(user.getId() == null) {
+			Generate gen = new Generate();
+			temp = gen.nextId();
+			gen.updateID();
+			user.setId(temp);
+		}
+		StringBuilder authCode = new StringBuilder(temp + user.getusername() + temp);
 		authCode.setCharAt(authCode.length()/2, 'z');
 		authCode.insert(0, "ba");
 		authCode.insert(authCode.length(), "ab");

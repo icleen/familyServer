@@ -41,16 +41,6 @@ public class FillService {
 			String result = "Couldn't find the username " + userName;
 			return new Message(result);
 		}
-		try {
-//			System.out.println(user.getPersonId());
-			userP = pDao.getPerson(user.getPersonId());
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-		
-		Generate gen = new Generate();
-		ArrayList<Person> people = gen.generatePeople(Integer.parseInt(gens), userName);
-		ArrayList<Event> events = gen.getEvents();
 		
 		try {
 			pDao.delete(userName, "People");
@@ -61,24 +51,51 @@ public class FillService {
 			return new Message(result);
 		}
 		
+		String id = generateFamily(user, generations);
+		user.setPersonId(id);
 		try {
-			pDao.addPerson(userP);
-			pDao.addPeople(people.toArray());
-		} catch (SQLException e) {
-			e.printStackTrace();
-			String result = "Couldn't add the people";
-			return new Message(result);
-		}
-		try {
-			eDao.addEvents(events.toArray());
-		} catch (SQLException e) {
-			e.printStackTrace();
-			String result = "Couldn't add the events";
+			uDao.insert("Users", user.getusername(), "personId", id);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			String result = "Couldn't persondID to the user " + userName;
 			return new Message(result);
 		}
 		
 		String result = "You filled " + userName + " with " + gens + " generations";
 		return new Message(result);
+	}
+	
+	public static String generateFamily(User user, int gens) {
+		Generate gen = new Generate();
+		PersonDao pDao = new PersonDao();
+		EventDao eDao = new EventDao();
+		ArrayList<Person> p = gen.generatePeople(gens, user.getusername());
+		ArrayList<Event> events = gen.getEvents();
+		String id = user.getPersonId();
+		if(user.getPersonId() == null) {
+			id = gen.nextId();
+			gen.updateID();
+			user.setPersonId(id);
+		}
+		// grabs the last two people in the ArrayList to be the parents of the user because those are the last ones created
+		Person userP = new Person(id, user.getusername(), user.getfirstname(), user.getlastname(),
+				user.getGender(), p.get(p.size() - 2).getId(), p.get(p.size() - 1).getId(), null);
+		try {
+			pDao.addPeople(p.toArray());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			pDao.addPerson(userP);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			eDao.addEvents(events.toArray());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
 	}
 
 }

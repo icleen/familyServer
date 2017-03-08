@@ -35,7 +35,7 @@ public class PersonDao extends Dao {
 			System.err.println("The attempt to get the person info failed!");
 			e.printStackTrace();
 		}
-//		personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
+//		personId TEXT PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father INTEGER, mother INTEGER, spouse INTEGER
 		String userName = rs.getString(2);
 		response = new Person(personId, userName);
 		response.setFirstName(rs.getString(3));
@@ -77,7 +77,7 @@ public class PersonDao extends Dao {
 			System.err.println("The attempt to get the person info failed!");
 			e.printStackTrace();
 		}
-//		personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
+//		personId TEXT PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
 		Person response = null;
 		String personId = null;
 		people = new ArrayList<>();
@@ -117,12 +117,12 @@ public class PersonDao extends Dao {
 		}
 		
 		PreparedStatement prep = connection.prepareStatement("insert into People values(?, ?, ?, ?, ?, ?, ?, ?);");
-//		personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
+//		personId TEXT PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
 //		if(person.getId() != null) {
 //			prep.setInt(1, Integer.parseInt(person.getId()));
 //		}
 		if(person.getId() != null) {
-			prep.setInt( 1, Integer.parseInt(person.getId()) );
+			prep.setString(1, person.getId());
 		}
 		prep.setString(2, person.getDescendant());
 		prep.setString(3, person.getFirstName());
@@ -160,14 +160,14 @@ public class PersonDao extends Dao {
 		
 		PreparedStatement prep = connection.prepareStatement("insert into People values(?, ?, ?, ?, ?, ?, ?, ?);");
 		for(int i = 0; i < objects.length; i++) {
-//			personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
+//			personId TEXT PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
 			Person person = (Person) objects[i];
 			if(!person.isValid()) {
 				return "The person " + person.getId() + " had invalid data!";
 			}
 			if(person.getId() != null) {
 //				System.out.println(person.getId());
-				prep.setInt( 1, Integer.parseInt(person.getId()) );
+				prep.setString(1, person.getId());
 			}
 			prep.setString(2, person.getDescendant());
 			prep.setString(3, person.getFirstName());

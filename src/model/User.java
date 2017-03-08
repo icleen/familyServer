@@ -2,66 +2,66 @@ package model;
 
 public class User {
 	
-	private String username;
+	private String userName;
 	private String password;
 	private String email;
-	private String firstname;
-	private String lastname;
+	private String firstName;
+	private String lastName;
 	private String gender;
 	
-	private final String id;
-	private String personId;
+	private String userID;
+	private String personID;
 	
 	public User(String id, String personId) {
-		this.id = id;
-		this.personId = personId;
+		this.userID = id;
+		this.personID = personId;
 	}
 	
 	public User(String username, String password, String email, String id, String personId) {
-		this.id = id;
-		this.personId = personId;
-		this.username = username;
+		this.userID = id;
+		this.personID = personId;
+		this.userName = username;
 		this.password = password;
 		this.email = email;
 	}
 	
 	public User(String username, String password, String email, String firstname, String lastname, String gender, String id, String personId) {
-		this.id = id;
-		this.personId = personId;
-		this.username = username;
+		this.userID = id;
+		this.personID = personId;
+		this.userName = username;
 		this.password = password;
 		this.email = email;
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.firstName = firstname;
+		this.lastName = lastname;
 		this.gender = gender;
 	}
 	
 	public String getId() {
-		return id;
+		return userID;
 	}
 
 	public String getPersonId() {
-		return personId;
+		return personID;
 	}
 	
 	public void setPersonId(String personId) {
-		this.personId = personId;
+		this.personID = personId;
 	}
 
 	public String getfirstname() {
-		return firstname;
+		return firstName;
 	}
 
 	public void setfirstname(String firstname) {
-		this.firstname = firstname;
+		this.firstName = firstname;
 	}
 
 	public String getlastname() {
-		return lastname;
+		return lastName;
 	}
 
 	public void setlastname(String lastname) {
-		this.lastname = lastname;
+		this.lastName = lastname;
 	}
 
 	public String getGender() {
@@ -96,24 +96,24 @@ public class User {
 	}
 
 	public String getusername() {
-		return username;
+		return userName;
 	}
 
 	public void setusername(String username) {
-		this.username = username;
+		this.userName = username;
 	}
 	
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		output.append("{\n");
-		output.append("\tuserId:\"" + this.id + "\",\n");
-		output.append("\tusername: " + this.username + "\",\n");
+		output.append("\tuserId:\"" + this.userID + "\",\n");
+		output.append("\tuserName: " + this.userName + "\",\n");
 		output.append("\tpassword:\"" + this.password + "\",\n");
 		output.append("\temail:\"" + this.email + "\",\n");
-		output.append("\tfirstname:\"" + this.firstname + "\",\n");
-		output.append("\tlastname:\"" + this.lastname + "\",\n");
+		output.append("\tfirstname:\"" + this.firstName + "\",\n");
+		output.append("\tlastName:\"" + this.lastName + "\",\n");
 		output.append("\tgender:\"" + this.gender + "\",\n");
-		output.append("\tpersonID:\"" + this.personId + "\",\n");
+		output.append("\tpersonID:\"" + this.personID + "\",\n");
 		output.append("}");
 		return output.toString();
 	}
@@ -124,10 +124,10 @@ public class User {
 			return false;
 		}
 		User temp = (User) o;
-		if(!this.username.equals(temp.username) || !this.password.equals(temp.password) 
-				|| !this.email.equals(temp.email) || !this.id.equals(temp.id) 
-				|| !this.personId.equals(temp.personId) || !this.firstname.equals(temp.firstname)
-				|| !this.lastname.equals(temp.lastname) || !this.gender.equals(temp.gender)) {
+		if(!this.userName.equals(temp.userName) || !this.password.equals(temp.password) 
+				|| !this.email.equals(temp.email) || !this.userID.equals(temp.userID) 
+				|| !this.personID.equals(temp.personID) || !this.firstName.equals(temp.firstName)
+				|| !this.lastName.equals(temp.lastName) || !this.gender.equals(temp.gender)) {
 			return false;
 		}
 		
@@ -135,11 +135,15 @@ public class User {
 	}
 	
 	public boolean isValid() {
-		if(this.username == null || this.password == null || this.email == null 
-				|| this.firstname == null || this.lastname == null || this.gender == null) {
+		if(this.userName == null || this.password == null || this.email == null 
+				|| this.firstName == null || this.lastName == null || this.gender == null) {
 			return false;
 		}
 		return true;
+	}
+
+	public void setId(String temp) {
+		this.userID = temp;
 	}
 
 }

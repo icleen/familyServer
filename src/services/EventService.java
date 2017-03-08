@@ -31,16 +31,6 @@ public class EventService {
 		EventDao eDao = new EventDao();
 //		if the id is not null, get just the event with the specified id
 		if(id != null) {
-			try {
-				int count = Integer.parseInt(id);
-				if(count < 0) {
-					String result = "Invalid id!";
-					return new Message(result);
-				}
-			} catch(NumberFormatException e) {
-				String result = "Invalid id!";
-				return new Message(result);
-			}
 			Event event = null;
 			try {
 				event = eDao.getEvent(id);
@@ -49,7 +39,10 @@ public class EventService {
 				String response = "Could not get the event; eventId does not exist";
 				return new Message(response);
 			}
-			
+			if(!event.getDescendant().equals(token.getUserName())) {
+				String response = "Could not get the event, the authCode did not match the owner of the event";
+				return new Message(response);
+			}
 			return event;
 		}
 //		if the id is null, get all of the events associated with the user

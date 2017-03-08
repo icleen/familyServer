@@ -97,13 +97,13 @@
             function login()
             {
                 document.getElementById("handleBox").value = "/user/login";
-                document.getElementById("requestBox").value = formatJson("{username:\"username\",password:\"password\"}");
+                document.getElementById("requestBox").value = formatJson("{\"userName\":\"username\",\"password\":\"password\"}");
             }
             function register()
             {
                 document.getElementById("handleBox").value = "/user/register";
-                document.getElementById("requestBox").value = formatJson("{username:\"username\",password:\"password\"," +
-                    "email:\"email\",firstname:\"firstname\",lastname:\"lastname\", gender:\"m/f\"}");
+                document.getElementById("requestBox").value = formatJson("{\"userName\":\"username\",\"password\":\"password\"," +
+                    "\"email\":\"email\",\"firstName\":\"firstname\",\"lastName\":\"lastname\", \"gender\":\"m/f\"}");
             }
             function clear()
             {

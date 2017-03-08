@@ -3,8 +3,8 @@ package model;
 public class Event extends Object {
 	
 	private String descendant;
-	private final String eventId;
-	private final String personId;
+	private final String eventID;
+	private final String personID;
 	
 	private String latitude;
 	private String longitude;
@@ -16,18 +16,18 @@ public class Event extends Object {
 	private String message;
 	
 	public Event(String eventId, String descendant, String personId) {
-		this.eventId = eventId;
+		this.eventID = eventId;
 //		this.userId = userId;
 		this.descendant = descendant;
-		this.personId = personId;
+		this.personID = personId;
 	}
 	
 	public Event(String eventId, String descendant, String personId, String latitude, String longitude, 
 			String country, String city, String eventType, String year) {
-		this.eventId = eventId;
+		this.eventID = eventId;
 //		this.userId = userId;
 		this.descendant = descendant;
-		this.personId = personId;
+		this.personID = personId;
 		
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -74,10 +74,10 @@ public class Event extends Object {
 		this.year = year;
 	}
 	public String getPersonId() {
-		return personId;
+		return personID;
 	}
 	public String getEventId() {
-		return eventId;
+		return eventID;
 	}
 	
 	public void setDescendant(String descendant) {
@@ -99,8 +99,8 @@ public class Event extends Object {
 		StringBuilder output = new StringBuilder();
 		output.append("{\n");
 		output.append("descendant: " + this.descendant + "\",\n");
-		output.append("eventId:\"" + this.eventId + "\",\n");
-		output.append("personId:\"" + this.personId + "\",\n");
+		output.append("eventID:\"" + this.eventID + "\",\n");
+		output.append("personID:\"" + this.personID + "\",\n");
 		output.append("lattitude:\"" + this.latitude + "\",\n");
 		output.append("longitude:\"" + this.longitude + "\",\n");
 		output.append("country:\"" + this.country + "\",\n");
@@ -112,7 +112,7 @@ public class Event extends Object {
 	}
 	
 	public boolean equals(Event other) {
-		if( this.descendant.equals(other.getDescendant()) && this.eventId.equals(other.eventId) && this.personId.equals(other.personId)
+		if( this.descendant.equals(other.getDescendant()) && this.eventID.equals(other.eventID) && this.personID.equals(other.personID)
 				&& this.eventType.equals(other.eventType) && this.latitude.equals(other.latitude) && this.longitude.equals(other.longitude) 
 				&& this.country.equals(other.country) && this.city.equals(other.city) && this.year.equals(other.year) ) {
 			return true;
@@ -129,7 +129,7 @@ public class Event extends Object {
 	}
 	
 	public boolean isValid() {
-		if(this.descendant == null || this.personId == null || this.eventId == null) {
+		if(this.descendant == null || this.personID == null || this.eventID == null) {
 			return false;
 		}
 		return true;

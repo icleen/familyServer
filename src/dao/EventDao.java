@@ -35,7 +35,7 @@ public class EventDao extends Dao {
 			System.err.println("The attempt to get the user info failed!");
 			e.printStackTrace();
 		}		
-		// eventId INTEGER PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
+		// eventId TEXT PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
 		// country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
 		String userName = rs.getString(2);
 		String personId = rs.getString(3);
@@ -81,7 +81,7 @@ public class EventDao extends Dao {
 			System.err.println("The attempt to get the user info failed!");
 			e.printStackTrace();
 		}
-		// eventId INTEGER PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
+		// eventId TEXT PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
 		// country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
 		String eventId = null;
 		String personId = null;
@@ -126,10 +126,10 @@ public class EventDao extends Dao {
 		}
 
 		PreparedStatement prep = connection.prepareStatement("insert into Events values(?, ?, ?, ?, ?, ?, ?, ?, ?);");
-		// eventId INTEGER PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
+		// eventId TEXT PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
 		// country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
 		if(event.getEventId() != null) {
-			prep.setInt( 1, Integer.parseInt(event.getEventId()) );
+			prep.setString(1, event.getEventId());
 		}
 		prep.setString(2, event.getDescendant());
 		prep.setString(3, event.getPersonId());
@@ -170,14 +170,14 @@ public class EventDao extends Dao {
 		
 		PreparedStatement prep = connection.prepareStatement("insert into Events values(?, ?, ?, ?, ?, ?, ?, ?, ?);");
 		for(int i = 0; i < objects.length; i++) {
-			// eventId INTEGER PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
+			// eventId TEXT PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
 			// country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
 			Event event = (Event) objects[i];
 			if(!event.isValid()) {
 				return "The event " + event.getEventType() + " had invalid data!";
 			}
 			if(event.getEventId() != null) {
-				prep.setInt( 1, Integer.parseInt(event.getEventId()) );
+				prep.setString(1, event.getEventId());
 			}
 			prep.setString(2, event.getDescendant());
 			prep.setString(3, event.getPersonId());

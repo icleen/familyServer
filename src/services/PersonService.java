@@ -31,16 +31,6 @@ public class PersonService {
 		PersonDao pDao = new PersonDao();
 //		if the id is not null, get just the person with the specified id
 		if(id != null) {
-			try {
-				int count = Integer.parseInt(id);
-				if(count < 0) {
-					String result = "Invalid id!";
-					return new Message(result);
-				}
-			} catch(NumberFormatException e) {
-				String result = "Invalid id!";
-				return new Message(result);
-			}
 			Person person = null;
 			try {
 				person = pDao.getPerson(id);
@@ -49,7 +39,10 @@ public class PersonService {
 				String response = "Could not get the person; personId did not exist";
 				return new Message(response);
 			}
-			
+			if(!person.getDescendant().equals(token.getUserName())) {
+				String response = "Could not get the person, the authCode did not match the owner of the person";
+				return new Message(response);
+			}
 			return person;
 		}
 //		if the id is null, get all of the people associated with the user

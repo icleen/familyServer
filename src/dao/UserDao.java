@@ -34,7 +34,7 @@ public class UserDao extends Dao {
 			e.printStackTrace();
 		}
 		
-//		userId INTEGER PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
+//		userId TEXT PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
 		String id = rs.getString(1);
 		String personId = rs.getString(2);
 		response = new User(id, personId);
@@ -76,7 +76,7 @@ public class UserDao extends Dao {
 			System.err.println("The attempt to get the user info failed!");
 			e.printStackTrace();
 		}
-//		userId INTEGER PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
+//		userId TEXT PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
 		User response = null;
 		String userId = null;
 		String personId = null;
@@ -119,10 +119,10 @@ public class UserDao extends Dao {
 		}
 		
 		PreparedStatement prep = connection.prepareStatement("insert into Users values(?, ?, ?, ?, ?, ?, ?, ?);");
-//		userId INTEGER PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
+//		userId TEXT PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
 		if(user.getId() != null) {
 //			System.out.println(user.getId());
-			prep.setInt( 1, Integer.parseInt(user.getId()) );
+			prep.setString( 1, user.getId() );
 		}
 		prep.setString(2, user.getPersonId());
 		prep.setString(3, user.getusername());
@@ -165,9 +165,9 @@ public class UserDao extends Dao {
 			if(!user.isValid()) {
 				return "The user had invalid data!";
 			}
-//			userId INTEGER PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
+//			userId TEXT PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
 			if(user.getId() != null) {
-				prep.setInt( 1, Integer.parseInt(user.getId()) );
+				prep.setString(1, user.getId());
 			}
 			prep.setString(2, user.getPersonId());
 			prep.setString(3, user.getusername());
