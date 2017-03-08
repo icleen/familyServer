@@ -32,5 +32,12 @@ public class LoginRequest {
 	public String toString() {
 		return ("username: " + username + ", password: " + password);
 	}
+	
+	public boolean isValid() {
+		if(this.username == null || this.password == null || this.username.equals("") || this.password.equals("")) {
+			return false;
+		}
+		return true;
+	}
 
 }

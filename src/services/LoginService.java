@@ -11,6 +11,10 @@ public class LoginService {
 	
 	public static LoginResponse serve(LoginRequest request) {
 		LoginResponse response = new LoginResponse();
+		if(!request.isValid()) {
+			response.setErrorMessage("The login request is invalid: needs a username and password");
+			return response;
+		}
 //		Check to see if the user exists.  If not, add an error message to the LoginResponse and return it
 		AuthDao aDao = new AuthDao();
 		AuthToken aToken = null;

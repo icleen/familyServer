@@ -162,6 +162,9 @@ public class PersonDao extends Dao {
 		for(int i = 0; i < objects.length; i++) {
 //			personId INTEGER PRIMARY KEY, userName TEXT, firstName TEXT, lastName TEXT, gender TEXT, father TEXT, mother TEXT, spouse TEXT
 			Person person = (Person) objects[i];
+			if(!person.isValid()) {
+				return "The person " + person.getId() + " had invalid data!";
+			}
 			if(person.getId() != null) {
 //				System.out.println(person.getId());
 				prep.setInt( 1, Integer.parseInt(person.getId()) );

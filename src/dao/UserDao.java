@@ -159,9 +159,12 @@ public class UserDao extends Dao {
 			throw new NullPointerException();
 		}
 		
-		PreparedStatement prep = connection.prepareStatement("insert into People values(?, ?, ?, ?, ?, ?, ?, ?);");
+		PreparedStatement prep = connection.prepareStatement("insert into Users values(?, ?, ?, ?, ?, ?, ?, ?);");
 		for(int i = 0; i < objects.length; i++) {
 			User user = (User) objects[i];
+			if(!user.isValid()) {
+				return "The user had invalid data!";
+			}
 //			userId INTEGER PRIMARY KEY, personId TEXT, userName TEXT, password TEXT, email TEXT, firstName TEXT, lastName TEXT, gender TEXT
 			if(user.getId() != null) {
 				prep.setInt( 1, Integer.parseInt(user.getId()) );

@@ -4,10 +4,10 @@
 #"Server" would be the class with the main function.
 PACKAGE_NAME_TO_MAIN="server.ServerCommunicator"
 PACKAGE_NAME_TO_TEST_DRIVER="TestDriver"
-LIBS_FOLDER="FamilyMap/myJars"
+LIBS_FOLDER="myJars"
 
-CODE_LOC="FamilyMap/src/*"
-TEST_CODE_LOC="FamilyMap/Tests/*"
+CODE_LOC="src/*"
+TEST_CODE_LOC="Tests/*"
 
 
 function remove {

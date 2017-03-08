@@ -25,6 +25,7 @@ public class LoadService {
 		Person[] people = null;
 		Event[] events = null;
 		if(request == null) {
+			System.out.println("Request body null");
 			return new Message("The request body was null");
 		}
 		users = request.users;
@@ -35,29 +36,42 @@ public class LoadService {
 			return new Message("There was no data to input");
 		}
 //		System.out.println("I'm here!");
+		String result = null;
 		try {
-			uDao.addUsers(users);
+			result = uDao.addUsers(users);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String err = "Could not add the users: " + e.getMessage();
 			System.err.println(err);
 			return new Message(err);
 		}
+		if(result != null) {
+			System.err.println(result);
+			return new Message(result);
+		}
 		try {
-			pDao.addPeople(people);
+			result = pDao.addPeople(people);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String err = "Could not add the persons: " + e.getMessage();
 			System.err.println(err);
 			return new Message(err);
 		}
+		if(result != null) {
+			System.err.println(result);
+			return new Message(result);
+		}
 		try {
-			eDao.addEvents(events);
+			result = eDao.addEvents(events);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String err = "Could not add the events: " + e.getMessage();
 			System.err.println(err);
 			return new Message(err);
+		}
+		if(result != null) {
+			System.err.println(result);
+			return new Message(result);
 		}
 //		System.out.println("I'm here!");
 		for(int i = 0; i < users.length; i++) {

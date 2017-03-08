@@ -128,4 +128,11 @@ public class Event extends Object {
 		this.message = message;
 	}
 	
+	public boolean isValid() {
+		if(this.descendant == null || this.personId == null || this.eventId == null) {
+			return false;
+		}
+		return true;
+	}
+	
 }

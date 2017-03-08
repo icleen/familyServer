@@ -20,7 +20,7 @@ public class LoadHandler implements HttpHandler {
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 //		System.out.println();
-//		System.out.println("Starting load handler");
+		System.out.println("Starting load handler");
 		
 		InputStreamReader inputStreamReader = new InputStreamReader(exchange.getRequestBody());
 		LoadRequest request = (LoadRequest) gson.fromJson(inputStreamReader, LoadRequest.class);

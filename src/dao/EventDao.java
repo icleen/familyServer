@@ -173,6 +173,9 @@ public class EventDao extends Dao {
 			// eventId INTEGER PRIMARY KEY, userName TEXT, personId TEXT, type TEXT, 
 			// country TEXT, city TEXT, year TEXT, latitude TEXT, longitude TEXT
 			Event event = (Event) objects[i];
+			if(!event.isValid()) {
+				return "The event " + event.getEventType() + " had invalid data!";
+			}
 			if(event.getEventId() != null) {
 				prep.setInt( 1, Integer.parseInt(event.getEventId()) );
 			}

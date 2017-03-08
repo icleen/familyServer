@@ -115,7 +115,7 @@ public class AuthDaoTest {
 		try {
 			aDao.getAuth(feedback.getUserId());
 		} catch (SQLException e) {
-			System.out.println("They were all deleted");
+//			System.out.println("They were all deleted");
 			failed = true;
 		}
 		assertTrue(failed);

@@ -16,6 +16,10 @@ public class NameStore {
 	private Names maleNames;
 	private Names femaleNames;
 	
+	public NameStore() {
+		importJson();
+	}
+	
 	public void importJson() {
 		Gson gson = new Gson();
 		

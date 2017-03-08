@@ -133,5 +133,13 @@ public class User {
 		
 		return true;
 	}
+	
+	public boolean isValid() {
+		if(this.username == null || this.password == null || this.email == null 
+				|| this.firstname == null || this.lastname == null || this.gender == null) {
+			return false;
+		}
+		return true;
+	}
 
 }

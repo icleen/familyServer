@@ -140,4 +140,11 @@ public class Person {
 		this.message = message;
 	}
 
+	public boolean isValid() {
+		if(this.firstname == null || this.lastname == null || this.gender == null || this.descendant == null) {
+			return false;
+		}
+		return true;
+	}
+	
 }
