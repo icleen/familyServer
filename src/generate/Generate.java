@@ -126,10 +126,13 @@ public class Generate {
 		int year = curYear - (generation * oneGen + 21);
 		temp.add( new Event(nextEventId(), userName, personId, loc.latitude, loc.longitude, loc.country, loc.city, "birth", 
 				"" + year) );
+                loc = eventData.getRandomLocation();
 		temp.add( new Event(nextEventId(), userName, personId, loc.latitude, loc.longitude, loc.country, loc.city, "baptism", 
 				"" + (year + 8)) );
+                loc = eventData.getRandomLocation();
 		temp.add( new Event(nextEventId(), userName, personId, loc.latitude, loc.longitude, loc.country, loc.city, "marriage", 
 				"" + (year + 20)) );
+                loc = eventData.getRandomLocation();
 		if(year + 80 < curYear) {
 			temp.add( new Event(nextEventId(), userName, personId, loc.latitude, loc.longitude, loc.country, loc.city, "death", 
 					"" + (year + 80)) );

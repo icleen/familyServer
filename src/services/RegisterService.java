@@ -43,9 +43,8 @@ public class RegisterService {
 			return response;
 		}
 //		get back the additional server info like the id
-		User temp = null;
 		try {
-			temp = uDao.getUser(user.getusername());
+			uDao.getUser(user.getusername());
 //			System.out.println(temp);
 		} catch (SQLException e1) {
 			System.err.println("Could not find the recently created user! " + e1.getMessage());
@@ -54,7 +53,7 @@ public class RegisterService {
 			return response;
 		}
 		
-		String id = generateFamily(temp);
+		String id = generateFamily(user);
 		user.setPersonId(id);
 		try {
 			uDao.insert("Users", user.getusername(), "personId", id);
@@ -63,7 +62,7 @@ public class RegisterService {
 		}
 //		add the info to the AuthCodes table
 		try {
-			response = generateAuthCode(temp);
+			response = generateAuthCode(user);
 		} catch (SQLException e) {
 			System.err.println("Could not add the authToken: " + e.getMessage());
 			response.setErrorMessage("Could not add the authToken");
@@ -73,6 +72,7 @@ public class RegisterService {
 	}
 	
 	public static LoginResponse generateAuthCode(User user) throws SQLException {
+//		System.out.println(user.toString());
 		LoginResponse response = new LoginResponse();
 		AuthDao aDao = new AuthDao();
 		String temp = user.getId();
@@ -86,9 +86,9 @@ public class RegisterService {
 		authCode.setCharAt(authCode.length()/2, 'z');
 		authCode.insert(0, "ba");
 		authCode.insert(authCode.length(), "ab");
-		aDao.addAuth(new AuthToken(user.getusername(), user.getPassword(), authCode.toString(), user.getId()));
+		aDao.addAuth(new AuthToken(user.getusername(), user.getPassword(), authCode.toString(), user.getPersonId()));
 		response.setAuthCode(authCode.toString());
-		response.setPersonId(user.getId());
+		response.setPersonId(user.getPersonId());
 		response.setUserName(user.getusername());
 		return response;
 	}
@@ -108,6 +108,9 @@ public class RegisterService {
 		// grabs the last two people in the ArrayList to be the parents of the user because those are the last ones created
 		Person userP = new Person(id, user.getusername(), user.getfirstname(), user.getlastname(),
 				user.getGender(), p.get(p.size() - 2).getId(), p.get(p.size() - 1).getId(), null);
+		
+//		System.out.println(userP.toString() + "\n" + p.get(0).toString());
+		
 		try {
 			pDao.addPeople(p.toArray());
 		} catch (SQLException e) {
